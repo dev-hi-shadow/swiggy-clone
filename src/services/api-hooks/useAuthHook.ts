@@ -19,7 +19,7 @@ export const useRegisterUser = () => {
 };
 
 export const useFetchProfile = () => {
-  return useQuery<Response<Partial<IUser>>, Error, Partial<IUser>>({
+  return useQuery<Response<Partial<IUser>>, Error>({
     queryKey: ["profile"],
     queryFn: getProfile,
   });

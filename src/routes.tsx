@@ -29,6 +29,10 @@ const PRIVATE_ROUTES: IRoutes[] = [
     element: <Home />,
   },
   {
+    path: AppRoutes.PROFILE,
+    element: <UserProfiles />,
+  },
+  {
     path: "/calendar",
     element: <Calendar />,
   },

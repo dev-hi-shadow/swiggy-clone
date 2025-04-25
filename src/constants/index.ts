@@ -8,3 +8,15 @@ export enum AppRoutes {
   NOT_FOUND = "/404",
   FORBIDDEN = "/403",
 }
+
+
+export enum LanguagePreferences {
+  DE = "de",
+  EN = "en",
+  FR = "fr",
+  ES = "es",
+  IT = "it",
+  JA = "ja",
+  KO = "ko",
+  CN = "cn",
+}

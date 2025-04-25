@@ -1,8 +1,19 @@
 import PageMeta from "../../components/common/PageMeta";
 import AuthLayout from "./AuthPageLayout";
 import SignUpForm from "../../components/auth/SignUpForm";
+import { AppRoutes } from "../../constants";
+import { useNavigate } from "react-router";
+import { useLayoutEffect } from "react";
 
 export default function SignUp() {
+  const navigate = useNavigate();
+
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      navigate(AppRoutes.DASHBOARD);
+    }
+  }, [navigate]);
   return (
     <>
       <PageMeta

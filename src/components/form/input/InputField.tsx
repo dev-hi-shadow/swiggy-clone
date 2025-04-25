@@ -48,7 +48,7 @@ const Input: FC<InputProps> = ({
   error = false,
   hint,
   labelClassName,
-  isRequired = true,
+  isRequired = false,
   label,
   autoComplete = false,
 }) => {
@@ -63,7 +63,7 @@ const Input: FC<InputProps> = ({
   } else {
     inputClasses += ` bg-transparent text-gray-800 border-gray-300 focus:border-brand-300 focus:ring-brand-500/20 dark:border-gray-700 dark:text-white/90  dark:focus:border-brand-800`;
   }
-
+ 
   return (
     <>
       <Label className={labelClassName}>
@@ -78,7 +78,7 @@ const Input: FC<InputProps> = ({
           autoComplete={autoComplete ? "on" : "off"}
           name={name}
           placeholder={placeholder}
-          value={value ? (name ? values?.[name] : undefined) : undefined}
+          value={value ?? (name ? values?.[name] : undefined) ?? undefined}
           onChange={onChange}
           min={min}
           max={max}

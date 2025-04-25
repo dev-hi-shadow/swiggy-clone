@@ -2,15 +2,79 @@ import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
-import Label from "../form/Label";
+import { IUser } from "../../types";
+import moment from "moment";
+import Select from "../form/Select";
+import { LanguagePreferences } from "../../constants";
+import _ from "lodash";
+import { FormikValues, useFormik } from "formik";
+import * as Yup from "yup";
+ interface IProps {
+  userDetails: Partial<Record<keyof IUser, string | null>>;
+  setUserDetails: (userDetails: Partial<IUser>) => void;
+}
 
-export default function UserInfoCard() {
+const validationSchema = Yup.object().shape({
+  first_name: Yup.string().label("First Name").required(),
+  last_name: Yup.string().label("Last Name").nullable(),
+  email: Yup.string().label("Email").required(),
+  phone: Yup.string().label("Phone").required(),
+  aadhar_card: Yup.string().label("Aadhar Card").required(),
+  pan_card: Yup.string().label("Pan Card").required(),
+  voter_id: Yup.string().label("Voter Id").required(),
+  facebook: Yup.string().label("Facebook").nullable(),
+  x: Yup.string().label("X").nullable(),
+  linkedin: Yup.string().label("LinkedIn").nullable(),
+  instagram: Yup.string().label("Instagram").nullable(),
+  language_preference: Yup.string()
+    .label("Language Preference")
+    .default(LanguagePreferences.EN),
+});
+const fields: (keyof IUser)[] = [
+  "first_name",
+  "last_name",
+  "email",
+  "phone",
+  "aadhar_card",
+  "pan_card",
+  "voter_id",
+  "facebook",
+  "x",
+  "linkedin",
+  "instagram",
+];
+
+export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
   const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
-    closeModal();
+
+  const handleSave = (values: FormikValues) => {
+    
   };
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    setFieldValue,
+    handleBlur,
+    handleReset,
+    handleSubmit,
+  } = useFormik({
+    initialValues: _.defaults(
+      _.pick(userDetails, fields),
+      Object.fromEntries(fields.map((field) => [field, null]))
+    ),
+    validationSchema,
+    onSubmit: handleSave,
+    enableReinitialize: true,
+    validateOnMount: true,
+    validateOnChange: true,
+  });
+  const handleCloseModal = (e: unknown) => {
+    closeModal();
+    handleReset(e);
+  };
+
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -19,13 +83,13 @@ export default function UserInfoCard() {
             Personal Information
           </h4>
 
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-7 2xl:gap-x-32">
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {userDetails?.first_name}
               </p>
             </div>
 
@@ -34,7 +98,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {userDetails?.last_name}
               </p>
             </div>
 
@@ -43,7 +107,7 @@ export default function UserInfoCard() {
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {userDetails?.email}
               </p>
             </div>
 
@@ -52,16 +116,72 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                {userDetails?.phone}
               </p>
             </div>
-
             <div>
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                Bio
+                City
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
+                {userDetails?.city}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                State/Country
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.state}/{userDetails?.country}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Aadharcard Number
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.aadhar_card}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Voter Id Number
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.voter_id}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Pancard Number
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.pan_card}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Verified by Swiggy
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.is_verified}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Language Preference
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.language_preference}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                Date of Birth
+              </p>
+              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
+                {userDetails?.dob &&
+                  moment(userDetails?.dob).format("DD-MM-YYYY")}
               </p>
             </div>
           </div>
@@ -90,7 +210,11 @@ export default function UserInfoCard() {
         </button>
       </div>
 
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
+      <Modal
+        isOpen={isOpen}
+        onClose={() => handleCloseModal(undefined)}
+        className="max-w-[700px] m-4"
+      >
         <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
           <div className="px-2 pr-14">
             <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
@@ -100,79 +224,196 @@ export default function UserInfoCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col">
+          <form className="flex flex-col" onSubmit={handleSubmit}>
             <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
               <div>
-                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                  Social Links
-                </h5>
-
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div>
-                    <Label>Facebook</Label>
-                    <Input
-                      type="text"
-                      value="https://www.facebook.com/PimjoHQ"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>X.com</Label>
-                    <Input type="text" value="https://x.com/PimjoHQ" />
-                  </div>
-
-                  <div>
-                    <Label>Linkedin</Label>
-                    <Input
-                      type="text"
-                      value="https://www.linkedin.com/company/pimjo"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Instagram</Label>
-                    <Input type="text" value="https://instagram.com/PimjoHQ" />
-                  </div>
-                </div>
-              </div>
-              <div className="mt-7">
                 <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
                   Personal Information
                 </h5>
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>First Name</Label>
-                    <Input type="text" value="Musharof" />
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="first_name"
+                      label="First Name"
+                      type="text"
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Last Name</Label>
-                    <Input type="text" value="Chowdhury" />
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="text"
+                      label="Last Name"
+                      name="last_name"
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="Email Address"
+                      type="text"
+                      name="email"
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Phone</Label>
-                    <Input type="text" value="+09 363 398 46" />
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="phone"
+                      label="Phone"
+                      type="text"
+                    />
                   </div>
 
-                  <div className="col-span-2">
-                    <Label>Bio</Label>
-                    <Input type="text" value="Team Manager" />
+                  <div className="col-span-2 lg:col-span-1">
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="aadhar_card"
+                      label="Aadharcard Number"
+                      type="text"
+                    />
+                  </div>
+
+                  <div className="col-span-2 lg:col-span-1">
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="pan_card"
+                      label="Pancard Number"
+                      type="text"
+                    />
+                  </div>
+
+                  <div className="col-span-2 lg:col-span-1">
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="voter_id"
+                      label="Voter Id Number"
+                      type="text"
+                    />
+                  </div>
+
+                  <div className="col-span-2 lg:col-span-1">
+                    <Select
+                      name="language_preference"
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      label="Language Preference"
+                      isRequired
+                      onChange={(value) =>
+                        setFieldValue("language_preference", value)
+                      }
+                      options={_.entries(LanguagePreferences).map(
+                        ([key, value]) => ({
+                          value,
+                          label: key,
+                        })
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-7">
+                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
+                  Social Links
+                </h5>
+
+                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+                  <div>
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="Facebook"
+                      type="text"
+                      name="facebook"
+                    />
+                  </div>
+
+                  <div>
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="X.com"
+                      type="text"
+                      name="x"
+                    />
+                  </div>
+
+                  <div>
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="Linkedin"
+                      type="text"
+                      name="linkedin"
+                    />
+                  </div>
+
+                  <div>
+                    <Input
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      label="Instagram"
+                      type="text"
+                      name="instagram"
+                    />
                   </div>
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => handleCloseModal(undefined)}
+              >
                 Close
               </Button>
-              <Button size="sm" onClick={handleSave}>
+              <Button type="submit" size="sm">
                 Save Changes
               </Button>
             </div>

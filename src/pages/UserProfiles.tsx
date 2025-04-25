@@ -3,8 +3,20 @@ import UserMetaCard from "../components/UserProfile/UserMetaCard";
 import UserInfoCard from "../components/UserProfile/UserInfoCard";
 import UserAddressCard from "../components/UserProfile/UserAddressCard";
 import PageMeta from "../components/common/PageMeta";
+import { useFetchProfile } from "../services/api-hooks/useAuthHook";
+import { useEffect, useState } from "react";
+import { IUser } from "../types";
 
 export default function UserProfiles() {
+  const [userDetails, setUserDetails] = useState<Partial<IUser> | null>(null);
+  const { data, isSuccess } = useFetchProfile();
+  useEffect(() => {
+    if (isSuccess) {
+      setUserDetails(data?.data ?? null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
+
   return (
     <>
       <PageMeta
@@ -17,9 +29,18 @@ export default function UserProfiles() {
           Profile
         </h3>
         <div className="space-y-6">
-          <UserMetaCard />
-          <UserInfoCard />
-          <UserAddressCard />
+          <UserMetaCard
+            setUserDetails={setUserDetails}
+            userDetails={userDetails}
+          />
+          <UserInfoCard
+            setUserDetails={setUserDetails}
+            userDetails={userDetails}
+          />
+          <UserAddressCard
+            setUserDetails={setUserDetails}
+            userDetails={userDetails}
+          />
         </div>
       </div>
     </>

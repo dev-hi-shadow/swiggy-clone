@@ -3,14 +3,77 @@ import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { IUser } from "../../types";
+ import _ from "lodash";
 
-export default function UserMetaCard() {
+ interface IProps {
+   readonly userDetails: Partial<IUser> | null;
+   readonly setUserDetails: (userDetails: Partial<IUser>) => void;
+ }
+
+const initialValues: Partial<IUser> = {
+  id: null,
+  username: null,
+  phone: null,
+  gender: null,
+  dob: null,
+  aadhar_card: null,
+  pan_card: null,
+  voter_id: null,
+  first_name: null,
+  last_name: null,
+  email: null,
+  profile_picture: null,
+  address: null,
+  city: null,
+  state: null,
+  country: null,
+  zip_code: null,
+  language_preference: null,
+  role: {
+    is_admin: null,
+    id: null,
+    name: null,
+    permissions: null,
+    is_active: null,
+    created_at: null,
+    updated_at: null,
+  },
+};
+
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required().label("Username"),
+  phone: Yup.string().required().label("Phone"),
+  gender: Yup.string().required().label("Gender"),
+  dob: Yup.date().required().label("Date of Birth"),
+  aadhar_card: Yup.string().required().label("Aadhar Card"),
+  pan_card: Yup.string().required().label("PAN Card"),
+  voter_id: Yup.string().required().label("Voter ID"),
+  first_name: Yup.string().required().label("First Name"),
+  last_name: Yup.string().required().label("Last Name"),
+  email: Yup.string().required().label("Email"),
+  profile_picture: Yup.string().required().label("Profile Picture"),
+  address: Yup.string().required().label("Address"),
+});
+
+export default function UserMetaCard({setUserDetails , userDetails} : IProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
-    // Handle save logic here
     console.log("Saving changes...");
     closeModal();
+    // setUserDetails()
   };
+
+  const { value, errors, touched, handleChange, handleBlur } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleSave,
+  });
+  
+
+
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
@@ -21,15 +84,17 @@ export default function UserMetaCard() {
             </div>
             <div className="order-3 xl:order-2">
               <h4 className="mb-2 text-lg font-semibold text-center text-gray-800 dark:text-white/90 xl:text-left">
-                Musharof Chowdhury
+                {_.capitalize(
+                  `${userDetails?.first_name} ${userDetails?.last_name}`
+                )}
               </h4>
               <div className="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Team Manager
+                  {userDetails?.role?.name}
                 </p>
                 <div className="hidden h-3.5 w-px bg-gray-300 dark:bg-gray-700 xl:block"></div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Arizona, United States
+                  {userDetails?.address}
                 </p>
               </div>
             </div>
@@ -161,29 +226,35 @@ export default function UserMetaCard() {
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div>
-                    <Label>Facebook</Label>
                     <Input
+                      label="Facebook"
                       type="text"
                       value="https://www.facebook.com/PimjoHQ"
                     />
                   </div>
 
                   <div>
-                    <Label>X.com</Label>
-                    <Input type="text" value="https://x.com/PimjoHQ" />
+                    <Input
+                      label="X"
+                      type="text"
+                      value="https://x.com/PimjoHQ"
+                    />
                   </div>
 
                   <div>
-                    <Label>Linkedin</Label>
                     <Input
+                      label="Linkedin"
                       type="text"
                       value="https://www.linkedin.com/company/pimjo"
                     />
                   </div>
 
                   <div>
-                    <Label>Instagram</Label>
-                    <Input type="text" value="https://instagram.com/PimjoHQ" />
+                    <Input
+                      label="Instagram"
+                      type="text"
+                      value="https://instagram.com/PimjoHQ"
+                    />
                   </div>
                 </div>
               </div>
@@ -194,28 +265,39 @@ export default function UserMetaCard() {
 
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>First Name</Label>
-                    <Input type="text" value="Musharof" />
+                    <Input
+                      isRequired
+                      label="First name"
+                      type="text"
+                      value="Musharof"
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
                     <Label>Last Name</Label>
-                    <Input type="text" value="Chowdhury" />
+                    <Input label="Last" type="text" value="Chowdhury" />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
+                    <Input
+                      isRequired
+                      label="Email"
+                      type="text"
+                      value="randomuser@pimjo.com"
+                    />
                   </div>
 
                   <div className="col-span-2 lg:col-span-1">
-                    <Label>Phone</Label>
-                    <Input type="text" value="+09 363 398 46" />
+                    <Input
+                      isRequired
+                      label="Phone"
+                      type="text"
+                      value="+09 363 398 46"
+                    />
                   </div>
 
                   <div className="col-span-2">
-                    <Label>Bio</Label>
-                    <Input type="text" value="Team Manager" />
+                    <Input label="Bio" type="text" value="Team Manager" />
                   </div>
                 </div>
               </div>

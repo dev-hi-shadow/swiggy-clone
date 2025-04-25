@@ -40,6 +40,10 @@ export const getProfile = async (): Promise<Response<Partial<IUser>>> => {
         terms_conditions_accepted: true,
         language_preference: true,
         username: true,
+        role: {
+          name: true,
+          id: true,
+        },
       },
     },
   });
