@@ -1,16 +1,77 @@
 import { useModal } from "../../hooks/useModal";
 import { Modal } from "../ui/modal";
 import Button from "../ui/button/Button";
+import { IUser } from "../../types";
+import * as Yup from "yup";
+import { FormikValues, useFormik } from "formik";
+import _ from "lodash";
+import Select from "../form/Select";
+import Cities from "../../Json/cities.json";
+import States from "../../Json/states.json";
 import Input from "../form/input/InputField";
-import Label from "../form/Label";
+import { useUpdateUser } from "../../services/api-hooks/usersHook";
+import { Dispatch, SetStateAction } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
-export default function UserAddressCard() {
+interface IProps {
+  readonly userDetails: Partial<IUser> | null;
+  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
+}
+const fields: (keyof IUser)[] = ["id", "state", "city", "country", "zip_code"];
+
+const validationSchema = Yup.object().shape({
+  state: Yup.string().label("State").required(),
+  city: Yup.string().label("City").required(),
+  country: Yup.string().label("Country").required().default("India"),
+  zip_code: Yup.string().label("Zip Code").required(),
+});
+
+export default function UserAddressCard({
+  setUserDetails,
+  userDetails,
+}: IProps) {
   const { isOpen, openModal, closeModal } = useModal();
-  const handleSave = () => {
-    // Handle save logic here
-    console.log("Saving changes...");
-    closeModal();
+  const queryClient = useQueryClient();
+
+  const { mutate } = useUpdateUser({
+    onSuccess: (data) => {
+      closeModal();
+      setUserDetails(data?.data as Partial<IUser>);
+      queryClient.invalidateQueries({ queryKey: ["getUserDetails"] });
+    },
+  });
+
+  const handleSave = (values: FormikValues) => {
+    mutate(values);
   };
+
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    handleReset,
+    handleSubmit,
+    handleBlur,
+    handleChange,
+    setFieldTouched,
+    setFieldError,
+  } = useFormik({
+    initialValues: _.defaults(
+      _.pick(userDetails, fields),
+      Object.fromEntries(fields.map((field) => [field, null]))
+    ),
+    validationSchema,
+    onSubmit: handleSave,
+    enableReinitialize: true,
+    validateOnMount: true,
+    validateOnChange: true,
+  });
+  const handleCloseModal = (e?: unknown) => {
+    closeModal();
+    handleReset(e);
+  };
+
   return (
     <>
       <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
@@ -20,40 +81,31 @@ export default function UserAddressCard() {
               Address
             </h4>
 
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4  lg:gap-7 2xl:gap-x-32">
               <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Country
+                  City
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  United States.
+                  {userDetails?.city}
                 </p>
               </div>
 
               <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  City/State
+                  State/Country
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  Phoenix, Arizona, United States.
+                  {userDetails?.state}, {userDetails?.country}
                 </p>
               </div>
 
               <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Postal Code
+                  Zip Code
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  ERT 2489
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  TAX ID
-                </p>
-                <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  AS4568384
+                  {userDetails?.zip_code}
                 </p>
               </div>
             </div>
@@ -82,7 +134,11 @@ export default function UserAddressCard() {
           </button>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
+      <Modal
+        isOpen={isOpen}
+        onClose={handleCloseModal}
+        className="max-w-[700px] m-4"
+      >
         <div className="relative w-full p-4 overflow-y-auto bg-white no-scrollbar rounded-3xl dark:bg-gray-900 lg:p-11">
           <div className="px-2 pr-14">
             <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
@@ -92,35 +148,86 @@ export default function UserAddressCard() {
               Update your details to keep your profile up-to-date.
             </p>
           </div>
-          <form className="flex flex-col">
+          <form className="flex flex-col" onSubmit={handleSubmit}>
             <div className="px-2 overflow-y-auto custom-scrollbar">
               <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                 <div>
-                  <Label>Country</Label>
-                  <Input type="text" value="United States" />
+                  <Select
+                    name="city"
+                    label="City"
+                    defaultValue={values.city as string}
+                    isRequired
+                    options={Cities.map((city) => ({
+                      value: city.name,
+                      label: city.name,
+                    }))}
+                    errors={errors}
+                    touched={touched}
+                    values={values}
+                    onChange={(value) => setFieldValue("city", value)}
+                    setFieldTouched={setFieldTouched}
+                    setFieldError={setFieldError}
+                  />
                 </div>
 
                 <div>
-                  <Label>City/State</Label>
-                  <Input type="text" value="Arizona, United States." />
+                  <Select
+                    defaultValue={values.state as string}
+                    name="state"
+                    label="State"
+                    isRequired
+                    options={_.map(States, (state) => _.values(state)[0]).map(
+                      (state) => ({
+                        value: state,
+                        label: state,
+                      })
+                    )}
+                    errors={errors}
+                    touched={touched}
+                    values={values}
+                    onChange={(value) => setFieldValue("state", value)}
+                    setFieldTouched={setFieldTouched}
+                    setFieldError={setFieldError}
+                  />
                 </div>
 
                 <div>
-                  <Label>Postal Code</Label>
-                  <Input type="text" value="ERT 2489" />
+                  <Select
+                    defaultValue={values.country as string}
+                    name="country"
+                    label="Country"
+                    isRequired
+                    options={["India"].map((country) => ({
+                      value: country,
+                      label: country,
+                    }))}
+                    errors={errors}
+                    touched={touched}
+                    values={values}
+                    onChange={(value) => setFieldValue("country", value)}
+                    setFieldTouched={setFieldTouched}
+                    setFieldError={setFieldError}
+                  />
                 </div>
-
                 <div>
-                  <Label>TAX ID</Label>
-                  <Input type="text" value="AS4568384" />
+                  <Input
+                    label="Zip code"
+                    values={values}
+                    touched={touched}
+                    errors={errors}
+                    isRequired
+                    name="zip_code"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
+              <Button size="sm" variant="outline" onClick={handleCloseModal}>
                 Close
               </Button>
-              <Button size="sm" onClick={handleSave}>
+              <Button size="sm" type="submit">
                 Save Changes
               </Button>
             </div>

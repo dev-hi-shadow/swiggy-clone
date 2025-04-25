@@ -1,8 +1,14 @@
+import Button from "../ui/button/Button";
+
 interface ComponentCardProps {
   title: string;
   children: React.ReactNode;
   className?: string; // Additional custom classes for styling
   desc?: string; // Description text
+  button?: {
+    label: string;
+    onClick: () => void;
+  };
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
@@ -10,6 +16,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   children,
   className = "",
   desc = "",
+  button,
 }) => {
   return (
     <div
@@ -17,14 +24,21 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
     >
       {/* Card Header */}
       <div className="px-6 py-5">
-        <h3 className="text-base font-medium text-gray-800 dark:text-white/90">
-          {title}
-        </h3>
-        {desc && (
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            {desc}
-          </p>
-        )}
+        <div className="flex justify-between items-center">
+          <h3 className="text-base font-medium text-gray-800 dark:text-white/90">
+            {title}
+          </h3>
+          {desc && (
+            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+              {desc}
+            </p>
+          )}
+          {button && (
+            <Button size="sm" type="button" onClick={button.onClick}>
+              {button.label}
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Card Body */}

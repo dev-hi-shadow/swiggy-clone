@@ -17,7 +17,7 @@ interface SelectProps {
   isRequired?: boolean;
   labelClassName?: string;
   setFieldTouched?: (name: string) => void;
-  setFieldError?: (name: string) => void;
+  setFieldError?: (field: string, value: string | undefined) => void
   setFieldValue?: (name: string) => void;
   values?: FormikValues;
   errors?: FormikErrors<FormikValues>;
@@ -48,8 +48,7 @@ const Select: React.FC<SelectProps> = ({
       setFieldTouched(e.target.name);
     }
     if (setFieldError && isRequired && !selectedValue) {
-      console.log("hekki");
-      setFieldError(e.target.name);
+      setFieldError(e.target.name, `${Label} is required field`);
     }
     const value = e.target.value;
     setSelectedValue(value);
@@ -80,9 +79,9 @@ const Select: React.FC<SelectProps> = ({
           {placeholder}
         </option>
         {/* Map over options */}
-        {options.map((option) => (
+        {options.map((option, index) => (
           <option
-            key={option.value}
+            key={index}
             value={option.value}
             className="text-gray-700 dark:bg-gray-900 dark:text-gray-400"
           >
@@ -91,7 +90,9 @@ const Select: React.FC<SelectProps> = ({
         ))}
       </select>
       {errors && touched && touched[name] && errors[name] && (
-        <span className="text-sm text-red-500">{String(errors[name])}</span>
+        <span className="text-sm text-error-500 mt-1.5">
+          {String(errors[name])}
+        </span>
       )}
     </>
   );

@@ -16,8 +16,7 @@ import {
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import SidebarWidget from "./SidebarWidget";
-
+ 
 type NavItem = {
   name: string;
   icon: React.ReactNode;
@@ -33,8 +32,8 @@ const navItems: NavItem[] = [
   },
   {
     icon: <CalenderIcon />,
-    name: "Calendar",
-    path: "/calendar",
+    name: "Branches",
+    path: "/branches",
   },
   {
     icon: <UserCircleIcon />,
@@ -368,7 +367,6 @@ const AppSidebar: React.FC = () => {
             </div>
           </div>
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
       </div>
     </aside>
   );

@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (e?: unknown) => void;
   className?: string;
   children: React.ReactNode;
   showCloseButton?: boolean; // New prop to control close button visibility

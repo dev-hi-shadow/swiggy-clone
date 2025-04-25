@@ -1,9 +1,9 @@
-import { IRegister, IUser, Response } from "../../types";
+import { IRegister, IUser, ApiResponse } from "../../types";
 import { graphql } from "../graphqlClient";
 
 export const register = async (
   input: IRegister
-): Promise<Response<IRegister> | undefined> => {
+): Promise<ApiResponse<IRegister> | undefined> => {
   const res = await graphql("mutation")({
     register: [
       { ...input },
@@ -15,10 +15,10 @@ export const register = async (
       },
     ],
   });
-  return res?.register as Response<IRegister>;
+  return res?.register as ApiResponse<IRegister>;
 };
 
-export const getProfile = async (): Promise<Response<Partial<IUser>>> => {
+export const getProfile = async (): Promise<ApiResponse<Partial<IUser>>> => {
   const res = await graphql("query")({
     getProfile: {
       status: true,
@@ -43,10 +43,12 @@ export const getProfile = async (): Promise<Response<Partial<IUser>>> => {
         role: {
           name: true,
           id: true,
+          permissions: true,
         },
       },
     },
   });
 
-  return res.getProfile as Response<Partial<IUser>>;
+  return res.getProfile as ApiResponse<Partial<IUser>>;
 };
+

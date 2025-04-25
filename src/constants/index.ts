@@ -7,6 +7,10 @@ export enum AppRoutes {
   SETTINGS = "/settings",
   NOT_FOUND = "/404",
   FORBIDDEN = "/403",
+  BRANCHES = "/branches",
+  USERS = "/users",
+  ADD_BRANCH = "/branches/new",
+  ADD_RESTAURANT = "/restaurant/new",
 }
 
 

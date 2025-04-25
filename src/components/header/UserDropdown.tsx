@@ -6,7 +6,6 @@ import { IUser } from "../../types";
 import _ from "lodash";
 
 export default function UserDropdown({ data }: { readonly data: Partial<IUser> }) {
-  console.log("🚀 ~ UserDropdown ~ data:", data);
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {

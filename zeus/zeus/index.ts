@@ -1027,54 +1027,51 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 	["Restaurant"]: AliasType<{
 	id?:boolean | `@${string}`,
 	owner_id?:boolean | `@${string}`,
-	manager_id?:boolean | `@${string}`,
 	name?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
 	description?:boolean | `@${string}`,
 	image?:boolean | `@${string}`,
-	cuisine_types?:boolean | `@${string}`,
-	tags?:boolean | `@${string}`,
-	website?:boolean | `@${string}`,
+	email?:boolean | `@${string}`,
+	phone_number?:boolean | `@${string}`,
+	alternate_phone_number?:boolean | `@${string}`,
+	website_url?:boolean | `@${string}`,
+	facebook_url?:boolean | `@${string}`,
+	instagram_url?:boolean | `@${string}`,
 	gst_number?:boolean | `@${string}`,
-	fssai_license_number?:boolean | `@${string}`,
-	bank_account_number?:boolean | `@${string}`,
-	bank_ifsc_code?:boolean | `@${string}`,
 	status?:boolean | `@${string}`,
 	rejection_reason?:boolean | `@${string}`,
-	latitude?:boolean | `@${string}`,
-	longitude?:boolean | `@${string}`,
-	location?:boolean | `@${string}`,
-	city?:boolean | `@${string}`,
-	state?:boolean | `@${string}`,
-	country?:boolean | `@${string}`,
-	pincode?:boolean | `@${string}`,
-	phone?:boolean | `@${string}`,
+	fssai_license_number?:boolean | `@${string}`,
+	is_chain?:boolean | `@${string}`,
+	founded_year?:boolean | `@${string}`,
+	total_branches?:boolean | `@${string}`,
+	cuisine_types?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	average_rating?:boolean | `@${string}`,
+	total_reviews?:boolean | `@${string}`,
+	is_verified?:boolean | `@${string}`,
+	approval_status?:boolean | `@${string}`,
+	approval_notes?:boolean | `@${string}`,
+	timezone?:boolean | `@${string}`,
+	external_integration_id?:boolean | `@${string}`,
+	priority_order?:boolean | `@${string}`,
+	visibility_status?:boolean | `@${string}`,
+	cancellation_policy?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
 	created_by?:boolean | `@${string}`,
 	updated_by?:boolean | `@${string}`,
 	deleted_by?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["RestaurantResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The restaurant data */
-	data?:ValueTypes["Restaurant"],
-		__typename?: boolean | `@${string}`
-}>;
-	["BranchesResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The branches data */
-	data?:ValueTypes["RBranch"],
+	account_number?:boolean | `@${string}`,
+	upi_id?:boolean | `@${string}`,
+	swift_code?:boolean | `@${string}`,
+	bank_name?:boolean | `@${string}`,
+	bank_branch?:boolean | `@${string}`,
+	ifsc_code?:boolean | `@${string}`,
+	account_holder_name?:boolean | `@${string}`,
+	branches?:ValueTypes["RBranch"],
+	branch?:ValueTypes["RBranch"],
+	owner?:ValueTypes["User"],
 		__typename?: boolean | `@${string}`
 }>;
 	["RBranch"]: AliasType<{
@@ -1123,6 +1120,26 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 	created_by?:boolean | `@${string}`,
 	updated_by?:boolean | `@${string}`,
 	deleted_by?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["RestaurantResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The restaurant data */
+	data?:ValueTypes["Restaurant"],
+		__typename?: boolean | `@${string}`
+}>;
+	["BranchesResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The branches data */
+	data?:ValueTypes["RBranch"],
 		__typename?: boolean | `@${string}`
 }>;
 	["BranchByIdResponse"]: AliasType<{
@@ -1236,12 +1253,12 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 createOrUpdateRole?: [{	name: string | Variable<any, string>,	permissions?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>},ValueTypes["Role"]],
 deleteRole?: [{	id: number | Variable<any, string>},ValueTypes["Role"]],
 createUser?: [{	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["CreateUserResponse"]],
-updateUser?: [{	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["UpdateUserResponse"]],
+updateUser?: [{	id?: number | undefined | null | Variable<any, string>,	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["UpdateUserResponse"]],
 deleteUser?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["DeleteUserResponse"]],
 login?: [{	username?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>},ValueTypes["LoginResponse"]],
 register?: [{	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["RegisterResponse"]],
-createRestaurant?: [{	owner_id?: number | undefined | null | Variable<any, string>,	manager_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	cuisine_types?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	tags?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	website?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	bank_account_number?: string | undefined | null | Variable<any, string>,	bank_ifsc_code?: string | undefined | null | Variable<any, string>,	latitude?: number | undefined | null | Variable<any, string>,	longitude?: number | undefined | null | Variable<any, string>,	location?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	pincode?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>},ValueTypes["RestaurantResponse"]],
-updateRestaurant?: [{	id?: number | undefined | null | Variable<any, string>,	owner_id?: number | undefined | null | Variable<any, string>,	manager_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	cuisine_types?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	tags?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	website?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	bank_account_number?: string | undefined | null | Variable<any, string>,	bank_ifsc_code?: string | undefined | null | Variable<any, string>,	status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	latitude?: number | undefined | null | Variable<any, string>,	longitude?: number | undefined | null | Variable<any, string>,	location?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	pincode?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>},ValueTypes["RestaurantResponse"]],
+createRestaurant?: [{	owner_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	phone_number?: string | undefined | null | Variable<any, string>,	alternate_phone_number?: string | undefined | null | Variable<any, string>,	website_url?: string | undefined | null | Variable<any, string>,	facebook_url?: string | undefined | null | Variable<any, string>,	instagram_url?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	is_chain?: boolean | undefined | null | Variable<any, string>,	founded_year?: string | undefined | null | Variable<any, string>,	total_branches?: number | undefined | null | Variable<any, string>,	cuisine_types?: string | undefined | null | Variable<any, string>,	tags?: string | undefined | null | Variable<any, string>,	average_rating?: number | undefined | null | Variable<any, string>,	total_reviews?: number | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	approval_notes?: string | undefined | null | Variable<any, string>,	timezone?: string | undefined | null | Variable<any, string>,	external_integration_id?: number | undefined | null | Variable<any, string>,	priority_order?: number | undefined | null | Variable<any, string>,	visibility_status?: string | undefined | null | Variable<any, string>,	cancellation_policy?: string | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	account_number?: string | undefined | null | Variable<any, string>,	upi_id?: string | undefined | null | Variable<any, string>,	swift_code?: string | undefined | null | Variable<any, string>,	bank_name?: string | undefined | null | Variable<any, string>,	bank_branch?: string | undefined | null | Variable<any, string>,	ifsc_code?: string | undefined | null | Variable<any, string>,	account_holder_name?: string | undefined | null | Variable<any, string>,	branches?: Array<ValueTypes["ID"] | undefined | null> | undefined | null | Variable<any, string>,	branch?: ValueTypes["ID"] | undefined | null | Variable<any, string>,	owner?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["RestaurantResponse"]],
+updateRestaurant?: [{	id?: number | undefined | null | Variable<any, string>,	owner_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	phone_number?: string | undefined | null | Variable<any, string>,	alternate_phone_number?: string | undefined | null | Variable<any, string>,	website_url?: string | undefined | null | Variable<any, string>,	facebook_url?: string | undefined | null | Variable<any, string>,	instagram_url?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	is_chain?: boolean | undefined | null | Variable<any, string>,	founded_year?: string | undefined | null | Variable<any, string>,	total_branches?: number | undefined | null | Variable<any, string>,	cuisine_types?: string | undefined | null | Variable<any, string>,	tags?: string | undefined | null | Variable<any, string>,	average_rating?: number | undefined | null | Variable<any, string>,	total_reviews?: number | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	approval_notes?: string | undefined | null | Variable<any, string>,	timezone?: string | undefined | null | Variable<any, string>,	external_integration_id?: number | undefined | null | Variable<any, string>,	priority_order?: number | undefined | null | Variable<any, string>,	visibility_status?: string | undefined | null | Variable<any, string>,	cancellation_policy?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>,	account_number?: string | undefined | null | Variable<any, string>,	upi_id?: string | undefined | null | Variable<any, string>,	swift_code?: string | undefined | null | Variable<any, string>,	bank_name?: string | undefined | null | Variable<any, string>,	bank_branch?: string | undefined | null | Variable<any, string>,	ifsc_code?: string | undefined | null | Variable<any, string>,	account_holder_name?: string | undefined | null | Variable<any, string>,	branches?: Array<ValueTypes["ID"] | undefined | null> | undefined | null | Variable<any, string>,	branch?: ValueTypes["ID"] | undefined | null | Variable<any, string>,	owner?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["RestaurantResponse"]],
 createCategory?: [{	id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	short_description?: string | undefined | null | Variable<any, string>,	long_description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	icon?: string | undefined | null | Variable<any, string>,	display_order?: string | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	seo_title?: string | undefined | null | Variable<any, string>,	seo_description?: string | undefined | null | Variable<any, string>,	seo_keywords?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>},ValueTypes["createCategoryResponse"]],
 updateCategory?: [{	id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	short_description?: string | undefined | null | Variable<any, string>,	long_description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	icon?: string | undefined | null | Variable<any, string>,	display_order?: string | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	seo_title?: string | undefined | null | Variable<any, string>,	seo_description?: string | undefined | null | Variable<any, string>,	seo_keywords?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>},ValueTypes["updateCategoryResponse"]],
 deleteCategory?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteCategoryResponse"]],
@@ -1673,54 +1690,51 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 	["Restaurant"]: AliasType<{
 	id?:boolean | `@${string}`,
 	owner_id?:boolean | `@${string}`,
-	manager_id?:boolean | `@${string}`,
 	name?:boolean | `@${string}`,
 	slug?:boolean | `@${string}`,
 	description?:boolean | `@${string}`,
 	image?:boolean | `@${string}`,
-	cuisine_types?:boolean | `@${string}`,
-	tags?:boolean | `@${string}`,
-	website?:boolean | `@${string}`,
+	email?:boolean | `@${string}`,
+	phone_number?:boolean | `@${string}`,
+	alternate_phone_number?:boolean | `@${string}`,
+	website_url?:boolean | `@${string}`,
+	facebook_url?:boolean | `@${string}`,
+	instagram_url?:boolean | `@${string}`,
 	gst_number?:boolean | `@${string}`,
-	fssai_license_number?:boolean | `@${string}`,
-	bank_account_number?:boolean | `@${string}`,
-	bank_ifsc_code?:boolean | `@${string}`,
 	status?:boolean | `@${string}`,
 	rejection_reason?:boolean | `@${string}`,
-	latitude?:boolean | `@${string}`,
-	longitude?:boolean | `@${string}`,
-	location?:boolean | `@${string}`,
-	city?:boolean | `@${string}`,
-	state?:boolean | `@${string}`,
-	country?:boolean | `@${string}`,
-	pincode?:boolean | `@${string}`,
-	phone?:boolean | `@${string}`,
+	fssai_license_number?:boolean | `@${string}`,
+	is_chain?:boolean | `@${string}`,
+	founded_year?:boolean | `@${string}`,
+	total_branches?:boolean | `@${string}`,
+	cuisine_types?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	average_rating?:boolean | `@${string}`,
+	total_reviews?:boolean | `@${string}`,
+	is_verified?:boolean | `@${string}`,
+	approval_status?:boolean | `@${string}`,
+	approval_notes?:boolean | `@${string}`,
+	timezone?:boolean | `@${string}`,
+	external_integration_id?:boolean | `@${string}`,
+	priority_order?:boolean | `@${string}`,
+	visibility_status?:boolean | `@${string}`,
+	cancellation_policy?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
 	created_by?:boolean | `@${string}`,
 	updated_by?:boolean | `@${string}`,
 	deleted_by?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["RestaurantResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The restaurant data */
-	data?:ResolverInputTypes["Restaurant"],
-		__typename?: boolean | `@${string}`
-}>;
-	["BranchesResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The branches data */
-	data?:ResolverInputTypes["RBranch"],
+	account_number?:boolean | `@${string}`,
+	upi_id?:boolean | `@${string}`,
+	swift_code?:boolean | `@${string}`,
+	bank_name?:boolean | `@${string}`,
+	bank_branch?:boolean | `@${string}`,
+	ifsc_code?:boolean | `@${string}`,
+	account_holder_name?:boolean | `@${string}`,
+	branches?:ResolverInputTypes["RBranch"],
+	branch?:ResolverInputTypes["RBranch"],
+	owner?:ResolverInputTypes["User"],
 		__typename?: boolean | `@${string}`
 }>;
 	["RBranch"]: AliasType<{
@@ -1769,6 +1783,26 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 	created_by?:boolean | `@${string}`,
 	updated_by?:boolean | `@${string}`,
 	deleted_by?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["RestaurantResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The restaurant data */
+	data?:ResolverInputTypes["Restaurant"],
+		__typename?: boolean | `@${string}`
+}>;
+	["BranchesResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The branches data */
+	data?:ResolverInputTypes["RBranch"],
 		__typename?: boolean | `@${string}`
 }>;
 	["BranchByIdResponse"]: AliasType<{
@@ -1882,12 +1916,12 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 createOrUpdateRole?: [{	name: string,	permissions?: ResolverInputTypes["JSONObject"] | undefined | null},ResolverInputTypes["Role"]],
 deleteRole?: [{	id: number},ResolverInputTypes["Role"]],
 createUser?: [{	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["CreateUserResponse"]],
-updateUser?: [{	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["UpdateUserResponse"]],
+updateUser?: [{	id?: number | undefined | null,	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["UpdateUserResponse"]],
 deleteUser?: [{	id?: number | undefined | null},ResolverInputTypes["DeleteUserResponse"]],
 login?: [{	username?: string | undefined | null,	password?: string | undefined | null},ResolverInputTypes["LoginResponse"]],
 register?: [{	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["RegisterResponse"]],
-createRestaurant?: [{	owner_id?: number | undefined | null,	manager_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	cuisine_types?: Array<string | undefined | null> | undefined | null,	tags?: Array<string | undefined | null> | undefined | null,	website?: string | undefined | null,	gst_number?: string | undefined | null,	fssai_license_number?: string | undefined | null,	bank_account_number?: string | undefined | null,	bank_ifsc_code?: string | undefined | null,	latitude?: number | undefined | null,	longitude?: number | undefined | null,	location?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	pincode?: string | undefined | null,	phone?: string | undefined | null,	created_by?: number | undefined | null},ResolverInputTypes["RestaurantResponse"]],
-updateRestaurant?: [{	id?: number | undefined | null,	owner_id?: number | undefined | null,	manager_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	cuisine_types?: Array<string | undefined | null> | undefined | null,	tags?: Array<string | undefined | null> | undefined | null,	website?: string | undefined | null,	gst_number?: string | undefined | null,	fssai_license_number?: string | undefined | null,	bank_account_number?: string | undefined | null,	bank_ifsc_code?: string | undefined | null,	status?: string | undefined | null,	rejection_reason?: string | undefined | null,	latitude?: number | undefined | null,	longitude?: number | undefined | null,	location?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	pincode?: string | undefined | null,	phone?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null},ResolverInputTypes["RestaurantResponse"]],
+createRestaurant?: [{	owner_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	email?: string | undefined | null,	phone_number?: string | undefined | null,	alternate_phone_number?: string | undefined | null,	website_url?: string | undefined | null,	facebook_url?: string | undefined | null,	instagram_url?: string | undefined | null,	gst_number?: string | undefined | null,	fssai_license_number?: string | undefined | null,	is_chain?: boolean | undefined | null,	founded_year?: string | undefined | null,	total_branches?: number | undefined | null,	cuisine_types?: string | undefined | null,	tags?: string | undefined | null,	average_rating?: number | undefined | null,	total_reviews?: number | undefined | null,	is_verified?: boolean | undefined | null,	approval_status?: string | undefined | null,	approval_notes?: string | undefined | null,	timezone?: string | undefined | null,	external_integration_id?: number | undefined | null,	priority_order?: number | undefined | null,	visibility_status?: string | undefined | null,	cancellation_policy?: string | undefined | null,	created_by?: number | undefined | null,	account_number?: string | undefined | null,	upi_id?: string | undefined | null,	swift_code?: string | undefined | null,	bank_name?: string | undefined | null,	bank_branch?: string | undefined | null,	ifsc_code?: string | undefined | null,	account_holder_name?: string | undefined | null,	branches?: Array<ResolverInputTypes["ID"] | undefined | null> | undefined | null,	branch?: ResolverInputTypes["ID"] | undefined | null,	owner?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["RestaurantResponse"]],
+updateRestaurant?: [{	id?: number | undefined | null,	owner_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	email?: string | undefined | null,	phone_number?: string | undefined | null,	alternate_phone_number?: string | undefined | null,	website_url?: string | undefined | null,	facebook_url?: string | undefined | null,	instagram_url?: string | undefined | null,	gst_number?: string | undefined | null,	status?: string | undefined | null,	rejection_reason?: string | undefined | null,	fssai_license_number?: string | undefined | null,	is_chain?: boolean | undefined | null,	founded_year?: string | undefined | null,	total_branches?: number | undefined | null,	cuisine_types?: string | undefined | null,	tags?: string | undefined | null,	average_rating?: number | undefined | null,	total_reviews?: number | undefined | null,	is_verified?: boolean | undefined | null,	approval_status?: string | undefined | null,	approval_notes?: string | undefined | null,	timezone?: string | undefined | null,	external_integration_id?: number | undefined | null,	priority_order?: number | undefined | null,	visibility_status?: string | undefined | null,	cancellation_policy?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null,	account_number?: string | undefined | null,	upi_id?: string | undefined | null,	swift_code?: string | undefined | null,	bank_name?: string | undefined | null,	bank_branch?: string | undefined | null,	ifsc_code?: string | undefined | null,	account_holder_name?: string | undefined | null,	branches?: Array<ResolverInputTypes["ID"] | undefined | null> | undefined | null,	branch?: ResolverInputTypes["ID"] | undefined | null,	owner?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["RestaurantResponse"]],
 createCategory?: [{	id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	short_description?: string | undefined | null,	long_description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	icon?: string | undefined | null,	display_order?: string | undefined | null,	is_featured?: boolean | undefined | null,	is_active?: boolean | undefined | null,	seo_title?: string | undefined | null,	seo_description?: string | undefined | null,	seo_keywords?: Array<string | undefined | null> | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null},ResolverInputTypes["createCategoryResponse"]],
 updateCategory?: [{	id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	short_description?: string | undefined | null,	long_description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	icon?: string | undefined | null,	display_order?: string | undefined | null,	is_featured?: boolean | undefined | null,	is_active?: boolean | undefined | null,	seo_title?: string | undefined | null,	seo_description?: string | undefined | null,	seo_keywords?: Array<string | undefined | null> | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null},ResolverInputTypes["updateCategoryResponse"]],
 deleteCategory?: [{	id?: number | undefined | null},ResolverInputTypes["deleteCategoryResponse"]],
@@ -2309,52 +2343,51 @@ export type ModelTypes = {
 	["Restaurant"]: {
 		id?: number | undefined | null,
 	owner_id?: number | undefined | null,
-	manager_id?: number | undefined | null,
 	name?: string | undefined | null,
 	slug?: string | undefined | null,
 	description?: string | undefined | null,
 	image?: string | undefined | null,
-	cuisine_types?: Array<string | undefined | null> | undefined | null,
-	tags?: Array<string | undefined | null> | undefined | null,
-	website?: string | undefined | null,
+	email?: string | undefined | null,
+	phone_number?: string | undefined | null,
+	alternate_phone_number?: string | undefined | null,
+	website_url?: string | undefined | null,
+	facebook_url?: string | undefined | null,
+	instagram_url?: string | undefined | null,
 	gst_number?: string | undefined | null,
-	fssai_license_number?: string | undefined | null,
-	bank_account_number?: string | undefined | null,
-	bank_ifsc_code?: string | undefined | null,
 	status?: string | undefined | null,
 	rejection_reason?: string | undefined | null,
-	latitude?: number | undefined | null,
-	longitude?: number | undefined | null,
-	location?: string | undefined | null,
-	city?: string | undefined | null,
-	state?: string | undefined | null,
-	country?: string | undefined | null,
-	pincode?: string | undefined | null,
-	phone?: string | undefined | null,
+	fssai_license_number?: string | undefined | null,
+	is_chain?: boolean | undefined | null,
+	founded_year?: string | undefined | null,
+	total_branches?: number | undefined | null,
+	cuisine_types?: string | undefined | null,
+	tags?: string | undefined | null,
+	average_rating?: number | undefined | null,
+	total_reviews?: number | undefined | null,
+	is_verified?: boolean | undefined | null,
+	approval_status?: string | undefined | null,
+	approval_notes?: string | undefined | null,
+	timezone?: string | undefined | null,
+	external_integration_id?: number | undefined | null,
+	priority_order?: number | undefined | null,
+	visibility_status?: string | undefined | null,
+	cancellation_policy?: string | undefined | null,
 	created_at?: ModelTypes["Date"] | undefined | null,
 	updated_at?: ModelTypes["Date"] | undefined | null,
 	deleted_at?: ModelTypes["Date"] | undefined | null,
 	created_by?: number | undefined | null,
 	updated_by?: number | undefined | null,
-	deleted_by?: number | undefined | null
-};
-	["RestaurantResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The restaurant data */
-	data?: ModelTypes["Restaurant"] | undefined | null
-};
-	["BranchesResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The branches data */
-	data?: Array<ModelTypes["RBranch"] | undefined | null> | undefined | null
+	deleted_by?: number | undefined | null,
+	account_number?: string | undefined | null,
+	upi_id?: string | undefined | null,
+	swift_code?: string | undefined | null,
+	bank_name?: string | undefined | null,
+	bank_branch?: string | undefined | null,
+	ifsc_code?: string | undefined | null,
+	account_holder_name?: string | undefined | null,
+	branches?: Array<ModelTypes["RBranch"] | undefined | null> | undefined | null,
+	branch?: ModelTypes["RBranch"] | undefined | null,
+	owner?: ModelTypes["User"] | undefined | null
 };
 	["RBranch"]: {
 		id?: number | undefined | null,
@@ -2402,6 +2435,24 @@ export type ModelTypes = {
 	created_by?: number | undefined | null,
 	updated_by?: number | undefined | null,
 	deleted_by?: number | undefined | null
+};
+	["RestaurantResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The restaurant data */
+	data?: ModelTypes["Restaurant"] | undefined | null
+};
+	["BranchesResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The branches data */
+	data?: Array<ModelTypes["RBranch"] | undefined | null> | undefined | null
 };
 	["BranchByIdResponse"]: {
 		status?: number | undefined | null,
@@ -2913,54 +2964,51 @@ export type GraphQLTypes = {
 	__typename: "Restaurant",
 	id?: number | undefined | null,
 	owner_id?: number | undefined | null,
-	manager_id?: number | undefined | null,
 	name?: string | undefined | null,
 	slug?: string | undefined | null,
 	description?: string | undefined | null,
 	image?: string | undefined | null,
-	cuisine_types?: Array<string | undefined | null> | undefined | null,
-	tags?: Array<string | undefined | null> | undefined | null,
-	website?: string | undefined | null,
+	email?: string | undefined | null,
+	phone_number?: string | undefined | null,
+	alternate_phone_number?: string | undefined | null,
+	website_url?: string | undefined | null,
+	facebook_url?: string | undefined | null,
+	instagram_url?: string | undefined | null,
 	gst_number?: string | undefined | null,
-	fssai_license_number?: string | undefined | null,
-	bank_account_number?: string | undefined | null,
-	bank_ifsc_code?: string | undefined | null,
 	status?: string | undefined | null,
 	rejection_reason?: string | undefined | null,
-	latitude?: number | undefined | null,
-	longitude?: number | undefined | null,
-	location?: string | undefined | null,
-	city?: string | undefined | null,
-	state?: string | undefined | null,
-	country?: string | undefined | null,
-	pincode?: string | undefined | null,
-	phone?: string | undefined | null,
+	fssai_license_number?: string | undefined | null,
+	is_chain?: boolean | undefined | null,
+	founded_year?: string | undefined | null,
+	total_branches?: number | undefined | null,
+	cuisine_types?: string | undefined | null,
+	tags?: string | undefined | null,
+	average_rating?: number | undefined | null,
+	total_reviews?: number | undefined | null,
+	is_verified?: boolean | undefined | null,
+	approval_status?: string | undefined | null,
+	approval_notes?: string | undefined | null,
+	timezone?: string | undefined | null,
+	external_integration_id?: number | undefined | null,
+	priority_order?: number | undefined | null,
+	visibility_status?: string | undefined | null,
+	cancellation_policy?: string | undefined | null,
 	created_at?: GraphQLTypes["Date"] | undefined | null,
 	updated_at?: GraphQLTypes["Date"] | undefined | null,
 	deleted_at?: GraphQLTypes["Date"] | undefined | null,
 	created_by?: number | undefined | null,
 	updated_by?: number | undefined | null,
-	deleted_by?: number | undefined | null
-};
-	["RestaurantResponse"]: {
-	__typename: "RestaurantResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The restaurant data */
-	data?: GraphQLTypes["Restaurant"] | undefined | null
-};
-	["BranchesResponse"]: {
-	__typename: "BranchesResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The branches data */
-	data?: Array<GraphQLTypes["RBranch"] | undefined | null> | undefined | null
+	deleted_by?: number | undefined | null,
+	account_number?: string | undefined | null,
+	upi_id?: string | undefined | null,
+	swift_code?: string | undefined | null,
+	bank_name?: string | undefined | null,
+	bank_branch?: string | undefined | null,
+	ifsc_code?: string | undefined | null,
+	account_holder_name?: string | undefined | null,
+	branches?: Array<GraphQLTypes["RBranch"] | undefined | null> | undefined | null,
+	branch?: GraphQLTypes["RBranch"] | undefined | null,
+	owner?: GraphQLTypes["User"] | undefined | null
 };
 	["RBranch"]: {
 	__typename: "RBranch",
@@ -3009,6 +3057,26 @@ export type GraphQLTypes = {
 	created_by?: number | undefined | null,
 	updated_by?: number | undefined | null,
 	deleted_by?: number | undefined | null
+};
+	["RestaurantResponse"]: {
+	__typename: "RestaurantResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The restaurant data */
+	data?: GraphQLTypes["Restaurant"] | undefined | null
+};
+	["BranchesResponse"]: {
+	__typename: "BranchesResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The branches data */
+	data?: Array<GraphQLTypes["RBranch"] | undefined | null> | undefined | null
 };
 	["BranchByIdResponse"]: {
 	__typename: "BranchByIdResponse",

@@ -9,9 +9,11 @@ import { LanguagePreferences } from "../../constants";
 import _ from "lodash";
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
- interface IProps {
-  userDetails: Partial<Record<keyof IUser, string | null>>;
-  setUserDetails: (userDetails: Partial<IUser>) => void;
+import { useUpdateUser } from "../../services/api-hooks/usersHook";
+import { Dispatch, SetStateAction } from "react";
+interface IProps {
+  userDetails: Partial<IUser> | null;
+  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
 }
 
 const validationSchema = Yup.object().shape({
@@ -31,6 +33,7 @@ const validationSchema = Yup.object().shape({
     .default(LanguagePreferences.EN),
 });
 const fields: (keyof IUser)[] = [
+  "id",
   "first_name",
   "last_name",
   "email",
@@ -38,17 +41,23 @@ const fields: (keyof IUser)[] = [
   "aadhar_card",
   "pan_card",
   "voter_id",
-  "facebook",
-  "x",
-  "linkedin",
-  "instagram",
+  // "facebook",
+  // "x",
+  // "linkedin",
+  // "instagram",
 ];
 
 export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
   const { isOpen, openModal, closeModal } = useModal();
 
+  const { mutate } = useUpdateUser({
+    onSuccess: (data) => {
+      setUserDetails(data?.data as Partial<IUser>);
+      handleCloseModal();
+    },
+  });
   const handleSave = (values: FormikValues) => {
-    
+    mutate(values);
   };
   const {
     values,
@@ -70,10 +79,11 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
     validateOnMount: true,
     validateOnChange: true,
   });
-  const handleCloseModal = (e: unknown) => {
+  const handleCloseModal = (e?: unknown) => {
     closeModal();
     handleReset(e);
   };
+  console.log("userDetails?.is_verified" , userDetails?.is_verified)
 
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
@@ -163,8 +173,14 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
               <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                 Verified by Swiggy
               </p>
-              <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                {userDetails?.is_verified}
+              <p
+                className={`text-sm font-medium ${
+                  !userDetails?.is_verified
+                    ? "text-error-500 "
+                    : "text-success-500"
+                }`}
+              >
+                {userDetails?.is_verified || "Unverified"}
               </p>
             </div>
             <div>
@@ -172,7 +188,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
                 Language Preference
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                {userDetails?.language_preference}
+                {_.upperCase(userDetails?.language_preference as string)}
               </p>
             </div>
             <div>
@@ -328,6 +344,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
                       name="language_preference"
                       values={values}
                       errors={errors}
+                      defaultValue={values?.language_preference as string}
                       touched={touched}
                       label="Language Preference"
                       isRequired

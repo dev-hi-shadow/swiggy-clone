@@ -1,9 +1,9 @@
-import { IUser, Response } from "../../types";
+import { IUser, ApiResponse } from "../../types";
 import { graphql } from "../graphqlClient";
 
 export const updateUser = async (
   input: Partial<IUser>
-): Promise<Response<Partial<IUser>> | undefined> => {
+): Promise<ApiResponse<Partial<IUser>> | undefined> => {
   const res = await graphql("mutation")({
     updateUser: [
       {
@@ -57,9 +57,53 @@ export const updateUser = async (
         success: true,
         isToast: true,
         message: true,
-        token: true,
-      },
+       },
     ],
   });
-  return res?.updateUser as Response<Partial<IUser>>;
+  return res?.updateUser as ApiResponse<Partial<IUser>>;
+};
+
+
+export const getUserDetails = async (): Promise<ApiResponse<Partial<IUser>>> => {
+  const res = await graphql("query")({
+    getProfile: {
+      status: true,
+      success: true,
+      isToast: true,
+      message: true,
+      data: {
+        wallet_balance: true,
+        id: true,
+        first_name: true,
+        last_name: true,
+        email: true,
+        profile_picture: true,
+        is_active: true,
+        blocked_reason: true,
+        device_token: true,
+        gender: true,
+        is_verified: true,
+        terms_conditions_accepted: true,
+        language_preference: true,
+        username: true,
+        aadhar_card: true,
+        pan_card: true,
+        voter_id: true,
+        dob: true,
+        phone: true,
+        address: true,
+        city: true,
+        state: true,
+        country: true,
+        zip_code: true,
+        referred_by: true,
+        role: {
+          name: true,
+          id: true,
+        },
+      },
+    },
+  });
+
+  return res.getProfile as ApiResponse<Partial<IUser>>;
 };
