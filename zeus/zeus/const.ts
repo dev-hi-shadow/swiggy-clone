@@ -146,7 +146,7 @@ export const ReturnTypes: Record<string,any> = {
 	RootQuery:{
 		getAllRoles:"RolesResponse",
 		getRoleById:"RoleResponse",
-		usersList:"UsersResponse",
+		usersList:"usersListResponse",
 		getProfile:"getProfileResponse",
 		RestaurantList:"RestaurantsResponse",
 		restaurant:"RestaurantResponse",
@@ -171,6 +171,7 @@ export const ReturnTypes: Record<string,any> = {
 		created_at:"Date",
 		deleted_at:"Date",
 		updated_at:"Date",
+		is_admin:"Boolean",
 		name:"String",
 		permissions:"JSONObject"
 	},
@@ -184,11 +185,15 @@ export const ReturnTypes: Record<string,any> = {
 		message:"String",
 		data:"Role"
 	},
-	UsersResponse:{
+	usersListResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
 		message:"String",
-		data:"Users"
+		data:"usersList"
 	},
-	Users:{
+	usersList:{
 		count:"Int",
 		rows:"User"
 	},

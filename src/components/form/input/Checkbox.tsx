@@ -14,7 +14,6 @@ interface CheckboxProps {
   isRequired?: boolean;
   setFieldTouched?: (name: string) => void;
   setFieldError?: (name: string) => void;
-  setFieldValue?: (name: string) => void;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({

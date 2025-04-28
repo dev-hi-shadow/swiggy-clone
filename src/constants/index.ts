@@ -11,6 +11,8 @@ export enum AppRoutes {
   USERS = "/users",
   ADD_BRANCH = "/branches/new",
   ADD_RESTAURANT = "/restaurant/new",
+  EDIT_RESTAURANT = "/restaurant/:id",
+  RESTAURANTS = "/restaurants",
 }
 
 

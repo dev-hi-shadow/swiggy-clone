@@ -100,10 +100,40 @@ export const getUserDetails = async (): Promise<ApiResponse<Partial<IUser>>> => 
         role: {
           name: true,
           id: true,
+          is_admin : true,
         },
       },
     },
   });
 
   return res.getProfile as ApiResponse<Partial<IUser>>;
+};
+
+
+export const getUsers = async (): Promise<
+  ApiResponse<{
+    count: number;
+    rows: Array<Partial<IUser>>;
+  }>
+> => {
+  const res = await graphql("query")({
+    usersList: {
+      status: true,
+      success: true,
+      isToast: true,
+      message: true,
+      data: {
+        count: true,
+        rows: {
+          id: true,
+          first_name: true,
+          last_name: true,
+        },
+      },
+    },
+  });
+  return res?.usersList as unknown as ApiResponse<{
+    count: number;
+    rows: Array<Partial<IUser>>;
+  }>;
 };

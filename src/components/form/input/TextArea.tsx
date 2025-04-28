@@ -1,29 +1,49 @@
 import React from "react";
+import Label from "../Label";
+import { FormikErrors, FormikTouched, FormikValues } from "formik";
 
 interface TextareaProps {
-  placeholder?: string; // Placeholder text
-  rows?: number; // Number of rows
-  value?: string; // Current value
-  onChange?: (value: string) => void; // Change handler
-  className?: string; // Additional CSS classes
-  disabled?: boolean; // Disabled state
-  error?: boolean; // Error state
-  hint?: string; // Hint text to display
+  placeholder?: string;
+  rows?: number;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement|HTMLInputElement> )=> void;
+  disabled?: boolean;
+  error?: boolean;
+  hint?: string;
+  onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
+  name?: string;
+  autoComplete?: string;
+  isRequired?: boolean;
+  label: string;
+  values?: FormikValues;
+  errors?: FormikErrors<FormikValues>;
+  touched?: FormikTouched<Record<string, boolean>>;
+  labelClassName?: string;
+  className?: string;
 }
 
 const TextArea: React.FC<TextareaProps> = ({
-  placeholder = "Enter your message", // Default placeholder
-  rows = 3, // Default number of rows
-  value = "", // Default value
-  onChange, // Callback for changes
-  className = "", // Additional custom styles
-  disabled = false, // Disabled state
-  error = false, // Error state
-  hint = "", // Default hint text
+  rows = 3,
+  value = "",
+  onChange,
+  onBlur,
+  className = "",
+  disabled = false,
+  error = false,
+  hint = "",
+  name,
+  autoComplete,
+  isRequired,
+  label,
+  placeholder = `Enter your ${label}`,
+  errors,
+  touched,
+  values,
+  labelClassName,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
-      onChange(e.target.value);
+      onChange(e as React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>);
     }
   };
 
@@ -31,32 +51,44 @@ const TextArea: React.FC<TextareaProps> = ({
 
   if (disabled) {
     textareaClasses += ` bg-gray-100 opacity-50 text-gray-500 border-gray-300 cursor-not-allowed opacity40 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-700`;
-  } else if (error) {
+  } else if (errors && touched && name && errors[name] && touched[name]) {
     textareaClasses += ` bg-transparent  border-gray-300 focus:border-error-300 focus:ring-3 focus:ring-error-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-error-800`;
   } else {
     textareaClasses += ` bg-transparent text-gray-900 dark:text-gray-300 text-gray-900 border-gray-300 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-800`;
   }
 
   return (
-    <div className="relative">
-      <textarea
-        placeholder={placeholder}
-        rows={rows}
-        value={value}
-        onChange={handleChange}
-        disabled={disabled}
-        className={textareaClasses}
-      />
-      {hint && (
-        <p
-          className={`mt-2 text-sm ${
-            error ? "text-error-500" : "text-gray-500 dark:text-gray-400"
-          }`}
-        >
-          {hint}
-        </p>
-      )}
-    </div>
+    <>
+      <Label className={labelClassName}>
+        {label}
+        {isRequired && <span className="text-error-500">*</span>}
+      </Label>
+      <div className="relative">
+        <textarea
+          placeholder={placeholder}
+          rows={rows}
+          value={!value ? (name && values ? values[name] : "") : value}
+          onChange={handleChange}
+          disabled={disabled}
+          className={textareaClasses}
+          onBlur={onBlur}
+          id="message"
+          name={name}
+          autoComplete={autoComplete}
+          required={isRequired}
+          aria-label={`${label}_area_label`}
+        />
+        {hint && (
+          <p
+            className={`mt-2 text-sm ${
+              error ? "text-error-500" : "text-gray-500 dark:text-gray-400"
+            }`}
+          >
+            {hint}
+          </p>
+        )}
+      </div>
+    </>
   );
 };
 

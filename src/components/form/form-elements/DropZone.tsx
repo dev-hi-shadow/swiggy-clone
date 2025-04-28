@@ -1,11 +1,26 @@
+import { FormikErrors, FormikTouched, FormikValues } from "formik";
 import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
 // import Dropzone from "react-dropzone";
 
-const DropzoneComponent: React.FC = () => {
+interface IProps {
+  className?: string;
+  onDrop?: (acceptedFiles: File[]) => void;
+  label: string;
+  setFieldTouched?: (name: string) => void;
+  setFieldError?: (field: string, value: string | undefined) => void;
+  setFieldValue?: (name: string) => void;
+  values?: FormikValues;
+  errors?: FormikErrors<FormikValues>;
+  touched?: FormikTouched<Record<string, boolean>>;
+  name: string;
+  isRequired?: boolean;
+}
+const DropzoneComponent: React.FC<IProps> = (props) => {
   const onDrop = (acceptedFiles: File[]) => {
-    console.log("Files dropped:", acceptedFiles);
-    // Handle file uploads here
+    if (props.onDrop) {
+      props.onDrop(acceptedFiles);
+    }
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -18,7 +33,7 @@ const DropzoneComponent: React.FC = () => {
     },
   });
   return (
-    <ComponentCard title="Dropzone">
+    <ComponentCard className={props.className} title={props.label}>
       <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
         <form
           {...getRootProps()}

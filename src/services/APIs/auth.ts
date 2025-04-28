@@ -4,7 +4,7 @@ import { graphql } from "../graphqlClient";
 export const register = async (
   input: IRegister
 ): Promise<ApiResponse<IRegister> | undefined> => {
-  const res = await graphql("mutation")({
+  const res = await graphql("mutation")({ 
     register: [
       { ...input },
       {

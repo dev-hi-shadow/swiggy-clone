@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PageMeta from "../../components/common/PageMeta";
 import { useNavigate, useParams } from "react-router";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
@@ -6,92 +6,127 @@ import ComponentCard from "../../components/common/ComponentCard";
 import Input from "../../components/form/input/InputField";
 import DropzoneComponent from "../../components/form/form-elements/DropZone";
 import { FormikValues, useFormik } from "formik";
-import { IRestaurant } from "../../types";
+import { IRBranch, IRestaurant, IUser } from "../../types";
 import _ from "lodash";
 import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
 import * as Yup from "yup";
 import MultiSelect from "../../components/form/MultiSelect";
-import { useCreateRestaurantMutation, useUpdateRestaurantMutation } from "../../services/api-hooks/restaurantsHook";
 import { AppRoutes } from "../../constants";
- 
-const fields: (keyof IRestaurant)[] = [
-  "name",
-  "slug",
-  "description",
+import {
+  useCreateRBranchMutation,
+  useUpdateRBranchMutation,
+} from "../../services/api-hooks/branchHooks";
+import Select, { Option } from "../../components/form/Select";
+import { useGetRestaurants } from "../../services/api-hooks/restaurantsHook";
+import { useGetUsers } from "../../services/api-hooks/usersHook";
+import { TimeIcon } from "../../icons";
+
+const fields: (keyof IRBranch)[] = [
+  "id",
+  "restaurant_id",
+  "manager_id",
+  "location",
+  "longitude",
+  "latitude",
   "image",
   "email",
   "phone_number",
   "alternate_phone_number",
-  "website_url",
-  "facebook_url",
-  "instagram_url",
+  "expected_delivery_time",
+  "average_price_for_one",
+  "average_price_for_two",
+  "delivery_charge",
+  "min_order_value",
+  "max_order_value",
+  "is_open",
+  "is_available_for_delivery",
+  "is_available_for_pickup",
+  "is_veg_only",
+  "opening_time",
+  "closing_time",
+  "special_opening_time",
+  "special_closing_time",
+  "average_preparation_time",
+  "slug",
+  "short_description",
+  "full_description",
   "gst_number",
   "fssai_license_number",
-  "is_chain",
-  "founded_year",
-  "cuisine_types",
-  "tags",
+  "service_radius_km",
   "cancellation_policy",
-  "account_number",
-  "upi_id",
-  "swift_code",
-  "bank_name",
-  "bank_branch",
-  "ifsc_code",
-  "account_holder_name",
+  "timezone",
 ];
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().label("Name"),
-  slug: Yup.string().label("Slug"),
-  description: Yup.string().label("Description"),
-  image: Yup.array()
-    .min(1, "At least one image is required")
-    .of(Yup.mixed().required("Image is required")),
-  email: Yup.string().email().label("Email").required(),
-  phone_number: Yup.string().required().label("Phone Number"),
+  id: Yup.string().label("ID"),
+  restaurant_id: Yup.string()
+    .required("Restaurant is required")
+    .label("Restaurant"),
+  manager_id: Yup.string().required().label("Manager"),
+  location: Yup.string().required().label("Location"),
+  longitude: Yup.string().label("Longitude"),
+  latitude: Yup.string().label("Latitude"),
+  image: Yup.string().label("Image"),
+  email: Yup.string().label("Email"),
+  phone_number: Yup.string().label("Phone Number").required(),
   alternate_phone_number: Yup.string().label("Alternate Phone Number"),
-  website_url: Yup.string().label("Website URL"),
-  facebook_url: Yup.string().label("Facebook URL"),
-  instagram_url: Yup.string().label("Instagram URL"),
-  gst_number: Yup.string().required().label("GST Number"),
-  fssai_license_number: Yup.string().required().label("FSSAI License Number"),
-  is_chain: Yup.boolean().label("Is Chain").default(false),
-  founded_year: Yup.string().required().label("Founded Year"),
-  cuisine_types: Yup.string().label("Cuisine Types"),
-  tags: Yup.string().label("Tags"),
-  cancellation_policy: Yup.string().required().label("Cancellation Policy"),
-  account_number: Yup.string().label("Account Number"),
-  upi_id: Yup.string().label("UPI ID"),
-  swift_code: Yup.string().label("Swift Code"),
-  bank_name: Yup.string().label("Bank Name"),
-  bank_branch: Yup.string().label("Bank Branch"),
-  ifsc_code: Yup.string().label("IFSC Code"),
-  account_holder_name: Yup.string().label("Account Holder Name"),
+  expected_delivery_time: Yup.string()
+    .required()
+    .label("Expected Delivery Time"),
+  average_price_for_one: Yup.string().label("Average Price For One"),
+  average_price_for_two: Yup.string().label("Average Price For Two"),
+  delivery_charge: Yup.string().label("Delivery Charge"),
+  min_order_value: Yup.string().label("Min Order Value"),
+  max_order_value: Yup.string().label("Max Order Value"),
+  is_open: Yup.string().label("Is Open").required(),
+  is_available_for_delivery: Yup.string()
+    .label("Is Available For Delivery")
+    .required(),
+  is_available_for_pickup: Yup.string()
+    .label("Is Available For Pickup")
+    .required(),
+  is_veg_only: Yup.string().label("Is Veg Only").required(),
+  opening_time: Yup.string().label("Opening Time").required(),
+  closing_time: Yup.string().label("Closing Time").required(),
+  special_opening_time: Yup.string().label("Special Opening Time"),
+  special_closing_time: Yup.string().label("Special Closing Time"),
+  average_preparation_time: Yup.string()
+    .label("Average Preparation Time")
+    .required(),
+  slug: Yup.string().label("Slug"),
+  short_description: Yup.string().label("Short Description"),
+  full_description: Yup.string().label("Full Description"),
+  gst_number: Yup.string().label("GST Number"),
+  fssai_license_number: Yup.string().label("FSSAI License Number"),
+  service_radius_km: Yup.string().label("Service Radius (km)").required(),
+  cancellation_policy: Yup.string().label("Cancellation Policy"),
+  timezone: Yup.string().label("Timezone").default("Asia/Kolkata"),
 });
 
-const AddEditRestaurant = () => {
+ 
+const AddEditRBranch = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [restaurantDetails, setRestaurantDetails] =
-    useState<IRestaurant | null>(null);
+  const [branchDetails, setBranchDetails] = useState<IRBranch | null>(null);
 
-  const { mutate: addMutate } = useCreateRestaurantMutation({
+  const { mutate: addMutate } = useCreateRBranchMutation({
     onSuccess: (data) => {
-      navigate(AppRoutes.ADD_BRANCH);
-      setRestaurantDetails(data?.data as IRestaurant);
+      navigate(AppRoutes.BRANCHES);
+      setBranchDetails(data?.data as IRBranch);
     },
   });
-  const { mutate: editMutate } = useUpdateRestaurantMutation({
-    onSuccess: (data) => {
-      navigate(AppRoutes.RESTAURANTS);
-      setRestaurantDetails(data?.data as IRestaurant);
+  const { mutate: editMutate } = useUpdateRBranchMutation({
+    onSuccess: (data) => {  
+      navigate(AppRoutes.BRANCHES);
+      setBranchDetails(data?.data as IRBranch);
     },
   });
 
-  const handleAddEditRestaurant = (values: FormikValues) => {
-    console.log("🚀 ~ handleAddEditRestaurant ~ values:", values)
+  const { data: RestaurantList } = useGetRestaurants();
+  const { data: UserList } = useGetUsers();
+
+  const handleAddEditRBranch = (values: FormikValues) => {
     if (id) {
       editMutate(values);
     } else {
@@ -112,35 +147,69 @@ const AddEditRestaurant = () => {
     setFieldTouched,
   } = useFormik({
     initialValues: _.defaults(
-      _.pick(restaurantDetails, fields),
+      _.pick(branchDetails, fields),
       Object.fromEntries(fields.map((field) => [field, undefined]))
     ),
     validationSchema,
-    onSubmit: handleAddEditRestaurant,
+    onSubmit: handleAddEditRBranch,
   });
-  console.log(errors)
+  console.log(errors);
   return (
     <div>
       <PageMeta
-        title={id ? "Edit Restaurant" : "Add Restaurant"}
+        title={id ? "Edit Branch" : "Add Branch"}
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle={id ? "Edit Restaurant" : "Add Restaurant"} />
+      <PageBreadcrumb pageTitle={id ? "Edit Branch" : "Add Branch"} />
       <form onSubmit={handleSubmit} method="multipart/form-data">
         <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
           <ComponentCard title="Information">
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2 ">
+              <div className="col-span-2 ">
+                <div>
+                  <Select
+                    label="Restaurant"
+                    isRequired
+                    setFieldTouched={setFieldTouched}
+                    setFieldError={setFieldError}
+                    values={values}
+                    errors={errors}
+                    name="restaurant_id"
+                    onChange={(value: string) => {
+                      setFieldValue("restaurant_id", Number(value));
+                    }}
+                    options={
+                      (RestaurantList?.data?.map(
+                        (restaurant: Partial<IRestaurant>) => ({
+                          label: restaurant.name,
+                          value: String(restaurant.id),
+                        })
+                      ) as Option[]) ?? []
+                    }
+                  />
+                </div>
+              </div>
               <div className="col-span-2 lg:col-span-1">
                 <div>
-                  <Input
+                  <Select
+                    label="Manager"
                     isRequired
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    setFieldTouched={setFieldTouched}
+                    setFieldError={setFieldError}
                     values={values}
-                    touched={touched}
                     errors={errors}
-                    name="name"
-                    label="Restaurant Name"
+                    name="manager_id"
+                    onChange={(value: string) => {
+                      setFieldValue("manager_id", Number(value));
+                    }}
+                    options={
+                      (UserList?.data?.rows?.map((user: Partial<IUser>) => ({
+                        label: `${user?.first_name ?? ""} ${
+                          user?.last_name ?? ""
+                        }`,
+                        value: String(user.id),
+                      })) as Option[]) ?? []
+                    }
                   />
                 </div>
               </div>
@@ -153,7 +222,7 @@ const AddEditRestaurant = () => {
                     touched={touched}
                     errors={errors}
                     name="slug"
-                    label="Restaurant Slug"
+                    label="Slug"
                   />
                 </div>
               </div>
@@ -166,7 +235,7 @@ const AddEditRestaurant = () => {
                     touched={touched}
                     errors={errors}
                     name="description"
-                    label="Restaurant Description"
+                    label="Description"
                   />
                 </div>
               </div>
@@ -184,20 +253,7 @@ const AddEditRestaurant = () => {
                   />
                 </div>
               </div>
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    isRequired
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    values={values}
-                    touched={touched}
-                    errors={errors}
-                    name="founded_year"
-                    label="Founded Year"
-                  />
-                </div>
-              </div>
+
               <div className="col-span-2 lg:col-span-1">
                 <div>
                   <Input
@@ -242,20 +298,24 @@ const AddEditRestaurant = () => {
           />
         </div>
         <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2 mt-7">
-          <ComponentCard title="Legal & Bank Information">
+          <ComponentCard title="Delivery Information">
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
               <div className="col-span-2 lg:col-span-1">
                 <div>
-                  <Input
-                    name="fssai_license_number"
-                    label="FSSAI License Number"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    isRequired
-                  />
+                  <div className="relative">
+                    <Input
+                      isRequired
+                      label="Opening Time"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      values={values}
+                      touched={touched}
+                      errors={errors}
+                      type="time"
+                      id="tm"
+                      name="opening_time"
+                    />
+                  </div>
                 </div>
               </div>
               <div className="col-span-2 lg:col-span-1">
@@ -442,102 +502,6 @@ const AddEditRestaurant = () => {
           </ComponentCard>
         </div>
 
-        {/* <div className="  z-9999 border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]  rounded-2xl py-4  border flex  ps-5  mt-10">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-            Branch Information
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-          <ComponentCard className="mt-7" title="Information">
-            <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    type="text"
-                    name="branch_name"
-                    label="Branch Name"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    type="text"
-                    name="sort_description"
-                    label="Branch Short Description"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-span-2 ">
-                <div>
-                  <TextArea
-                    label="Branch Description"
-                    name="description"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    type="text"
-                    name="email"
-                    label="Email"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    type="text"
-                    name="phone_number"
-                    label="Phone Number"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-              <div className="col-span-2 lg:col-span-1">
-                <div>
-                  <Input
-                    type="text"
-                    name="branch.alternate_phone_number"
-                    label="Alternate Phone Number"
-                    values={values}
-                    errors={errors}
-                    touched={touched}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                </div>
-              </div>
-            </div>
-          </ComponentCard>
-        </div> */}
-
         <div className="  z-9999 border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]  rounded-2xl py-4  border flex justify-end sticky bottom-0 mt-10">
           <div className="flex gap-5 mr-4">
             <Button type="button" variant="outline" onClick={handleReset}>
@@ -553,4 +517,4 @@ const AddEditRestaurant = () => {
   );
 };
 
-export default AddEditRestaurant;
+export default AddEditRBranch;

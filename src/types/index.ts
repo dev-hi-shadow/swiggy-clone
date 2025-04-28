@@ -104,8 +104,8 @@ export interface IRestaurant {
   total_branches: number | null;
   cuisine_types: string | null;
   tags: string | null;
-  average_rating: number;
-  total_reviews: number;
+  average_rating: number | null;
+  total_reviews: number| null;
   is_verified: boolean;
   approval_status: "pending" | "approved" | "rejected";
   approval_notes: string | null;

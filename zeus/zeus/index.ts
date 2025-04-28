@@ -907,7 +907,7 @@ export type ValueTypes = {
     ["RootQuery"]: AliasType<{
 	getAllRoles?:ValueTypes["RolesResponse"],
 getRoleById?: [{	id: number | Variable<any, string>},ValueTypes["RoleResponse"]],
-	usersList?:ValueTypes["UsersResponse"],
+	usersList?:ValueTypes["usersListResponse"],
 	getProfile?:ValueTypes["getProfileResponse"],
 	RestaurantList?:ValueTypes["RestaurantsResponse"],
 restaurant?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["RestaurantResponse"]],
@@ -935,6 +935,7 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 	created_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
+	is_admin?:boolean | `@${string}`,
 	name?:boolean | `@${string}`,
 	permissions?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
@@ -952,12 +953,17 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 	data?:ValueTypes["Role"],
 		__typename?: boolean | `@${string}`
 }>;
-	["UsersResponse"]: AliasType<{
+	["usersListResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
 	message?:boolean | `@${string}`,
-	data?:ValueTypes["Users"],
+	/** The userslist data */
+	data?:ValueTypes["usersList"],
 		__typename?: boolean | `@${string}`
 }>;
-	["Users"]: AliasType<{
+	["usersList"]: AliasType<{
 	count?:boolean | `@${string}`,
 	rows?:ValueTypes["User"],
 		__typename?: boolean | `@${string}`
@@ -1570,7 +1576,7 @@ export type ResolverInputTypes = {
 	["RootQuery"]: AliasType<{
 	getAllRoles?:ResolverInputTypes["RolesResponse"],
 getRoleById?: [{	id: number},ResolverInputTypes["RoleResponse"]],
-	usersList?:ResolverInputTypes["UsersResponse"],
+	usersList?:ResolverInputTypes["usersListResponse"],
 	getProfile?:ResolverInputTypes["getProfileResponse"],
 	RestaurantList?:ResolverInputTypes["RestaurantsResponse"],
 restaurant?: [{	id?: number | undefined | null},ResolverInputTypes["RestaurantResponse"]],
@@ -1598,6 +1604,7 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 	created_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
+	is_admin?:boolean | `@${string}`,
 	name?:boolean | `@${string}`,
 	permissions?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
@@ -1615,12 +1622,17 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 	data?:ResolverInputTypes["Role"],
 		__typename?: boolean | `@${string}`
 }>;
-	["UsersResponse"]: AliasType<{
+	["usersListResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
 	message?:boolean | `@${string}`,
-	data?:ResolverInputTypes["Users"],
+	/** The userslist data */
+	data?:ResolverInputTypes["usersList"],
 		__typename?: boolean | `@${string}`
 }>;
-	["Users"]: AliasType<{
+	["usersList"]: AliasType<{
 	count?:boolean | `@${string}`,
 	rows?:ResolverInputTypes["User"],
 		__typename?: boolean | `@${string}`
@@ -2232,7 +2244,7 @@ export type ModelTypes = {
 	["RootQuery"]: {
 		getAllRoles?: ModelTypes["RolesResponse"] | undefined | null,
 	getRoleById?: ModelTypes["RoleResponse"] | undefined | null,
-	usersList?: ModelTypes["UsersResponse"] | undefined | null,
+	usersList?: ModelTypes["usersListResponse"] | undefined | null,
 	getProfile?: ModelTypes["getProfileResponse"] | undefined | null,
 	RestaurantList?: ModelTypes["RestaurantsResponse"] | undefined | null,
 	restaurant?: ModelTypes["RestaurantResponse"] | undefined | null,
@@ -2258,6 +2270,7 @@ export type ModelTypes = {
 	created_at?: ModelTypes["Date"] | undefined | null,
 	deleted_at?: ModelTypes["Date"] | undefined | null,
 	updated_at?: ModelTypes["Date"] | undefined | null,
+	is_admin?: boolean | undefined | null,
 	name?: string | undefined | null,
 	permissions?: ModelTypes["JSONObject"] | undefined | null
 };
@@ -2273,11 +2286,16 @@ export type ModelTypes = {
 	/** The role data */
 	data?: ModelTypes["Role"] | undefined | null
 };
-	["UsersResponse"]: {
-		message?: string | undefined | null,
-	data?: ModelTypes["Users"] | undefined | null
+	["usersListResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The userslist data */
+	data?: ModelTypes["usersList"] | undefined | null
 };
-	["Users"]: {
+	["usersList"]: {
 		count?: number | undefined | null,
 	rows?: Array<ModelTypes["User"] | undefined | null> | undefined | null
 };
@@ -2844,7 +2862,7 @@ export type GraphQLTypes = {
 	__typename: "RootQuery",
 	getAllRoles?: GraphQLTypes["RolesResponse"] | undefined | null,
 	getRoleById?: GraphQLTypes["RoleResponse"] | undefined | null,
-	usersList?: GraphQLTypes["UsersResponse"] | undefined | null,
+	usersList?: GraphQLTypes["usersListResponse"] | undefined | null,
 	getProfile?: GraphQLTypes["getProfileResponse"] | undefined | null,
 	RestaurantList?: GraphQLTypes["RestaurantsResponse"] | undefined | null,
 	restaurant?: GraphQLTypes["RestaurantResponse"] | undefined | null,
@@ -2872,6 +2890,7 @@ export type GraphQLTypes = {
 	created_at?: GraphQLTypes["Date"] | undefined | null,
 	deleted_at?: GraphQLTypes["Date"] | undefined | null,
 	updated_at?: GraphQLTypes["Date"] | undefined | null,
+	is_admin?: boolean | undefined | null,
 	name?: string | undefined | null,
 	permissions?: GraphQLTypes["JSONObject"] | undefined | null
 };
@@ -2888,13 +2907,18 @@ export type GraphQLTypes = {
 	/** The role data */
 	data?: GraphQLTypes["Role"] | undefined | null
 };
-	["UsersResponse"]: {
-	__typename: "UsersResponse",
+	["usersListResponse"]: {
+	__typename: "usersListResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
 	message?: string | undefined | null,
-	data?: GraphQLTypes["Users"] | undefined | null
+	/** The userslist data */
+	data?: GraphQLTypes["usersList"] | undefined | null
 };
-	["Users"]: {
-	__typename: "Users",
+	["usersList"]: {
+	__typename: "usersList",
 	count?: number | undefined | null,
 	rows?: Array<GraphQLTypes["User"] | undefined | null> | undefined | null
 };

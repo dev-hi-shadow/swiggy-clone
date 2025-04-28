@@ -16,14 +16,19 @@ const Avatars = React.lazy(() => import("./pages/UiElements/Avatars"));
 const Buttons = React.lazy(() => import("./pages/UiElements/Buttons"));
 const LineChart = React.lazy(() => import("./pages/Charts/LineChart"));
 const BarChart = React.lazy(() => import("./pages/Charts/BarChart"));
-// const Calendar = React.lazy(() => import("./pages/Calendar"));
-const BasicTables = React.lazy(() => import("./pages/Tables/BasicTables"));
+ const BasicTables = React.lazy(() => import("./pages/Tables/BasicTables"));
 const FormElements = React.lazy(() => import("./pages/Forms/FormElements"));
 const Blank = React.lazy(() => import("./pages/Blank"));
 const AppLayout = React.lazy(() => import("./layout/AppLayout"));
 const Home = React.lazy(() => import("./pages/Dashboard/Home"));
-const Branches = React.lazy(() => import("./pages/Restaurants"));
-const AddEditRestaurant = React.lazy(() => import("./pages/Restaurants/AddEditRestaurant"));
+const Restaurants = React.lazy(() => import("./pages/Restaurants"));
+const Branches = React.lazy(() => import("./pages/RBranches"));
+const AddEditRBranch = React.lazy(
+  () => import("./pages/RBranches/AddEditRBranch")
+);
+const AddEditRestaurant = React.lazy(
+  () => import("./pages/Restaurants/AddEditRestaurant")
+);
 
 const PRIVATE_ROUTES: IRoutes[] = [
   {
@@ -35,12 +40,20 @@ const PRIVATE_ROUTES: IRoutes[] = [
     element: <UserProfiles />,
   },
   {
+    path: AppRoutes.RESTAURANTS,
+    element: <Restaurants />,
+  },
+  {
     path: AppRoutes.BRANCHES,
     element: <Branches />,
   },
   {
     path: AppRoutes.ADD_RESTAURANT,
     element: <AddEditRestaurant />,
+  },
+  {
+    path: AppRoutes.ADD_BRANCH,
+    element: <AddEditRBranch />,
   },
   {
     path: "/blank",

@@ -2,7 +2,7 @@ import { useState } from "react";
 import Label from "./Label";
 import { FormikErrors, FormikTouched, FormikValues } from "formik";
 
-interface Option {
+export interface Option {
   value: string;
   label: string;
 }
@@ -17,7 +17,7 @@ interface SelectProps {
   isRequired?: boolean;
   labelClassName?: string;
   setFieldTouched?: (name: string) => void;
-  setFieldError?: (field: string, value: string | undefined) => void
+  setFieldError?: (field: string, value: string | undefined) => void;
   setFieldValue?: (name: string) => void;
   values?: FormikValues;
   errors?: FormikErrors<FormikValues>;
@@ -48,7 +48,7 @@ const Select: React.FC<SelectProps> = ({
       setFieldTouched(e.target.name);
     }
     if (setFieldError && isRequired && !selectedValue) {
-      setFieldError(e.target.name, `${Label} is required field`);
+      setFieldError(e.target.name, `${label} is required field`);
     }
     const value = e.target.value;
     setSelectedValue(value);
