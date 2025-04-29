@@ -18,8 +18,9 @@ export interface IRegister {
   last_name: string;
   email: string;
   password: string;
-  terms_conditions_accepted: boolean;
-}
+  terms_conditions_accepted?: boolean;
+  token?:string
+} 
 
 export interface IRole {
   id: number | null;
@@ -136,6 +137,13 @@ export interface IRBranch {
   id: number;
   restaurant_id: number;
   manager_id: number;
+  country: string;
+  state: string;
+  city: string;
+  zip_code: string;
+  landmark?: string;
+  block_floor_number?: number;
+  nearby_landmark?: string;
   location: string;
   longitude: number;
   latitude: number;
@@ -143,7 +151,7 @@ export interface IRBranch {
   email: string;
   phone_number?: string;
   alternate_phone_number?: string;
-  expected_delivery_time: number;
+  expected_delivery_time: string;
   average_price_for_one: number;
   average_price_for_two?: number;
   delivery_charge: number;
@@ -160,7 +168,7 @@ export interface IRBranch {
   closing_time?: string;
   special_opening_time?: string;
   special_closing_time?: string;
-  average_preparation_time?: number;
+  average_preparation_time?: string;
   slug?: string;
   short_description?: string;
   full_description?: string;
@@ -179,4 +187,6 @@ export interface IRBranch {
   updated_by?: number | null;
   deleted_by?: number | null;
   restaurant?: IRestaurant;
+  owner?: IUser;
+  manager?: IUser;
 }

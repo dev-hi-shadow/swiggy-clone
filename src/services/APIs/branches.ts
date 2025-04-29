@@ -13,6 +13,17 @@ export const getRBranches = async (): Promise<
       data: {
         id: true,
         location: true,
+        restaurant: {
+          name: true,
+        },
+        owner: {
+          first_name: true,
+          last_name: true,
+        },
+        manager: {
+          first_name: true,
+          last_name: true,
+        }
       },
     },
   });
@@ -25,7 +36,9 @@ export const createRBranch = async (
 ): Promise<ApiResponse<Partial<IRBranch>>> => {
   const res = await graphql("mutation")({
     createBranch: [
-      input,
+      {
+        ...input,
+      },
       {
         status: true,
         success: true,

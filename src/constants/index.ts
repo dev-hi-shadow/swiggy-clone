@@ -13,6 +13,7 @@ export enum AppRoutes {
   ADD_RESTAURANT = "/restaurant/new",
   EDIT_RESTAURANT = "/restaurant/:id",
   RESTAURANTS = "/restaurants",
+  SWITCH_RESTAURANT = "/select-restaurant",
 }
 
 

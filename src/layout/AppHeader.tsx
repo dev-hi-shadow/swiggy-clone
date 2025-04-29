@@ -7,7 +7,7 @@ import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
 import { useFetchProfile } from "../services/api-hooks/useAuthHook";
 import { IUser } from "../types";
-
+ 
 const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 

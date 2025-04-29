@@ -38,11 +38,6 @@ const navItems: NavItem[] = [
     path: "/restaurants",
   },
   {
-    icon: <CalenderIcon />,
-    name: "Branches",
-    path: "/branches",
-  },
-  {
     icon: <UserCircleIcon />,
     name: "User Profile",
     path: "/profile",

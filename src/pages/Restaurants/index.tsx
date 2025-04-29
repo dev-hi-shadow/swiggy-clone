@@ -55,6 +55,7 @@ const Index = () => {
       name: "status",
       cell: (props: object) => (
         <Switch
+          name="status"
           defaultChecked={false}
           onChange={(value) =>
             handleActiveChange((props as IRestaurant).id, value)

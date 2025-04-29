@@ -4,7 +4,7 @@ import { graphql } from "../graphqlClient";
 export const register = async (
   input: IRegister
 ): Promise<ApiResponse<IRegister> | undefined> => {
-  const res = await graphql("mutation")({ 
+  const res = await graphql("mutation")({
     register: [
       { ...input },
       {
@@ -16,6 +16,23 @@ export const register = async (
     ],
   });
   return res?.register as ApiResponse<IRegister>;
+};
+export const login = async (input: {
+  email: string;
+  password: string;
+}): Promise<ApiResponse<IRegister> | undefined> => {
+  const res = await graphql("mutation")({
+    login: [
+      { ...input },
+      {
+        success: true,
+        isToast: true,
+        message: true,
+        token: true,
+      },
+    ],
+  });
+  return res?.login as ApiResponse<IRegister>;
 };
 
 export const getProfile = async (): Promise<ApiResponse<Partial<IUser>>> => {
@@ -44,6 +61,7 @@ export const getProfile = async (): Promise<ApiResponse<Partial<IUser>>> => {
           name: true,
           id: true,
           permissions: true,
+          is_admin: true,
         },
       },
     },
@@ -51,4 +69,3 @@ export const getProfile = async (): Promise<ApiResponse<Partial<IUser>>> => {
 
   return res.getProfile as ApiResponse<Partial<IUser>>;
 };
-

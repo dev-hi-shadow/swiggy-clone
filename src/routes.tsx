@@ -22,13 +22,20 @@ const Blank = React.lazy(() => import("./pages/Blank"));
 const AppLayout = React.lazy(() => import("./layout/AppLayout"));
 const Home = React.lazy(() => import("./pages/Dashboard/Home"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
-const Branches = React.lazy(() => import("./pages/RBranches"));
-const AddEditRBranch = React.lazy(
-  () => import("./pages/RBranches/AddEditRBranch")
-);
+const SwitchRestaurant = React.lazy(() => import("./pages/SwitchRestaurant"));
+ const AddEditRBranch = React.lazy(
+   () => import("./pages/RBranches/AddEditRBranch")
+ );
 const AddEditRestaurant = React.lazy(
   () => import("./pages/Restaurants/AddEditRestaurant")
 );
+
+const PRIVATE_FULL_PAGE_ROUTES: IRoutes[] = [
+  {
+    path: AppRoutes.SWITCH_RESTAURANT,
+    element: <SwitchRestaurant />,
+  },
+];
 
 const PRIVATE_ROUTES: IRoutes[] = [
   {
@@ -42,10 +49,6 @@ const PRIVATE_ROUTES: IRoutes[] = [
   {
     path: AppRoutes.RESTAURANTS,
     element: <Restaurants />,
-  },
-  {
-    path: AppRoutes.BRANCHES,
-    element: <Branches />,
   },
   {
     path: AppRoutes.ADD_RESTAURANT,
@@ -120,6 +123,11 @@ const RouterComponent = () => {
   return (
     <Suspense fallback={<Loader />}>
       <Routes>
+        {_.map(PRIVATE_FULL_PAGE_ROUTES, (route, index) => {
+          return (
+            <Route key={index} path={route.path} element={route.element} />
+          );
+        })}
         <Route element={<AppLayout />}>
           {_.map(PRIVATE_ROUTES, (route, index) => {
             return (

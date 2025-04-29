@@ -1,35 +1,58 @@
-import { useState } from "react";
-import { Link } from "react-router";
+import { useLayoutEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons";
  import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
 import Button from "../ui/button/Button";
 import { AppRoutes } from "../../constants";
-import { FormikValues, useFormik } from "formik";
+import { useFormik } from "formik";
+import * as Yup from "yup"
+import { useLoginMutation } from "../../services/api-hooks/useAuthHook";
+
+const initialValues = {
+  email: "",
+  password: "",
+};
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email address").required().label("Email"),
+  password: Yup.string().required().label("Password"),
+});
+
+
+
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
+  const { mutate} = useLoginMutation({
+    onSuccess: (data) => {
+      console.log("🚀 ~ SignInForm ~ data:", data)
+      localStorage.setItem("authToken", (data?.token as string) ?? "");
+      navigate(AppRoutes.DASHBOARD);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
-  const handleSignIn = (values: FormikValues) => {
-    console.log(values);
+    useLayoutEffect(() => {
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        navigate(AppRoutes.DASHBOARD);
+      }
+    }, [navigate]);
+  const handleSignIn = (values: { email: string; password: string }) => {
+    mutate(values);
   };
 
-  const {
-    values,
-    touched,
-    errors,
-    handleBlur,
-    handleChange,
-    handleReset,
-    handleSubmit,
-    dirty,
-  } = useFormik({
-    initialValues: {},
-    validationSchema: {},
-    onSubmit: handleSignIn,
-    enableReinitialize: true,
-  });
-  
+  const { values, touched, errors, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema,
+      onSubmit: handleSignIn,
+      enableReinitialize: true,
+    });
 
   return (
     <div className="flex flex-col flex-1">
@@ -96,26 +119,36 @@ export default function SignInForm() {
                 </span>
               </div>
             </div>
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <div>
                   <Input
-                    name={"email"}
+                    name="email"
                     label="Email"
                     placeholder="info@gmail.com"
+                    values={values}
+                    errors={errors}
+                    touched={touched}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
                 </div>
                 <div>
                   <div className="relative">
                     <Input
-                      name={"password"}
+                      values={values}
+                      errors={errors}
+                      touched={touched}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      name="password"
                       label="Password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                     />
                     <span
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-1/2"
+                      className="absolute z-30 -translate-y-1/2 cursor-pointer right-4 top-2/3"
                     >
                       {showPassword ? (
                         <EyeIcon className="fill-gray-500 dark:fill-gray-400 size-5" />
@@ -127,7 +160,11 @@ export default function SignInForm() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <Checkbox checked={isChecked} onChange={setIsChecked} />
+                    <Checkbox
+                      name="remember_me"
+                      checked={isChecked}
+                      onChange={setIsChecked}
+                    />
                     <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
                       Keep me logged in
                     </span>
@@ -140,7 +177,7 @@ export default function SignInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
+                  <Button className="w-full" size="sm" type="submit">
                     Sign in
                   </Button>
                 </div>
