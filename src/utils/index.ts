@@ -1,11 +1,17 @@
+// utils/idEncoder.ts
+import Hashids from "hashids";
 import { SECRET_KEY } from "../constants/config";
 
-// Encode
+
+const hashids = new Hashids(SECRET_KEY, 6); 
+
+
 export const encodeId = (id: number): string => {
-  return (id ^ (SECRET_KEY as number)).toString(36);
+  return hashids.encode(id);
 };
 
-// Decode
-export const decodeId = (encodedId: string): number => {
-  return parseInt(encodedId, 36) ^ SECRET_KEY as number;
+
+export const decodeId = (encodedId: number|string): number => {
+  const [decoded] = hashids.decode(String(encodedId));
+  return typeof decoded === "number" ? decoded : NaN;
 };

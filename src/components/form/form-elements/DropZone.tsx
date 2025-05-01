@@ -34,7 +34,7 @@ const DropzoneComponent: React.FC<IProps> = (props) => {
       {...getRootProps()}
       className="flex justify-center  flex-col transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500"
     >
-      <form
+      <div
         className={`dropzone rounded-xl   border-dashed border-gray-300 p-7 lg:p-10
         ${
           isDragActive
@@ -80,7 +80,7 @@ const DropzoneComponent: React.FC<IProps> = (props) => {
             Browse File
           </span>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

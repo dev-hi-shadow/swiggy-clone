@@ -25,6 +25,13 @@ export const getRestaurants = async (): Promise<
           first_name: true,
           last_name: true,
         },
+        branches: {
+          id: true,
+          location: true,
+          is_open: true,
+          is_available_for_delivery: true,
+          is_available_for_pickup: true,
+        },
       },
     },
   });

@@ -12,8 +12,8 @@ import * as Yup from "yup";
 import { useUpdateUser } from "../../services/api-hooks/usersHook";
 import { Dispatch, SetStateAction } from "react";
 interface IProps {
-  userDetails: Partial<IUser> | null;
-  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
+  readonly userDetails: Partial<IUser> | null;
+  readonly setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
 }
 
 const validationSchema = Yup.object().shape({
@@ -41,10 +41,11 @@ const fields: (keyof IUser)[] = [
   "aadhar_card",
   "pan_card",
   "voter_id",
-  // "facebook",
-  // "x",
-  // "linkedin",
-  // "instagram",
+  "facebook",
+  "x",
+  "linkedin",
+  "instagram",
+  "phone",
 ];
 
 export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
@@ -83,8 +84,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
     closeModal();
     handleReset(e);
   };
-  console.log("userDetails?.is_verified" , userDetails?.is_verified)
-
+ 
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -250,6 +250,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
                 <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}
@@ -276,6 +277,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
 
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}
@@ -289,6 +291,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
 
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}
@@ -302,6 +305,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
 
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}
@@ -315,6 +319,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
 
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}
@@ -328,6 +333,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
 
                   <div className="col-span-2 lg:col-span-1">
                     <Input
+                      isRequired
                       values={values}
                       errors={errors}
                       touched={touched}

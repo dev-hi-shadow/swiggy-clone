@@ -1,14 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ApiResponse, IRestaurant } from "../../types";
+import { useMutation, useQuery, } from "@tanstack/react-query";
+import { ApiResponse, IRestaurant, IActiveRestaurant } from "../../types";
 import {
   createRestaurant,
   getRestaurant,
   getRestaurants,
   updateRestaurant,
 } from "../APIs/restaurants";
-
+import { queryClient } from "../QueryClient";
+ 
 export const useGetRestaurants = () => {
-  const queryClient = useQueryClient();
+
 
   const initialData = queryClient.getQueryData<
     ApiResponse<Array<Partial<IRestaurant>>>
@@ -81,3 +82,14 @@ export const useUpdateRestaurantMutation = ({
     onError,
   });
 };
+
+export const useActiveRestaurant = () => {
+return useQuery<IActiveRestaurant | undefined>({
+  queryKey: ["activeRestaurant"],
+  initialData: undefined,
+  staleTime: Infinity,
+});
+
+
+};
+

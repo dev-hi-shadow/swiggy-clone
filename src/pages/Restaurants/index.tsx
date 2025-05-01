@@ -5,7 +5,7 @@ import BasicTableOne, {
   ITableHeaderProps,
 } from "../../components/tables/BasicTables/BasicTableOne";
 import { AppRoutes } from "../../constants";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useGetRestaurants } from "../../services/api-hooks/restaurantsHook";
 import Switch from "../../components/form/switch/Switch";
 import { IRestaurant } from "../../types";
@@ -14,12 +14,15 @@ import { Modal } from "../../components/ui/modal";
 import { useModal } from "../../hooks/useModal";
 import { useState } from "react";
 import { InstagramIcon } from "../../components/svgs";
+import { useTranslation } from "react-i18next";
+import { encodeId } from "../../utils";
 
 const Index = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data } = useGetRestaurants();
   const { isOpen, openModal, closeModal } = useModal();
-  const [deleteRestaurantId, setDeleteRestaurantId] = useState<number | null>(
+  const [, setDeleteRestaurantId] = useState<number | null>(
     null
   );
 
@@ -28,55 +31,55 @@ const Index = () => {
   };
 
   const handleDeleteRestaurant = () => {
-    console.log("Delete restaurant", deleteRestaurantId);
-    closeModal();
+     closeModal();
     setDeleteRestaurantId(null);
   };
 
-  const columns: ITableHeaderProps[] = [
+  const columns: ITableHeaderProps<IRestaurant>[] = [
     {
       header: "Name",
       name: "name",
-      cell: (props: object) => (props as IRestaurant).name as string,
+      cell: (props) => (
+        <Link to={`/branches/${encodeId(Number(props?.id))}`}>
+          {t(props.name as string)}
+        </Link>
+      ),
     },
     {
       header: "GST Number",
       name: "gst_number",
-      cell: (props: object) => (props as IRestaurant).gst_number as string,
+      cell: (props) => props.gst_number as string,
     },
     {
       header: "Owner",
       name: "owner",
-      cell: (props: object) =>
-        (props as IRestaurant).owner?.first_name as string,
+      cell: (props) => props.owner?.first_name as string,
     },
     {
       header: "Status",
       name: "status",
-      cell: (props: object) => (
+      cell: (props) => (
         <Switch
           name="status"
           defaultChecked={false}
-          onChange={(value) =>
-            handleActiveChange((props as IRestaurant).id, value)
-          }
+          onChange={(value) => handleActiveChange(Number(props.id), value)}
         />
       ),
     },
     {
       header: "Phone Number",
       name: "phone_number",
-      cell: (props: object) => (props as IRestaurant).phone_number as string,
+      cell: (props) => props.phone_number as string,
     },
     {
       header: "Social Links",
       name: "status",
-      cell: (props: object) => {
+      cell: (props) => {
         return (
           <div className="flex items-center space-x-2">
-            {(props as IRestaurant).facebook_url && (
+            {props.facebook_url && (
               <a
-                href={(props as IRestaurant).facebook_url ?? ""}
+                href={props.facebook_url ?? ""}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -87,9 +90,9 @@ const Index = () => {
                 />
               </a>
             )}
-            {(props as IRestaurant).website_url && (
+            {props.website_url && (
               <a
-                href={(props as IRestaurant).website_url ?? ""}
+                href={props.website_url ?? ""}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -101,9 +104,9 @@ const Index = () => {
               </a>
             )}
 
-            {(props as IRestaurant).instagram_url && (
+            {props.instagram_url && (
               <a
-                href={(props as IRestaurant).instagram_url ?? ""}
+                href={props.instagram_url ?? ""}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -123,7 +126,7 @@ const Index = () => {
             className="text-theme-primary"
             size="sm"
             onClick={() => {
-              navigate("/restaurant/" + (props as IRestaurant).id);
+              navigate("/restaurant/" + encodeId(Number(props.id)));
             }}
           >
             Edit
@@ -133,7 +136,7 @@ const Index = () => {
             size="sm"
             onClick={() => {
               openModal();
-              setDeleteRestaurantId((props as IRestaurant).id);
+              setDeleteRestaurantId(Number(props.id));
             }}
           >
             Delete
@@ -149,7 +152,11 @@ const Index = () => {
         title="Restaurants | Swiggy"
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle="Restaurants" />
+      <PageBreadcrumb
+        pageTitle="Restaurants"
+        isBack
+        backPath={AppRoutes.DASHBOARD}
+      />
       <div className="space-y-6">
         <ComponentCard
           title="Restaurants"

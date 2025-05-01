@@ -8,6 +8,9 @@ export const AllTypesProps: Record<string,any> = {
 		restaurant:{
 
 		},
+		RBranchList:{
+
+		},
 		getBranchById:{
 
 		},
@@ -236,6 +239,10 @@ export const ReturnTypes: Record<string,any> = {
 		updated_by:"Int",
 		deleted_by:"Int",
 		terms_conditions_accepted:"Boolean",
+		facebook:"String",
+		x:"String",
+		linkedin:"String",
+		instagram:"String",
 		role:"Role"
 	},
 	getProfileResponse:{
@@ -467,7 +474,7 @@ export const ReturnTypes: Record<string,any> = {
 		image:"String",
 		banner_image:"String",
 		icon:"String",
-		display_order:"String",
+		display_order:"Int",
 		is_featured:"Boolean",
 		is_active:"Boolean",
 		seo_title:"String",
@@ -486,7 +493,11 @@ export const ReturnTypes: Record<string,any> = {
 		isToast:"Boolean",
 		isError:"Boolean",
 		message:"String",
-		data:"Category"
+		data:"categoryList"
+	},
+	categoryList:{
+		count:"Int",
+		rows:"Category"
 	},
 	SubCategoriesListResponse:{
 		status:"Int",
@@ -583,7 +594,8 @@ export const ReturnTypes: Record<string,any> = {
 		isToast:"Boolean",
 		isError:"Boolean",
 		message:"String",
-		token:"String"
+		token:"String",
+		data:"User"
 	},
 	RegisterResponse:{
 		status:"Int",

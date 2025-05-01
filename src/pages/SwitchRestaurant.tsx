@@ -5,25 +5,41 @@ import { useGetRestaurants } from "../services/api-hooks/restaurantsHook";
 import { queryClient } from "../services/QueryClient";
 import { AppRoutes } from "../constants";
 import { useNavigate } from "react-router";
+import { IActiveRBranch, IRestaurant } from "../types";
 
 export default function SwitchRestaurant() {
   const { data } = useGetRestaurants();
   const navigate = useNavigate();
-  const handleSelectRestaurant = (id?: number) => {
+  const handleSelectRestaurant = (restaurant: Partial<IRestaurant>) => {
     queryClient.setQueryData(["activeRestaurant"], {
-      id,
+      id: restaurant?.id,
+      name: restaurant?.name,
     });
-    navigate(AppRoutes.DASHBOARD);
+    if (_.size(restaurant.branches) === 1) {
+      const branch = _.first(restaurant.branches);
+      queryClient.setQueryData<IActiveRBranch>(["activeRBranch"], {
+        id: Number(restaurant?.id),
+        dayOff: Boolean(branch?.is_open),
+        location: branch?.location as string,
+        orderAccepting: Boolean(
+          branch?.is_available_for_delivery && branch?.is_available_for_pickup
+        ),
+      });
+      //  queryClient.invalidateQueries({ queryKey: ["activeRBranch"] });
+      navigate(AppRoutes.DASHBOARD);
+    } else {
+      navigate(AppRoutes.SWITCH_BRANCHES);
+    }
   };
   return (
     <div>
       <PageMeta
-        title="React.js Blank Dashboard | TailAdmin - Next.js Admin Dashboard Template"
+        title="Select Restaurants | Swiggy"
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <div className="min-h-screen flex justify-center items-center rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
         {_.map(data?.data, (restaurant) => (
-          <div onClick={() => handleSelectRestaurant(restaurant?.id)}>
+          <div onClick={() => handleSelectRestaurant(restaurant)}>
             <ComponentCard
               title={
                 <div className="flex items-center w-[100%] justify-center">

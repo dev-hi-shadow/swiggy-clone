@@ -1,0 +1,42 @@
+{
+  "new-orders": "New orders",
+  "branches": "Branches",
+  "edit-branch": "Edit Branch",
+  "add-branch": "Add Branch",
+  "add-restaurant": "Add Restaurant",
+  "edit-restaurant": "Edit Restaurant",
+  "add-category": "Add Category",
+  "edit-category": "Edit Category",
+  "add-sub-category": "Add SubCategory",
+  "edit-sub-category": "Edit SubCategory",
+
+  "modules": {
+    "branches": "Branches",
+    "restaurants": "Restaurants",
+    "orders": "Orders",
+    "users": "Users",
+    "settings": "Settings",
+    "reports": "Reports",
+    "notifications": "Notifications",
+    "users-permissions": "Users & Permissions",
+    "content-manager": "Content Manager",
+    "content-type-builder": "Content Type Builder",
+    "email": "Email",
+    "categories": "Categories"
+  },
+  "button": {
+    "accepting-order": "Accepting orders",
+    "close-accepting-order": "Close accepting orders",
+    "day-off": "Day off",
+    "day-on": "Day on",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "modal-messages": {
+    "accepting-order": "Are you sure you want to enable accepting orders?",
+    "close-accepting-order": "Are you sure you want to disable accepting orders?",
+    "delete-branch-message": "Are you sure you want to delete this branch?",
+    "day-off": "Are you sure you want to mark this branch as off?"
+  }
+}

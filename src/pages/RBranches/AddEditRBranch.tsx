@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageMeta from "../../components/common/PageMeta";
 import { useNavigate, useParams } from "react-router";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
@@ -11,16 +11,18 @@ import _ from "lodash";
 import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
 import * as Yup from "yup";
-import { AppRoutes } from "../../constants";
-import {
-  useCreateRBranchMutation,
-  useUpdateRBranchMutation,
-} from "../../services/api-hooks/branchHooks";
+ import {
+   useCreateRBranchMutation,
+   useGetRBranch,
+   useUpdateRBranchMutation,
+ } from "../../services/api-hooks/branchHooks";
 import Select, { Option } from "../../components/form/Select";
 import { useGetRestaurants } from "../../services/api-hooks/restaurantsHook";
 import { useGetUsers } from "../../services/api-hooks/usersHook";
 import Switch from "../../components/form/switch/Switch";
 import { LeafIcon } from "../../components/svgs";
+import { useTranslation } from "react-i18next";
+import { decodeId, encodeId } from "../../utils";
 
 const fields: (keyof IRBranch)[] = [
   "id",
@@ -56,28 +58,38 @@ const fields: (keyof IRBranch)[] = [
   "service_radius_km",
   "cancellation_policy",
   "timezone",
+  "country",
+  "state",
+  "city",
+  "zip_code",
+  "landmark",
+  "block_floor_number",
+  "nearby_landmark",
+  "is_open",
 ];
 
 const validationSchema = Yup.object().shape({
-  id: Yup.number().label("ID"),
+  id: Yup.number().label("ID").nullable(),
   restaurant_id: Yup.number()
     .required("Restaurant is required")
     .label("Restaurant"),
   manager_id: Yup.number().required().label("Manager"),
-  owner_id: Yup.number().label("Owner"),
+  owner_id: Yup.number().label("Owner").nullable(),
   location: Yup.string().required().label("Location"),
-  image: Yup.string().label("Image"),
-  email: Yup.string().label("Email"),
+  image: Yup.string().label("Image").nullable(),
+  email: Yup.string().label("Email").nullable(),
   phone_number: Yup.string().label("Phone Number").required(),
-  alternate_phone_number: Yup.string().label("Alternate Phone Number"),
+  alternate_phone_number: Yup.string()
+    .label("Alternate Phone Number")
+    .nullable(),
   expected_delivery_time: Yup.string()
     .required()
     .label("Expected Delivery Time"),
-  average_price_for_one: Yup.string().label("Average Price For One"),
-  average_price_for_two: Yup.string().label("Average Price For Two"),
-  delivery_charge: Yup.string().label("Delivery Charge"),
-  min_order_value: Yup.number().label("Min Order Value"),
-  max_order_value: Yup.number().label("Max Order Value"),
+  average_price_for_one: Yup.string().label("Average Price For One").nullable(),
+  average_price_for_two: Yup.string().label("Average Price For Two").nullable(),
+  delivery_charge: Yup.string().label("Delivery Charge").nullable(),
+  min_order_value: Yup.number().label("Min Order Value").nullable(),
+  max_order_value: Yup.number().label("Max Order Value").nullable(),
   is_open: Yup.boolean().label("Is Open").required().default(true),
   is_available_for_delivery: Yup.boolean()
     .label("Is Available For Delivery")
@@ -90,49 +102,55 @@ const validationSchema = Yup.object().shape({
   is_veg_only: Yup.boolean().label("Pure Veg").required().default(true),
   opening_time: Yup.string().label("Opening Time").required(),
   closing_time: Yup.string().label("Closing Time").required(),
-  special_opening_time: Yup.string().label("Special Opening Time"),
-  special_closing_time: Yup.string().label("Special Closing Time"),
+  special_opening_time: Yup.string().label("Special Opening Time").nullable(),
+  special_closing_time: Yup.string().label("Special Closing Time").nullable(),
   average_preparation_time: Yup.string()
     .label("Average Preparation Time")
     .required(),
-  slug: Yup.string().label("Slug"),
-  short_description: Yup.string().label("Short Description"),
-  full_description: Yup.string().label("Full Description"),
+  slug: Yup.string().label("Slug").nullable(),
+  short_description: Yup.string().label("Short Description").nullable(),
+  full_description: Yup.string().label("Full Description").nullable(),
   gst_number: Yup.string().label("GST Number").required(),
-  fssai_license_number: Yup.string().label("FSSAI License Number"),
+  fssai_license_number: Yup.string().label("FSSAI License Number").nullable(),
   service_radius_km: Yup.number()
     .label("Service Radius (km)")
     .required()
     .default(7),
-  cancellation_policy: Yup.string().label("Cancellation Policy"),
-  timezone: Yup.string().label("Timezone").default("Asia/Kolkata"),
+  cancellation_policy: Yup.string().label("Cancellation Policy").nullable(),
+  timezone: Yup.string().label("Timezone").default("Asia/Kolkata").nullable(),
   country: Yup.string().required().label("Country"),
   state: Yup.string().required().label("State"),
   city: Yup.string().required().label("City"),
   zip_code: Yup.string().required().label("Zip Code/Pin Code"),
-  landmark: Yup.string().label("Landmark"),
+  landmark: Yup.string().label("Landmark").nullable(),
   block_floor_number: Yup.string().required().label("Block/Floor Number"),
-  nearby_landmark: Yup.string().label("Nearby Landmark"),
+  nearby_landmark: Yup.string().label("Nearby Landmark").nullable(),
 });
 
 const AddEditRBranch = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [branchDetails, setBranchDetails] = useState<IRBranch | null>(null);
+  const { t } = useTranslation();
 
   const { mutate: addMutate } = useCreateRBranchMutation({
     onSuccess: (data) => {
-      navigate(AppRoutes.BRANCHES);
       setBranchDetails(data?.data as IRBranch);
+      navigate(`/branches/${encodeId(Number(data?.data?.restaurant_id))}`, {
+        replace: true,
+      });
     },
   });
   const { mutate: editMutate } = useUpdateRBranchMutation({
     onSuccess: (data) => {
-      navigate(AppRoutes.BRANCHES);
-      setBranchDetails(data?.data as IRBranch);
+       setBranchDetails(data?.data as IRBranch);
+      navigate(`/branches/${encodeId(Number(data?.data?.restaurant_id))}`, {
+        replace: true,
+      });
     },
   });
 
+  const { data, isSuccess } = useGetRBranch(Number(decodeId(String(id))));
   const { data: RestaurantList } = useGetRestaurants();
   const { data: UserList } = useGetUsers();
 
@@ -162,12 +180,19 @@ const AddEditRBranch = () => {
     ),
     validationSchema,
     onSubmit: handleAddEditRBranch,
+    enableReinitialize: true,
   });
-  console.log(errors);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setBranchDetails(data?.data as IRBranch);
+    }
+  }, [isSuccess, data?.data]);
+
   return (
     <div>
       <PageMeta
-        title={id ? "Edit Branch" : "Add Branch"}
+        title={t(id ? "edit-branch" : "add-branch")}
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle={id ? "Edit Branch" : "Add Branch"} />
@@ -325,7 +350,7 @@ const AddEditRBranch = () => {
               <div className="col-span-2 lg:col-span-1">
                 <div>
                   <Input
-                  type="number"
+                    type="number"
                     isRequired
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -646,7 +671,7 @@ const AddEditRBranch = () => {
               <div className="col-span-2 lg:col-span-1">
                 <div>
                   <Input
-                  type="number"
+                    type="number"
                     name="min_order_value"
                     label="Minimum Order Value"
                     hint="For free delivery"
@@ -661,7 +686,7 @@ const AddEditRBranch = () => {
               <div className="col-span-2 lg:col-span-1">
                 <div>
                   <Input
-                  type="number"
+                    type="number"
                     name="max_order_value"
                     label="Maximum Order Value"
                     values={values}

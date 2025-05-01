@@ -40,7 +40,6 @@ const Select: React.FC<SelectProps> = ({
   touched,
   name,
 }) => {
-  console.log("errors && touched && touched[name] && errors[name]" ,name , errors && touched && touched[name] && errors[name])
   // Manage the selected value
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
 

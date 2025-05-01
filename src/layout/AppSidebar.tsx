@@ -14,7 +14,7 @@ import {
   PlugInIcon,
   TableIcon,
   UserCircleIcon,
-} from "../icons";
+} from "../icons/svgs";
 import { useSidebar } from "../context/SidebarContext";
  
 type NavItem = {
@@ -25,42 +25,7 @@ type NavItem = {
   is_admin_only?: boolean;
 };
 
-const navItems: NavItem[] = [
-  {
-    icon: <GridIcon />,
-    name: "Dashboard",
-    subItems: [{ name: "Ecommerce", path: "/", pro: false }],
-  },
-  {
-    icon: <CalenderIcon />,
-    is_admin_only: true,
-    name: "Restaurants",
-    path: "/restaurants",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
-  },
-  {
-    name: "Forms",
-    icon: <ListIcon />,
-    subItems: [{ name: "Form Elements", path: "/form-elements", pro: false }],
-  },
-  {
-    name: "Tables",
-    icon: <TableIcon />,
-    subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
-  },
-  {
-    name: "Pages",
-    icon: <PageIcon />,
-    subItems: [
-      { name: "Blank Page", path: "/blank", pro: false },
-      { name: "404 Error", path: "/error-404", pro: false },
-    ],
-  },
-];
+
 
 const othersItems: NavItem[] = [
   {
@@ -97,6 +62,8 @@ const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
 
+
+
   const [openSubmenu, setOpenSubmenu] = useState<{
     type: "main" | "others";
     index: number;
@@ -106,11 +73,60 @@ const AppSidebar: React.FC = () => {
   );
   const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // const isActive = (path: string) => location.pathname === path;
-  const isActive = useCallback(
-    (path: string) => location.pathname === path,
-    [location.pathname]
-  );
+   const isActive = useCallback(
+     (path: string) => location.pathname === path,
+     [location.pathname]
+   );
+
+   
+
+
+
+
+   const navItems: NavItem[] = [
+     {
+       icon: <GridIcon />,
+       name: "Dashboard",
+       subItems: [{ name: "Ecommerce", path: "/", pro: false }],
+     },
+     {
+       icon: <CalenderIcon />,
+       is_admin_only: true,
+       name: "Restaurants",
+       path: "/restaurants",
+     },
+     {
+       icon: <CalenderIcon />,
+       is_admin_only: true,
+       name: "Categories",
+       path: "/categories",
+     },
+     {
+       icon: <UserCircleIcon />,
+       name: "User Profile",
+       path: "/profile",
+     },
+     {
+       name: "Forms",
+       icon: <ListIcon />,
+       subItems: [
+         { name: "Form Elements", path: "/form-elements", pro: false },
+       ],
+     },
+     {
+       name: "Tables",
+       icon: <TableIcon />,
+       subItems: [{ name: "Basic Tables", path: "/basic-tables", pro: false }],
+     },
+     {
+       name: "Pages",
+       icon: <PageIcon />,
+       subItems: [
+         { name: "Blank Page", path: "/blank", pro: false },
+         { name: "404 Error", path: "/error-404", pro: false },
+       ],
+     },
+   ];
 
   useEffect(() => {
     let submenuMatched = false;

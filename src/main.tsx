@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <AppWrapper>
         <App />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false}  position="bottom" buttonPosition="bottom-left"/>
       </AppWrapper>
     </ThemeProvider>
   </QueryClientProvider>

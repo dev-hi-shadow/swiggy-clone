@@ -1,14 +1,15 @@
 import { useLayoutEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { EyeCloseIcon, EyeIcon } from "../../icons";
+import { EyeCloseIcon, EyeIcon } from "../../icons/svgs";
  import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
 import Button from "../ui/button/Button";
-import { AppRoutes } from "../../constants";
+import { AppRoutes, LanguagePreferences } from "../../constants";
 import { useFormik } from "formik";
 import * as Yup from "yup"
 import { useLoginMutation } from "../../services/api-hooks/useAuthHook";
-
+ import i18n from "../../i18n";
+ 
 const initialValues = {
   email: "",
   password: "",
@@ -24,24 +25,23 @@ const validationSchema = Yup.object().shape({
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const [isChecked, setIsChecked] = useState(false);
-  const { mutate} = useLoginMutation({
+    const [isChecked, setIsChecked] = useState(false);
+  const { mutate } = useLoginMutation({
     onSuccess: (data) => {
-      console.log("🚀 ~ SignInForm ~ data:", data)
       localStorage.setItem("authToken", (data?.token as string) ?? "");
+      i18n.changeLanguage(
+        data?.data?.language_preference as LanguagePreferences
+      );
       navigate(AppRoutes.DASHBOARD);
-    },
-    onError: (error) => {
-      console.log(error);
     },
   });
 
-    useLayoutEffect(() => {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        navigate(AppRoutes.DASHBOARD);
-      }
-    }, [navigate]);
+  useLayoutEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      navigate(AppRoutes.DASHBOARD);
+    }
+  }, [navigate]);
   const handleSignIn = (values: { email: string; password: string }) => {
     mutate(values);
   };

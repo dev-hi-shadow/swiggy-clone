@@ -1,29 +1,31 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { IRegister, IUser, ApiResponse } from "../../types";
 import { getProfile, login, register } from "../APIs/auth";
+import { queryClient } from "../QueryClient";
 
 export const useRegisterUser = () => {
   return useMutation<ApiResponse<IRegister> | undefined, Error, IRegister>({
     mutationFn: register,
   });
 };
+
 export const useLoginMutation = ({
   onSuccess,
   onError,
 }: {
   onSuccess?: (
-    data: ApiResponse<Partial<IRegister>> | undefined,
+    data: ApiResponse<Partial<IUser>> | undefined,
     variables: { email: string; password: string },
     context: unknown
   ) => Promise<void> | void;
   onError?: (
     error: Error,
-    variables: Partial<{email : string , password  : string}>,
+    variables: Partial<{ email: string; password: string }>,
     context: unknown
   ) => Promise<void> | void;
 }) => {
-  return useMutation<
-    ApiResponse<{ email: string; password: string }> | undefined,
+  const mutation = useMutation<
+    ApiResponse<Partial<IUser>> | undefined,
     Error,
     { email: string; password: string }
   >({
@@ -31,6 +33,7 @@ export const useLoginMutation = ({
     onSuccess,
     onError,
   });
+  return mutation;
 };
 
 export const useFetchProfile = () => {
@@ -40,5 +43,24 @@ export const useFetchProfile = () => {
     staleTime: 1000 * 60 * 5,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useLogout = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?: () => Promise<void> | void;
+  onError?: () => Promise<void> | void;
+}) => {
+  return useMutation<void>({
+    mutationFn: async () => {
+      localStorage.removeItem("authToken");
+      queryClient.removeQueries({ queryKey: ["profile"] });
+      queryClient.removeQueries({ queryKey: ["activeRestaurant"] });
+      queryClient.removeQueries({ queryKey: ["activeRBranch"] });
+    },
+    onSuccess,
+    onError,
   });
 };

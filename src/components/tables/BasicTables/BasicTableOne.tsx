@@ -8,14 +8,14 @@ import {
 
 import _ from "lodash";
 import { FormikErrors } from "formik";
-export interface ITableHeaderProps {
+export interface ITableHeaderProps<T> {
   header: string;
   name: string;
   className?: string;
   commonClass?: string;
   isVisible?: "Yes" | "No";
   cell?: (
-    props: object,
+    props: Partial<T>,
     index?: number,
     values?: unknown,
     setFieldValue?: (
@@ -26,31 +26,34 @@ export interface ITableHeaderProps {
   ) => React.ReactNode | string;
 }
 
-interface IProps {
-  readonly columns: Array<ITableHeaderProps>;
+interface IProps<T> {
+  readonly columns: Array<ITableHeaderProps<T>>;
   readonly data?: Array<unknown>;
 }
 
-export default function BasicTableOne({ columns = [], data = [] }: IProps) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-      <div className="max-w-full overflow-x-auto">
-        <Table>
-          {/* Table Header */}
-          <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-            <TableRow>
-              {_.map(columns, ({ header }, index) => {
-                return (
-                  <TableCell
-                    isHeader
-                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                    key={index}
-                  >
-                    {header}
-                  </TableCell>
-                );
-              })}
-              {/* <TableCell
+export default function BasicTableOne<T>({
+  columns = [],
+  data = [],
+}: IProps<T>) {
+   return (
+     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+       <div className="max-w-full overflow-x-auto">
+         <Table>
+           {/* Table Header */}
+           <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+             <TableRow>
+               {_.map(columns, ({ header }, index) => {
+                 return (
+                   <TableCell
+                     isHeader
+                     className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                     key={index}
+                   >
+                     {header}
+                   </TableCell>
+                 );
+               })}
+               {/* <TableCell
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
@@ -80,24 +83,24 @@ export default function BasicTableOne({ columns = [], data = [] }: IProps) {
               >
                 Budget
               </TableCell> */}
-            </TableRow>
-          </TableHeader>
+             </TableRow>
+           </TableHeader>
 
-          {/* Table Body */}
-          <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-            {data.map((row, index) => (
-              <TableRow key={index}>
-                {_.map(columns, (column, index) => {
-                  return (
-                    <TableCell
-                      key={index}
-                      className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400"
-                    >
-                      {column?.cell ? column?.cell(row as object, index) : "-"}
-                    </TableCell>
-                  );
-                })}
-                {/* <TableCell className="px-5 py-4 sm:px-6 text-start">
+           {/* Table Body */}
+           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+             {(data || [])?.map((row, index) => (
+               <TableRow key={index}>
+                 {_.map(columns, (column, index) => {
+                   return (
+                     <TableCell
+                       key={index}
+                       className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400"
+                     >
+                       {column?.cell ? column?.cell(row as object, index) : "-"}
+                     </TableCell>
+                   );
+                 })}
+                 {/* <TableCell className="px-5 py-4 sm:px-6 text-start">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 overflow-hidden rounded-full">
                       <img
@@ -118,7 +121,7 @@ export default function BasicTableOne({ columns = [], data = [] }: IProps) {
                   </div>
                 </TableCell> */}
 
-                {/* <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                 {/* <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                   {order.projectName}
                 </TableCell>
                 <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
@@ -156,11 +159,11 @@ export default function BasicTableOne({ columns = [], data = [] }: IProps) {
                 <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                   {order.budget}
                 </TableCell> */}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
-  );
+               </TableRow>
+             ))}
+           </TableBody>
+         </Table>
+       </div>
+     </div>
+   );
 }

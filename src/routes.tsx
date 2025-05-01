@@ -1,9 +1,10 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router";
 import Loader from "./context/Loader";
 import _ from "lodash";
 import { IRoutes } from "./types";
-import { AppRoutes } from "./constants";
+import { AppRoutes, LanguagePreferences } from "./constants";
+import i18n from "./i18n";
 
 const SignIn = React.lazy(() => import("./pages/AuthPages/SignIn"));
 const SignUp = React.lazy(() => import("./pages/AuthPages/SignUp"));
@@ -16,18 +17,19 @@ const Avatars = React.lazy(() => import("./pages/UiElements/Avatars"));
 const Buttons = React.lazy(() => import("./pages/UiElements/Buttons"));
 const LineChart = React.lazy(() => import("./pages/Charts/LineChart"));
 const BarChart = React.lazy(() => import("./pages/Charts/BarChart"));
- const BasicTables = React.lazy(() => import("./pages/Tables/BasicTables"));
+const BasicTables = React.lazy(() => import("./pages/Tables/BasicTables"));
 const FormElements = React.lazy(() => import("./pages/Forms/FormElements"));
 const Blank = React.lazy(() => import("./pages/Blank"));
 const AppLayout = React.lazy(() => import("./layout/AppLayout"));
 const Home = React.lazy(() => import("./pages/Dashboard/Home"));
 const Restaurants = React.lazy(() => import("./pages/Restaurants"));
 const SwitchRestaurant = React.lazy(() => import("./pages/SwitchRestaurant"));
- const AddEditRBranch = React.lazy(
-   () => import("./pages/RBranches/AddEditRBranch")
- );
-const AddEditRestaurant = React.lazy(
-  () => import("./pages/Restaurants/AddEditRestaurant")
+const RBranches = React.lazy(() => import("./pages/RBranches"));
+const Categories = React.lazy(() => import("./pages/Categories"));
+const AddEditRBranch = React.lazy(() => import("./pages/RBranches/AddEditRBranch"));
+const AddEditRestaurant = React.lazy(() => import("./pages/Restaurants/AddEditRestaurant"));
+const AddEditCategory = React.lazy(
+  () => import("./pages/Categories/AddEditCategory")
 );
 
 const PRIVATE_FULL_PAGE_ROUTES: IRoutes[] = [
@@ -55,8 +57,32 @@ const PRIVATE_ROUTES: IRoutes[] = [
     element: <AddEditRestaurant />,
   },
   {
+    path: AppRoutes.EDIT_RESTAURANT,
+    element: <AddEditRestaurant />,
+  },
+  {
     path: AppRoutes.ADD_BRANCH,
     element: <AddEditRBranch />,
+  },
+  {
+    path: AppRoutes.CATEGORIES,
+    element: <Categories />,
+  },
+  {
+    path: AppRoutes.ADD_CATEGORY,
+    element: <AddEditCategory />,
+  },
+  {
+    path: AppRoutes.EDIT_CATEGORY,
+    element: <AddEditCategory />,
+  },
+  {
+    path: AppRoutes.EDIT_BRANCH,
+    element: <AddEditRBranch />,
+  },
+  {
+    path: AppRoutes.BRANCHES,
+    element: <RBranches />,
   },
   {
     path: "/blank",
@@ -120,6 +146,9 @@ const PUBLIC_ROUTES: IRoutes[] = [
 ];
 
 const RouterComponent = () => {
+  useEffect(() => {
+    i18n.changeLanguage(LanguagePreferences.EN);
+  }, []);
   return (
     <Suspense fallback={<Loader />}>
       <Routes>

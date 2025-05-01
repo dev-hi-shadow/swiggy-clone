@@ -19,7 +19,7 @@ interface SwitchProps {
 
 const Switch: React.FC<SwitchProps> = ({
   label,
-  defaultChecked = false,
+  defaultChecked,
   disabled = false,
   onChange,
   color = "blue", // Default to blue color
@@ -28,10 +28,11 @@ const Switch: React.FC<SwitchProps> = ({
   touched,
   name,
   className,
-   labelStartIcon,
+  labelStartIcon,
   labelEndIcon,
+  values,
 }) => {
-  const [isChecked, setIsChecked] = useState(defaultChecked);
+  const [isChecked, setIsChecked] = useState(defaultChecked ?? values?.[name]);
 
   const handleToggle = () => {
     if (disabled) return;
@@ -69,7 +70,7 @@ const Switch: React.FC<SwitchProps> = ({
         } ${className}`}
         onClick={handleToggle} // Toggle when the label itself is clicked
       >
-      <span className="flex gap-x-2">
+        <span className="flex gap-x-2">
           {labelStartIcon} {label} {labelEndIcon}
         </span>
         <div className="relative">

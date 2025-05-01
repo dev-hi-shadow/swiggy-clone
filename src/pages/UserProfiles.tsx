@@ -10,12 +10,12 @@ import { useGetUserDetails } from "../services/api-hooks/usersHook";
 export default function UserProfiles() {
   const [userDetails, setUserDetails] = useState<Partial<IUser> | null>(null);
    const { data, isSuccess } = useGetUserDetails();
-  useEffect(() => {
-    if (isSuccess) {
-      setUserDetails(data?.data ?? null);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSuccess]);
+   useEffect(() => {
+     if (isSuccess) {
+       setUserDetails(data?.data ?? null);
+     }
+     // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [isSuccess]);
 
   return (
     <>

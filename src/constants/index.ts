@@ -7,13 +7,18 @@ export enum AppRoutes {
   SETTINGS = "/settings",
   NOT_FOUND = "/404",
   FORBIDDEN = "/403",
-  BRANCHES = "/branches",
+  BRANCHES = "/branches/:id",
   USERS = "/users",
-  ADD_BRANCH = "/branches/new",
+  ADD_BRANCH = "/branch/new",
+  EDIT_BRANCH = "/branch/:id",
   ADD_RESTAURANT = "/restaurant/new",
   EDIT_RESTAURANT = "/restaurant/:id",
   RESTAURANTS = "/restaurants",
   SWITCH_RESTAURANT = "/select-restaurant",
+  SWITCH_BRANCHES = "/select-branches",
+  CATEGORIES = "/categories",
+  ADD_CATEGORY = "/category/new",
+  EDIT_CATEGORY = "/category/:id",
 }
 
 
@@ -25,5 +30,6 @@ export enum LanguagePreferences {
   IT = "it",
   JA = "ja",
   KO = "ko",
-  CN = "cn",
+  CNSM = "cn-sm",
+  CNTR = "cn-tr",
 }

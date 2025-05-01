@@ -1,6 +1,8 @@
 import Button from "../ui/button/Button";
+import ResponsiveImage from "../ui/images/ResponsiveImage";
 
 interface ComponentCardProps {
+  image?: string;
   title?: string | React.ReactNode;
   children: React.ReactNode;
   className?: string; // Additional custom classes for styling
@@ -12,6 +14,7 @@ interface ComponentCardProps {
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
+  image,
   title,
   children,
   className = "",
@@ -26,7 +29,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       <div className="px-6 py-5">
         <div className="flex justify-between items-center">
           <h3 className="text-base w-full font-medium text-gray-800 dark:text-white/90">
-            {title}
+            {image ? <ResponsiveImage image={image} /> : title}
           </h3>
           {desc && (
             <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
@@ -34,7 +37,12 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
             </p>
           )}
           {button && (
-            <Button size="sm" type="button" onClick={button.onClick}>
+            <Button
+              size="sm"
+              type="button"
+              className="sm:whitespace-nowrap"
+              onClick={button.onClick}
+            >
               {button.label}
             </Button>
           )}
@@ -42,7 +50,11 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       </div>
 
       {/* Card Body */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-800 sm:p-6">
+      <div
+        className={`p-4 border-t border-gray-100 dark:border-gray-800  ${
+          !image && "sm:p-6"
+        }`}
+      >
         <div className="space-y-6">{children}</div>
       </div>
     </div>

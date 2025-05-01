@@ -19,9 +19,10 @@ export interface IRegister {
   email: string;
   password: string;
   terms_conditions_accepted?: boolean;
-  token?:string
-} 
+  token?: string;
+}
 
+ 
 export interface IRole {
   id: number | null;
   name: string | null;
@@ -85,7 +86,7 @@ export interface IUser {
 
 export interface IRestaurant {
   id: number;
-  owner_id: number  ;
+  owner_id: number;
   name: string | null;
   slug: string | null;
   description: string | null;
@@ -106,7 +107,7 @@ export interface IRestaurant {
   cuisine_types: string | null;
   tags: string | null;
   average_rating: number | null;
-  total_reviews: number| null;
+  total_reviews: number | null;
   is_verified: boolean;
   approval_status: "pending" | "approved" | "rejected";
   approval_notes: string | null;
@@ -137,13 +138,6 @@ export interface IRBranch {
   id: number;
   restaurant_id: number;
   manager_id: number;
-  country: string;
-  state: string;
-  city: string;
-  zip_code: string;
-  landmark?: string;
-  block_floor_number?: number;
-  nearby_landmark?: string;
   location: string;
   longitude: number;
   latitude: number;
@@ -180,6 +174,13 @@ export interface IRBranch {
   cancellation_policy?: string;
   external_integration_id?: string;
   timezone: string;
+  country: string;
+  state: string;
+  city: string;
+  zip_code: string;
+  landmark?: string;
+  block_floor_number?: number;
+  nearby_landmark?: string;
   created_at: Date;
   updated_at: Date;
   deleted_at?: Date | null;
@@ -189,4 +190,41 @@ export interface IRBranch {
   restaurant?: IRestaurant;
   owner?: IUser;
   manager?: IUser;
+}
+
+export interface IActiveRestaurant {
+  id: number;
+  name: string;
+}
+
+
+export interface IActiveRBranch {
+  id: number;
+  location: string;
+  orderAccepting: boolean;
+  dayOff : boolean
+}
+
+
+export interface ICategory {
+  id: number;
+  name: string;
+  slug?: string;
+  short_description?: string;
+  long_description?: string;
+  image?: string;
+  banner_image?: string;
+  icon?: string;
+  display_order?: number;
+  is_featured: boolean;
+  is_active: boolean;
+  seo_title?: string;
+  seo_description?: string;
+  seo_keywords?: string;
+  created_at: Date;
+  updated_at: Date;
+  deleted_at?: Date | null;
+  created_by?: number | null;
+  updated_by?: number | null;
+  deleted_by?: number | null;
 }

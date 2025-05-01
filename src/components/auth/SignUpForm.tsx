@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { EyeCloseIcon, EyeIcon } from "../../icons";
+import { EyeCloseIcon, EyeIcon } from "../../icons/svgs";
 import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
 import { AppRoutes } from "../../constants";
