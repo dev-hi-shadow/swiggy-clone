@@ -30,7 +30,16 @@ export const AllTypesProps: Record<string,any> = {
 	Date: `scalar.Date` as const,
 	JSONObject: `scalar.JSONObject` as const,
 	RootMutation:{
-		createOrUpdateRole:{
+		createRole:{
+			created_at:"Date",
+			deleted_at:"Date",
+			updated_at:"Date",
+			permissions:"JSONObject"
+		},
+		updateRole:{
+			created_at:"Date",
+			deleted_at:"Date",
+			updated_at:"Date",
 			permissions:"JSONObject"
 		},
 		deleteRole:{
@@ -147,8 +156,8 @@ export const AllTypesProps: Record<string,any> = {
 
 export const ReturnTypes: Record<string,any> = {
 	RootQuery:{
-		getAllRoles:"RolesResponse",
-		getRoleById:"RoleResponse",
+		roleList:"roleListResponse",
+		getRoleById:"getRoleByIdResponse",
 		usersList:"usersListResponse",
 		getProfile:"getProfileResponse",
 		RestaurantList:"RestaurantsResponse",
@@ -161,7 +170,7 @@ export const ReturnTypes: Record<string,any> = {
 		subCategoriesList:"SubCategoriesListResponse",
 		getSubcategoryById:"SubCategoryByIdResponse"
 	},
-	RolesResponse:{
+	roleListResponse:{
 		status:"Int",
 		success:"Boolean",
 		isToast:"Boolean",
@@ -180,7 +189,7 @@ export const ReturnTypes: Record<string,any> = {
 	},
 	Date: `scalar.Date` as const,
 	JSONObject: `scalar.JSONObject` as const,
-	RoleResponse:{
+	getRoleByIdResponse:{
 		status:"Int",
 		success:"Boolean",
 		isToast:"Boolean",
@@ -539,7 +548,8 @@ export const ReturnTypes: Record<string,any> = {
 		data:"SubCategory"
 	},
 	RootMutation:{
-		createOrUpdateRole:"Role",
+		createRole:"createRoleResponse",
+		updateRole:"updateRoleResponse",
 		deleteRole:"Role",
 		createUser:"CreateUserResponse",
 		updateUser:"UpdateUserResponse",
@@ -564,6 +574,22 @@ export const ReturnTypes: Record<string,any> = {
 		createRBDeal:"createRBDealResponse",
 		deleteRBDeal:"deleteRBDealResponse",
 		createDish:"createDishResponse"
+	},
+	createRoleResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"Role"
+	},
+	updateRoleResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"Role"
 	},
 	CreateUserResponse:{
 		status:"Int",

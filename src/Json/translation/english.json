@@ -9,6 +9,8 @@
   "edit-category": "Edit Category",
   "add-sub-category": "Add SubCategory",
   "edit-sub-category": "Edit SubCategory",
+  "add-role": "Add Role",
+  "edit-role": "Edit Role",
 
   "modules": {
     "branches": "Branches",
@@ -22,7 +24,8 @@
     "content-manager": "Content Manager",
     "content-type-builder": "Content Type Builder",
     "email": "Email",
-    "categories": "Categories"
+    "categories": "Categories",
+    "roles": "Roles"
   },
   "button": {
     "accepting-order": "Accepting orders",
@@ -31,7 +34,8 @@
     "day-on": "Day on",
     "save": "Save",
     "cancel": "Cancel",
-    "close": "Close"
+    "close": "Close",
+    "reset": "Reset"
   },
   "modal-messages": {
     "accepting-order": "Are you sure you want to enable accepting orders?",

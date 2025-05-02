@@ -30,6 +30,38 @@ export const getCategories = async (): Promise<
     rows: Array<Partial<ICategory>>;
   }>;
 };
+export const getCategory = async (input: {
+  id: number;
+}): Promise<ApiResponse<Partial<ICategory>>> => {
+  const res = await graphql("query")({
+    getCategoryById: [
+      input,
+      {
+        status: true,
+        success: true,
+        isToast: true,
+        message: true,
+        data: {
+          id: true,
+          name: true,
+          slug: true,
+          short_description: true,
+          long_description: true,
+          image: true,
+          banner_image: true,
+          icon: true,
+          display_order: true,
+          is_featured: true,
+          is_active: true,
+          seo_title: true,
+          seo_description: true,
+          seo_keywords: true,
+        },
+      },
+    ],
+  });
+  return res?.getCategoryById as ApiResponse<Partial<ICategory>>;
+};
 
 
 

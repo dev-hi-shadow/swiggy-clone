@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from "react";
-import { Route, Routes } from "react-router";
+import { matchPath, Route, Routes, useLocation, useNavigate } from "react-router";
 import Loader from "./context/Loader";
 import _ from "lodash";
 import { IRoutes } from "./types";
@@ -26,8 +26,10 @@ const Restaurants = React.lazy(() => import("./pages/Restaurants"));
 const SwitchRestaurant = React.lazy(() => import("./pages/SwitchRestaurant"));
 const RBranches = React.lazy(() => import("./pages/RBranches"));
 const Categories = React.lazy(() => import("./pages/Categories"));
+const Roles = React.lazy(() => import("./pages/Roles"));
 const AddEditRBranch = React.lazy(() => import("./pages/RBranches/AddEditRBranch"));
 const AddEditRestaurant = React.lazy(() => import("./pages/Restaurants/AddEditRestaurant"));
+const AddEditRole = React.lazy(() => import("./pages/Roles/AddEditRole"));
 const AddEditCategory = React.lazy(
   () => import("./pages/Categories/AddEditCategory")
 );
@@ -75,6 +77,18 @@ const PRIVATE_ROUTES: IRoutes[] = [
   {
     path: AppRoutes.EDIT_CATEGORY,
     element: <AddEditCategory />,
+  },
+  {
+    path: AppRoutes.ROLES,
+    element: <Roles />,
+  },
+  {
+    path: AppRoutes.ADD_ROLE,
+    element: <AddEditRole />,
+  },
+  {
+    path: AppRoutes.EDIT_ROLE,
+    element: <AddEditRole />,
   },
   {
     path: AppRoutes.EDIT_BRANCH,
@@ -146,9 +160,22 @@ const PUBLIC_ROUTES: IRoutes[] = [
 ];
 
 const RouterComponent = () => {
+
+const { pathname } = useLocation(); 
+const navigate = useNavigate();
+
   useEffect(() => {
+    const isProtectedRoute = [
+      ...PRIVATE_ROUTES,
+      ...PRIVATE_FULL_PAGE_ROUTES,
+    ].some((route) => matchPath({ path: route.path, end: false }, pathname));
+
+    if (isProtectedRoute && !localStorage.getItem("authToken")) {
+      navigate(AppRoutes.SIGN_IN, { replace: true });
+    }
     i18n.changeLanguage(LanguagePreferences.EN);
-  }, []);
+  }, [navigate, pathname]);
+  
   return (
     <Suspense fallback={<Loader />}>
       <Routes>

@@ -19,6 +19,9 @@ export enum AppRoutes {
   CATEGORIES = "/categories",
   ADD_CATEGORY = "/category/new",
   EDIT_CATEGORY = "/category/:id",
+  ROLES = "/roles",
+  ADD_ROLE = "/role/new",
+  EDIT_ROLE = "/role/:id",
 }
 
 

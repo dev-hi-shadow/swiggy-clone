@@ -12,6 +12,7 @@ interface IProps {
   touched?: FormikTouched<Record<string, boolean>>;
   name: string;
   isRequired?: boolean;
+  label?: string;
 }
 const DropzoneComponent: React.FC<IProps> = (props) => {
   const onDrop = (acceptedFiles: File[]) => {
@@ -68,8 +69,10 @@ const DropzoneComponent: React.FC<IProps> = (props) => {
           </div>
 
           {/* Text Content */}
-          <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
-            {isDragActive ? "Drop Files Here" : "Drag & Drop Files Here"}
+          <h4 className="mb-3 text-center font-semibold text-gray-800 text-theme-xl dark:text-white/90">
+            {isDragActive
+              ? `Drop ${props.label ?? "Files"} Here`
+              : `Drag & Drop ${props.label ?? "Files"} Here`}
           </h4>
 
           <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">

@@ -16,7 +16,7 @@ export interface ITableHeaderProps<T> {
   isVisible?: "Yes" | "No";
   cell?: (
     props: Partial<T>,
-    index?: number,
+    index?: number | string,
     values?: unknown,
     setFieldValue?: (
       field: string,
@@ -28,7 +28,7 @@ export interface ITableHeaderProps<T> {
 
 interface IProps<T> {
   readonly columns: Array<ITableHeaderProps<T>>;
-  readonly data?: Array<unknown>;
+  readonly data?: Array<unknown> | Record<string, unknown>;
 }
 
 export default function BasicTableOne<T>({
@@ -87,78 +87,22 @@ export default function BasicTableOne<T>({
            </TableHeader>
 
            {/* Table Body */}
+
            <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-             {(data || [])?.map((row, index) => (
-               <TableRow key={index}>
-                 {_.map(columns, (column, index) => {
+             {_.map(data, (row, key) => (
+               <TableRow key={key}>
+                 {_.map(columns, (column, columnKey) => {
                    return (
                      <TableCell
-                       key={index}
+                       key={columnKey}
                        className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400"
                      >
-                       {column?.cell ? column?.cell(row as object, index) : "-"}
+                       {column?.cell
+                         ? column?.cell(row as Partial<T>, key)
+                         : "-"}
                      </TableCell>
                    );
                  })}
-                 {/* <TableCell className="px-5 py-4 sm:px-6 text-start">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 overflow-hidden rounded-full">
-                      <img
-                        width={40}
-                        height={40}
-                        src={order.user.image}
-                        alt={order.user.name}
-                      />
-                    </div>
-                    <div>
-                      <span className="block font-medium text-gray-800 text-theme-sm dark:text-white/90">
-                        {order.user.name}
-                      </span>
-                      <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                        {order.user.role}
-                      </span>
-                    </div>
-                  </div>
-                </TableCell> */}
-
-                 {/* <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  {order.projectName}
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  <div className="flex -space-x-2">
-                    {order.team.images.map((teamImage, index) => (
-                      <div
-                        key={index}
-                        className="w-6 h-6 overflow-hidden border-2 border-white rounded-full dark:border-gray-900"
-                      >
-                        <img
-                          width={24}
-                          height={24}
-                          src={teamImage}
-                          alt={`Team member ${index + 1}`}
-                          className="w-full size-6"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                  <Badge
-                    size="sm"
-                    color={
-                      order.status === "Active"
-                        ? "success"
-                        : order.status === "Pending"
-                        ? "warning"
-                        : "error"
-                    }
-                  >
-                    {order.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                  {order.budget}
-                </TableCell> */}
                </TableRow>
              ))}
            </TableBody>
