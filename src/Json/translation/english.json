@@ -1,4 +1,13 @@
 {
+  "name": "Name",
+  "features": "Features",
+  "feature": "Feature",
+  "description": "Description",
+  "price": "Price",
+  "quantity": "Quantity",
+  "permissions": "Permissions",
+  "permission": "Permission",
+
   "new-orders": "New orders",
   "branches": "Branches",
   "edit-branch": "Edit Branch",

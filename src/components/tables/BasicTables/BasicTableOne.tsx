@@ -29,31 +29,51 @@ export interface ITableHeaderProps<T> {
 interface IProps<T> {
   readonly columns: Array<ITableHeaderProps<T>>;
   readonly data?: Array<unknown> | Record<string, unknown>;
+  readonly saveButton?: {
+    label?: string;
+    onClick: () => void;
+    type?: "button" | "submit" | "reset";
+    className?: string;
+    disabled?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
+  };
+  readonly cancelButton?: {
+    label?: string;
+    onClick: () => void;
+    type?: "button" | "submit" | "reset";
+    className?: string;
+    disabled?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
+  };
 }
 
 export default function BasicTableOne<T>({
   columns = [],
   data = [],
+  saveButton,
+  cancelButton,
 }: IProps<T>) {
-   return (
-     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-       <div className="max-w-full overflow-x-auto">
-         <Table>
-           {/* Table Header */}
-           <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-             <TableRow>
-               {_.map(columns, ({ header }, index) => {
-                 return (
-                   <TableCell
-                     isHeader
-                     className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
-                     key={index}
-                   >
-                     {header}
-                   </TableCell>
-                 );
-               })}
-               {/* <TableCell
+  return (
+    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+      <div className="max-w-full overflow-x-auto">
+        <Table>
+          {/* Table Header */}
+          <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
+            <TableRow>
+              {_.map(columns, ({ header }, index) => {
+                return (
+                  <TableCell
+                    isHeader
+                    className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                    key={index}
+                  >
+                    {header}
+                  </TableCell>
+                );
+              })}
+              {/* <TableCell
                 isHeader
                 className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
               >
@@ -83,31 +103,31 @@ export default function BasicTableOne<T>({
               >
                 Budget
               </TableCell> */}
-             </TableRow>
-           </TableHeader>
+            </TableRow>
+          </TableHeader>
 
-           {/* Table Body */}
+          {/* Table Body */}
 
-           <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-             {_.map(data, (row, key) => (
-               <TableRow key={key}>
-                 {_.map(columns, (column, columnKey) => {
-                   return (
-                     <TableCell
-                       key={columnKey}
-                       className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400"
-                     >
-                       {column?.cell
-                         ? column?.cell(row as Partial<T>, key)
-                         : "-"}
-                     </TableCell>
-                   );
-                 })}
-               </TableRow>
-             ))}
-           </TableBody>
-         </Table>
-       </div>
-     </div>
-   );
+          <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
+            {_.map(data, (row, key) => (
+              <TableRow key={key}>
+                {_.map(columns, (column, columnKey) => {
+                  return (
+                    <TableCell
+                      key={columnKey}
+                      className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400"
+                    >
+                      {column?.cell
+                        ? column?.cell(row as Partial<T>, key)
+                        : "-"}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
 }

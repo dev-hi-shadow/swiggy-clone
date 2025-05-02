@@ -11,6 +11,24 @@ interface ComponentCardProps {
     label: string;
     onClick: () => void;
   };
+  saveButton?: {
+    label?: string;
+    onClick?: () => void;
+    type?: "button" | "submit" | "reset";
+    className?: string;
+    disabled?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
+  };
+  cancelButton?: {
+    label?: string;
+    onClick: () => void;
+    type?: "button" | "submit" | "reset";
+    className?: string;
+    disabled?: boolean;
+    loading?: boolean;
+    icon?: React.ReactNode;
+  };
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
@@ -20,6 +38,8 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   className = "",
   desc = "",
   button,
+  cancelButton,
+  saveButton,
 }) => {
   return (
     <div
@@ -57,6 +77,29 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       >
         <div className="space-y-6">{children}</div>
       </div>
+      {/* Card Footer */}
+      {(cancelButton || saveButton) && (
+        <div className="flex justify-end gap-3 border-t border-gray-100 dark:border-gray-800 p-4">
+          {cancelButton && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={cancelButton.onClick}
+            >
+              {cancelButton.label}
+            </Button>
+          )}
+          {saveButton && (
+            <Button
+              type={saveButton.type}
+              variant="primary"
+              onClick={saveButton.onClick}
+            >
+              {saveButton.label}
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 };
