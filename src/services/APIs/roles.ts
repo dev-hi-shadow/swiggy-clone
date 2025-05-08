@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { ApiResponse, IRole } from "../../types";
 import { graphql } from "../graphqlClient";
 
@@ -18,6 +19,12 @@ export const getRoles = async (): Promise<
       },
     },
   });
+  if (res.roleList?.data?.length) {
+    res.roleList.data = _.map(res.roleList.data, (role) => ({
+      ...role,
+      permissions: role.permissions ? JSON.parse(role.permissions) : [],
+    }));
+  }
   return res?.roleList as ApiResponse<Array<Partial<IRole>>>;
 };
 export const getRole = async (input: {
@@ -40,6 +47,11 @@ export const getRole = async (input: {
       },
     ],
   });
+   if (res.getRoleById?.data?.permissions) {
+    res.getRoleById.data.permissions = JSON.parse(
+      res.getRoleById.data?.permissions
+    );
+  }
   return res?.getRoleById as ApiResponse<Partial<IRole>>;
 };
 
@@ -48,7 +60,7 @@ export const createRole = async (
 ): Promise<ApiResponse<Partial<IRole>> | undefined> => {
   const res = await graphql("mutation")({
     createRole: [
-      input,
+      { ...input, permissions: JSON.stringify(input.permissions) },
       {
         status: true,
         success: true,
@@ -66,6 +78,7 @@ export const updateRole = async (
     updateRole: [
       {
         ...input,
+        permissions: JSON.stringify(input.permissions),
       },
       {
         data: {

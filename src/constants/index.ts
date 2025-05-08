@@ -19,6 +19,9 @@ export enum AppRoutes {
   CATEGORIES = "/categories",
   ADD_CATEGORY = "/category/new",
   EDIT_CATEGORY = "/category/:id",
+  SUB_CATEGORIES = "/sub-categories/:category_id",
+  ADD_SUB_CATEGORY = "/sub-category/new",
+  EDIT_SUB_CATEGORY = "/sub-category/:id",
   ROLES = "/roles",
   ADD_ROLE = "/role/new",
   EDIT_ROLE = "/role/:id",
@@ -35,4 +38,39 @@ export enum LanguagePreferences {
   KO = "ko",
   CNSM = "cn-sm",
   CNTR = "cn-tr",
+}
+
+export const FEATURES: Record<
+  string,
+  "ALL" | ("read" | "update" | "write" | "delete")[]
+> = Object.freeze({
+  users: "ALL",
+  restaurants: "ALL",
+  branches: "ALL",
+  c_deals: "ALL",
+  r_deals: "ALL",
+  rb_deals: "ALL",
+  d_ingredients: "ALL",
+  di_options: "ALL",
+  deals: "ALL",
+  dishes: "ALL",
+  category: "ALL",
+  sub_category: "ALL",
+  role: "ALL",
+});
+
+export enum FEATURES_NAME {
+  users = "Users",
+  restaurants = "Restaurants",
+  branches = "Branches (Restaurant)",
+  c_deals = "Category Deals",
+  r_deals = "Restaurant Deals",
+  rb_deals = "Branch Deals (Restaurant)",
+  d_ingredients = "Deals Ingredients",
+  di_options = "Deals Ingredients Options",
+  deals = "Deals",
+  dishes = "Dishes",
+  category = "Category",
+  sub_category = "Sub Category",
+  role = "Role",
 }

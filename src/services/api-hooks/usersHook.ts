@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import type { IUser, ApiResponse } from "../../types";
 import { getUserDetails, getUsers, updateUser } from "../APIs/users";
 import { queryClient } from "../QueryClient";
@@ -33,18 +33,11 @@ export const useGetUserDetails = () => {
   return useQuery<ApiResponse<Partial<IUser>>, Error>({
     queryKey: ["getUserDetails"],
     queryFn: getUserDetails,
+    staleTime: Infinity,
   });
 };
 
 export const useGetUsers = () => {
-  const queryClient = useQueryClient();
-  const initialData = queryClient.getQueryData<
-    ApiResponse<{
-      count: number;
-      rows: Array<Partial<IUser>>;
-    }>
-  >(["getUsers"]);
-
   return useQuery<
     ApiResponse<{
       count: number;
@@ -53,11 +46,9 @@ export const useGetUsers = () => {
   >({
     queryKey: ["getUsers"],
     queryFn: getUsers,
-    initialData,
+    staleTime: Infinity,
   });
 };
-
-
 
 export const useSwitchToAdmin = ({
   onSuccess,

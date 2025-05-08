@@ -1,16 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { ApiResponse, ICategory } from "../../types";
-import { queryClient } from "../QueryClient";
-import { createCategory, getCategories, getCategory, updateCategory } from "../APIs/categories";
+ import {
+   createCategory,
+   getCategories,
+   getCategory,
+   updateCategory,
+ } from "../APIs/categories";
 
 export const useGetCategories = () => {
-  const initialData = queryClient.getQueryData<
-    ApiResponse<{
-      count: number;
-      rows: Array<Partial<ICategory>>;
-    }>
-  >(["getCategories"]);
-
   return useQuery<
     ApiResponse<{
       count: number;
@@ -20,13 +17,11 @@ export const useGetCategories = () => {
   >({
     queryKey: ["getCategories"],
     queryFn: getCategories,
-    initialData,
+    staleTime: Infinity,
   });
 };
 export const useGetCategory = (id: number) => {
-  const initialData = queryClient.getQueryData<ApiResponse<Partial<ICategory>>>(
-    ["getCategory"]
-  );
+ 
 
   return useQuery<ApiResponse<Partial<ICategory>>, Error>({
     queryKey: ["getCategory", { id }],
@@ -34,7 +29,7 @@ export const useGetCategory = (id: number) => {
       const [, { id }] = queryKey as [string, { id: number }];
       return getCategory({ id });
     },
-    initialData,
+    staleTime: Infinity,
   });
 };
 

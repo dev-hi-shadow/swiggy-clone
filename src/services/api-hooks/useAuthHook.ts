@@ -14,7 +14,7 @@ export const useLoginMutation = ({
   onError,
 }: {
   onSuccess?: (
-    data: ApiResponse<Partial<IUser>> | undefined,
+    data: (ApiResponse<Partial<IUser>> & { token: string }) | undefined,
     variables: { email: string; password: string },
     context: unknown
   ) => Promise<void> | void;
@@ -25,7 +25,7 @@ export const useLoginMutation = ({
   ) => Promise<void> | void;
 }) => {
   const mutation = useMutation<
-    ApiResponse<Partial<IUser>> | undefined,
+    (ApiResponse<Partial<IUser>> & { token: string }) | undefined,
     Error,
     { email: string; password: string }
   >({
@@ -55,7 +55,7 @@ export const useLogout = ({
 }) => {
   return useMutation<void>({
     mutationFn: async () => {
-      localStorage.removeItem("authToken");
+      queryClient.removeQueries({ queryKey: ["auth"] });
       queryClient.removeQueries({ queryKey: ["profile"] });
       queryClient.removeQueries({ queryKey: ["activeRestaurant"] });
       queryClient.removeQueries({ queryKey: ["activeRBranch"] });

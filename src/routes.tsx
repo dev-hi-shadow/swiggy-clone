@@ -2,9 +2,10 @@ import React, { Suspense, useEffect } from "react";
 import { matchPath, Route, Routes, useLocation, useNavigate } from "react-router";
 import Loader from "./context/Loader";
 import _ from "lodash";
-import { IRoutes } from "./types";
+import { IAuthenticate, IRoutes } from "./types";
 import { AppRoutes, LanguagePreferences } from "./constants";
 import i18n from "./i18n";
+import { queryClient } from "./services/QueryClient";
 
 const SignIn = React.lazy(() => import("./pages/AuthPages/SignIn"));
 const SignUp = React.lazy(() => import("./pages/AuthPages/SignUp"));
@@ -26,12 +27,16 @@ const Restaurants = React.lazy(() => import("./pages/Restaurants"));
 const SwitchRestaurant = React.lazy(() => import("./pages/SwitchRestaurant"));
 const RBranches = React.lazy(() => import("./pages/RBranches"));
 const Categories = React.lazy(() => import("./pages/Categories"));
+const SubCategories = React.lazy(() => import("./pages/Sub-Categories"));
 const Roles = React.lazy(() => import("./pages/Roles"));
 const AddEditRBranch = React.lazy(() => import("./pages/RBranches/AddEditRBranch"));
 const AddEditRestaurant = React.lazy(() => import("./pages/Restaurants/AddEditRestaurant"));
 const AddEditRole = React.lazy(() => import("./pages/Roles/AddEditRole"));
 const AddEditCategory = React.lazy(
   () => import("./pages/Categories/AddEditCategory")
+);
+const AddEditSubCategory = React.lazy(
+  () => import("./pages/Sub-Categories/AddEditSubCategory")
 );
 
 const PRIVATE_FULL_PAGE_ROUTES: IRoutes[] = [
@@ -77,6 +82,18 @@ const PRIVATE_ROUTES: IRoutes[] = [
   {
     path: AppRoutes.EDIT_CATEGORY,
     element: <AddEditCategory />,
+  },
+  {
+    path: AppRoutes.SUB_CATEGORIES,
+    element: <SubCategories />,
+  },
+  {
+    path: AppRoutes.ADD_SUB_CATEGORY,
+    element: <AddEditSubCategory />,
+  },
+  {
+    path: AppRoutes.EDIT_SUB_CATEGORY,
+    element: <AddEditSubCategory />,
   },
   {
     path: AppRoutes.ROLES,
@@ -170,7 +187,10 @@ const navigate = useNavigate();
       ...PRIVATE_FULL_PAGE_ROUTES,
     ].some((route) => matchPath({ path: route.path, end: false }, pathname));
 
-    if (isProtectedRoute && !localStorage.getItem("authToken")) {
+    if (
+      isProtectedRoute &&
+      !queryClient.getQueryData<IAuthenticate>(["auth"])?.token
+    ) {
       navigate(AppRoutes.SIGN_IN, { replace: true });
     }
     i18n.changeLanguage(LanguagePreferences.EN);

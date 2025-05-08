@@ -6,8 +6,8 @@ import ComponentCard from "../../components/common/ComponentCard";
 import BasicTableOne, {
   ITableHeaderProps,
 } from "../../components/tables/BasicTables/BasicTableOne";
-import { useGetRole } from "../../services/api-hooks/roleHooks";
-import { useParams } from "react-router";
+import { useCreateRoleMutation, useGetRole, useUpdateRoleMutation } from "../../services/api-hooks/roleHooks";
+import { useNavigate, useParams } from "react-router";
 import { decodeId } from "../../utils";
 import { IRole } from "../../types";
 import _ from "lodash";
@@ -15,6 +15,7 @@ import Checkbox from "../../components/form/input/Checkbox";
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
 import Input from "../../components/form/input/InputField";
+import { AppRoutes, FEATURES, FEATURES_NAME } from "../../constants";
 
 const fields: (keyof IRole)[] = ["id", "name", "permissions", "is_admin"];
 
@@ -27,13 +28,44 @@ const validationSchema = Yup.object().shape({
 
 const AddEditRole = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [roleDetails, setRoleDetails] = useState<Partial<IRole> | null>(null);
   const { data, isSuccess } = useGetRole(decodeId(String(id)));
 
+  const { mutate: editMutate } = useUpdateRoleMutation({
+    onSuccess: () => {
+      navigate(AppRoutes.ROLES)
+    },
+  });
+  const { mutate: addMutate } = useCreateRoleMutation({
+    onSuccess: () => {
+      navigate(AppRoutes.ROLES);
+    },
+  });
+
+
   const handleRoleSubmit = (values: FormikValues) => {
-    console.log(values);
+    if(id){
+      editMutate(values)
+    }else{
+      addMutate(values);
+    }
   };
+
+  const readablePermissions = _.reduce(
+    FEATURES,
+    (acc, value, key) => {
+        acc[key] =
+          value === "ALL" ? ["write", "update", "read", "delete"] : value;
+    
+      return acc;
+    },
+    {} as Record<string, ("write" | "read" | "delete" | "update")[]>
+  );
+
+
+  
 
   const {
     values,
@@ -53,7 +85,7 @@ const AddEditRole = () => {
     enableReinitialize: true,
     validateOnChange: true,
   });
-
+ 
   const handleChangePermission = (
     key: string,
     value: "write" | "read" | "delete" | "update"
@@ -67,12 +99,19 @@ const AddEditRole = () => {
       ? _.without(existing, value)
       : _.sortBy(_.union(existing, [value]));
 
-    setFieldValue(`permissions.${key}`, updated);
+      if (updated.length) {
+        setFieldValue(`permissions.${key}`, updated);
+      } else {
+        setFieldValue(`permissions`, _.omit(values.permissions, key));
+      }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      setRoleDetails(data?.data as Partial<IRole>);
+      setRoleDetails((prev) => ({
+        ...prev,
+        ...data.data,
+      }));
     }
   }, [data?.data, isSuccess]);
 
@@ -83,7 +122,13 @@ const AddEditRole = () => {
       header: t("feature") + " " + t("name"),
       name: "name",
       cell: (__, key) => {
-        return <span>{_.capitalize(key as string)}</span>;
+        return (
+          <span>
+            {_.capitalize(
+              FEATURES_NAME[key as keyof typeof FEATURES_NAME] ?? key
+            )}
+          </span>
+        );
       },
     },
     {
@@ -133,7 +178,7 @@ const AddEditRole = () => {
         title={`${t("modules.roles")} | Swiggy`}
         description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle={t("modules.add-role")} />
+      <PageBreadcrumb pageTitle={t("add-role")} />
       <div className="space-y-6">
         <form onSubmit={handleSubmit}>
           <ComponentCard
@@ -150,6 +195,7 @@ const AddEditRole = () => {
                   name="name"
                   isRequired
                   values={values}
+                  placeholder="Enter role name"
                   errors={errors}
                   touched={touched}
                   onBlur={handleBlur}
@@ -158,10 +204,7 @@ const AddEditRole = () => {
                 />
               </div>
             </div>
-            <BasicTableOne
-              columns={columns}
-              data={roleDetails?.permissions || {}}
-            />
+            <BasicTableOne columns={columns} data={readablePermissions} />
           </ComponentCard>
         </form>
       </div>

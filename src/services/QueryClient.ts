@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { persistQueryClient } from '@tanstack/react-query-persist-client'
 import { localStoragePersister } from "./persister";
 
-const whitelist = ["profile", "activeRestaurant", "activeRBranch"];
+const whitelist = ["profile", "activeRestaurant", "activeRBranch", "auth"];
 
 export const queryClient = new QueryClient();
 

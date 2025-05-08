@@ -6,19 +6,12 @@ import {
   getRestaurants,
   updateRestaurant,
 } from "../APIs/restaurants";
-import { queryClient } from "../QueryClient";
- 
-export const useGetRestaurants = () => {
-
-
-  const initialData = queryClient.getQueryData<
-    ApiResponse<Array<Partial<IRestaurant>>>
-  >(["getRestaurants"]);
-
+  
+export const useGetRestaurants = () => { 
   return useQuery<ApiResponse<Array<Partial<IRestaurant>>>, Error>({
     queryKey: ["getRestaurants"],
     queryFn: getRestaurants,
-    initialData,
+    staleTime: Infinity,
   });
 };
 
@@ -27,8 +20,10 @@ export const useGetRestaurant = (id: number) => {
     queryKey: ["getRestaurant", { id }],
     queryFn: ({ queryKey }) => {
       const [, { id }] = queryKey as [string, { id: number }];
-      return getRestaurant({ id });
+      return getRestaurant({ id });      
     },
+    staleTime: Infinity,
+
   });
 };
 

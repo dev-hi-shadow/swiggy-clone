@@ -20,7 +20,8 @@ export const register = async (
 export const login = async (input: {
   email: string;
   password: string;
-}): Promise<ApiResponse<Partial<IUser>> | undefined> => {
+}): Promise<ApiResponse<Partial<IUser>> & { token: string } | undefined
+> => {
   const res = await graphql("mutation")({
     login: [
       { ...input },
@@ -38,7 +39,7 @@ export const login = async (input: {
       },
     ],
   });
-  return res?.login as ApiResponse<Partial<IUser>>;
+  return res?.login as ApiResponse<Partial<IUser>> & { token: string };
 };
 
 export const getProfile = async (): Promise<ApiResponse<Partial<IUser>>> => {

@@ -12,13 +12,12 @@ interface SelectProps {
   placeholder?: string;
   onChange: (value: string) => void;
   className?: string;
-  defaultValue?: string;
+  defaultValue?: number|string;
   label: string;
   isRequired?: boolean;
   labelClassName?: string;
   setFieldTouched?: (name: string) => void;
   setFieldError?: (field: string, value: string | undefined) => void;
-  setFieldValue?: (name: string) => void;
   values?: FormikValues;
   errors?: FormikErrors<FormikValues>;
   touched?: FormikTouched<Record<string, boolean>>;
@@ -31,7 +30,7 @@ const Select: React.FC<SelectProps> = ({
   placeholder = "Select an option",
   onChange,
   className = "",
-  defaultValue = "",
+  defaultValue,
   isRequired = false,
   labelClassName,
   setFieldTouched,
@@ -41,7 +40,9 @@ const Select: React.FC<SelectProps> = ({
   name,
 }) => {
   // Manage the selected value
-  const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  const [selectedValue, setSelectedValue] = useState<
+    string | number | undefined
+  >(defaultValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (setFieldTouched) {

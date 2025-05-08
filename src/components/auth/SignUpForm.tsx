@@ -7,7 +7,8 @@ import { AppRoutes } from "../../constants";
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
 import { useRegisterUser } from "../../services/api-hooks/useAuthHook";
-import { IRegister } from "../../types";
+import { IAuthenticate, IRegister } from "../../types";
+import { queryClient } from "../../services/QueryClient";
 
 const initialValues = {
   first_name: null,
@@ -35,8 +36,10 @@ export default function SignUpForm() {
 
   useEffect(() => {
     if (isSuccess) {
-      localStorage.setItem("authToken", data?.token as string);
-      navigate(AppRoutes.DASHBOARD);
+queryClient.setQueryData<IAuthenticate>(["auth"], {
+  token: data?.token as string,
+});
+navigate(AppRoutes.DASHBOARD);
     }
   }, [data?.token, isSuccess, navigate]);
 

@@ -9,6 +9,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup"
 import { useLoginMutation } from "../../services/api-hooks/useAuthHook";
  import i18n from "../../i18n";
+import { queryClient } from "../../services/QueryClient";
+import { IAuthenticate } from "../../types";
  
 const initialValues = {
   email: "",
@@ -22,19 +24,22 @@ const validationSchema = Yup.object().shape({
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-    const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
   const { mutate } = useLoginMutation({
     onSuccess: (data) => {
-      localStorage.setItem("authToken", (data?.token as string) ?? "");
-      i18n.changeLanguage(
-        data?.data?.language_preference as LanguagePreferences
-      );
+      queryClient.setQueryData<IAuthenticate>(["auth"], {
+        token: data?.token as string,
+      });
+       i18n.changeLanguage(
+         data?.data?.language_preference as LanguagePreferences
+       );
       navigate(AppRoutes.DASHBOARD);
     },
   });
 
   useLayoutEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = queryClient.getQueryData<IAuthenticate>(["auth"])?.token;
     if (token) {
       navigate(AppRoutes.DASHBOARD);
     }

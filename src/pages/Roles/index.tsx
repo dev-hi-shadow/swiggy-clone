@@ -1,18 +1,18 @@
 import PageMeta from "../../components/common/PageMeta";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import { useTranslation } from "react-i18next";
-import { useGetRoles } from "../../services/api-hooks/roleHooks.tsx";
-import ComponentCard from "../../components/common/ComponentCard.tsx";
+import { useGetRoles } from "../../services/api-hooks/roleHooks";
+import ComponentCard from "../../components/common/ComponentCard";
 import { useNavigate } from "react-router";
-import { AppRoutes } from "../../constants/index.ts";
+import { AppRoutes } from "../../constants/index";
 import BasicTableOne, {
   ITableHeaderProps,
-} from "../../components/tables/BasicTables/BasicTableOne.tsx";
+} from "../../components/tables/BasicTables/BasicTableOne";
 import _ from "lodash";
-import { IRole } from "../../types/index.ts";
-import { encodeId } from "../../utils/index.ts";
-import { PencilIcon } from "../../components/svgs/index.tsx";
-import Button from "../../components/ui/button/Button.tsx";
+import { IRole } from "../../types/index";
+import { encodeId } from "../../utils/index";
+import { PencilIcon } from "../../components/svgs/index";
+import Button from "../../components/ui/button/Button";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -22,13 +22,15 @@ const Index = () => {
     {
       header: "Name",
       name: "name",
-      cell: (props) => props.name as string,
+      cell: (props) => (
+        <span className="flex !w-60">{props.name as string}</span>
+      ),
     },
     {
       header: "Permissions",
       name: "permissions",
       cell: (props) => (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 ">
           {_.map(props.permissions, (permission, key) => (
             <span
               key={key}
@@ -44,7 +46,7 @@ const Index = () => {
       header: "Actions",
       name: "actions",
       cell: (props) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 !w-30">
           <Button
             className="!p-2"
             onClick={() => {
@@ -57,6 +59,7 @@ const Index = () => {
       ),
     },
   ];
+
   return (
     <div>
       <PageMeta
@@ -74,7 +77,7 @@ const Index = () => {
             },
           }}
         >
-          <BasicTableOne columns={[...columns]} data={data?.data} />
+          <BasicTableOne columns={columns} data={data?.data} />
         </ComponentCard>
       </div>
     </div>

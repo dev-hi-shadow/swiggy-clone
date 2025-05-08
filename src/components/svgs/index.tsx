@@ -104,7 +104,6 @@ export const PencilIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-
 export const TrashIcon = ({ className }: { className?: string }) => (
   <svg
     width="25px"
@@ -258,8 +257,11 @@ export const TrashIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-
-export const PlusIcon = ({ className = "z-10 dark:text-white" }: { className?: string }) => {
+export const PlusIcon = ({
+  className = "z-10 dark:text-white",
+}: {
+  className?: string;
+}) => {
   return (
     <svg
       fill="#FFFFFF"
@@ -281,6 +283,49 @@ export const PlusIcon = ({ className = "z-10 dark:text-white" }: { className?: s
           strokeLinejoin: "round",
           strokeWidth: 2,
         }}
+      />
+    </svg>
+  );
+};
+
+export const SuccessIcon = ({
+  className = "z-10 dark:text-white",
+}: {
+  className?: string;
+}) => {
+  return (
+    <svg
+      width="25px"
+      height="25px"
+      viewBox="0 0 0.75 0.75"
+      fill="#"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M0.646 0.164a0.031 0.031 0 0 1 0.003 0.044l-0.333 0.375a0.031 0.031 0 0 1 -0.047 0l-0.167 -0.188a0.031 0.031 0 0 1 0.047 -0.042l0.143 0.161 0.31 -0.349a0.031 0.031 0 0 1 0.044 -0.003"
+        fill="#0D0D0D"
+      />
+    </svg>
+  );
+};
+
+export const ErrorIcon = ({
+  className = "z-10 dark:text-white",
+}: {
+  className?: string;
+}) => {
+  return (
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fill="red"
+        d="M9.71539,1.97523 L15.7079,11.9717 C16.507,13.3047 15.5467,15 13.9925,15 L2.00754,15 C0.453303,15 -0.506968,13.3047 0.292148,11.9717 L6.28461,1.97523 C7.06126,0.679644 8.93874,0.679644 9.71539,1.97523 Z M8,3.00354 L2.00754,13 L13.9925,13 L8,3.00354 Z M7.99998,10.5 C8.55226,10.5 9,10.9477 9,11.5 C9,12.0523 8.55229,12.5 8,12.5 C7.44772,12.5 7,12.0523 7,11.5 C7,10.9477 7.4477,10.5 7.99998,10.5 Z M7.99998,5.5 C8.68543889,5.5 9.17162157,6.14661074 9.00884366,6.7909405 L8.97329,6.90449 L7.99998,10.5 L7.02666,6.90449 C6.77182,6.22492 7.27419,5.5 7.99998,5.5 Z"
       />
     </svg>
   );

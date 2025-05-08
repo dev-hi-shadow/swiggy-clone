@@ -28,19 +28,16 @@ export const AllTypesProps: Record<string,any> = {
 		}
 	},
 	Date: `scalar.Date` as const,
-	JSONObject: `scalar.JSONObject` as const,
 	RootMutation:{
 		createRole:{
 			created_at:"Date",
 			deleted_at:"Date",
-			updated_at:"Date",
-			permissions:"JSONObject"
+			updated_at:"Date"
 		},
 		updateRole:{
 			created_at:"Date",
 			deleted_at:"Date",
-			updated_at:"Date",
-			permissions:"JSONObject"
+			updated_at:"Date"
 		},
 		deleteRole:{
 
@@ -142,6 +139,7 @@ export const AllTypesProps: Record<string,any> = {
 			ingredients_options:"IngredientInput"
 		}
 	},
+	JSONObject: `scalar.JSONObject` as const,
 	Time: `scalar.Time` as const,
 	IngredientInput:{
 		created_at:"Date",
@@ -185,10 +183,9 @@ export const ReturnTypes: Record<string,any> = {
 		updated_at:"Date",
 		is_admin:"Boolean",
 		name:"String",
-		permissions:"JSONObject"
+		permissions:"String"
 	},
 	Date: `scalar.Date` as const,
-	JSONObject: `scalar.JSONObject` as const,
 	getRoleByIdResponse:{
 		status:"Int",
 		success:"Boolean",
@@ -514,7 +511,11 @@ export const ReturnTypes: Record<string,any> = {
 		isToast:"Boolean",
 		isError:"Boolean",
 		message:"String",
-		data:"SubCategory"
+		data:"subCategories"
+	},
+	subCategories:{
+		count:"Int",
+		rows:"SubCategory"
 	},
 	SubCategory:{
 		id:"Int",
@@ -816,6 +817,7 @@ export const ReturnTypes: Record<string,any> = {
 		category:"Category",
 		subcategory:"SubCategory"
 	},
+	JSONObject: `scalar.JSONObject` as const,
 	Time: `scalar.Time` as const,
 	ID: `scalar.ID` as const
 }
