@@ -53,7 +53,7 @@ export default function MonthlyTarget() {
         <div className="border-1 border-t  border-gray-300 dark:border-gray-800  my-3"></div>
         <div className="overflow-y-auto flex  flex-col gap-y-5 custom-scrollbar max-h-[280px]">
           {_.map([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], (i) => (
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center" key={i}>
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800"></div>
                 <div className="ml-3">

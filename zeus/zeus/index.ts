@@ -918,6 +918,8 @@ getCategoryById?: [{	id?: number | undefined | null | Variable<any, string>},Val
 	categoryList?:ValueTypes["CategoryListResponse"],
 subCategoriesList?: [{	category_id?: number | undefined | null | Variable<any, string>},ValueTypes["SubCategoriesListResponse"]],
 getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["SubCategoryByIdResponse"]],
+	dishList?:ValueTypes["dishListResponse"],
+getDishById?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["getDishByIdResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["roleListResponse"]: AliasType<{
@@ -1336,6 +1338,97 @@ getSubcategoryById?: [{	id?: number | undefined | null | Variable<any, string>},
 	data?:ValueTypes["SubCategory"],
 		__typename?: boolean | `@${string}`
 }>;
+	["dishListResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The dishlist data */
+	data?:ValueTypes["dishList"],
+		__typename?: boolean | `@${string}`
+}>;
+	["dishList"]: AliasType<{
+	count?:boolean | `@${string}`,
+	rows?:ValueTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
+	["Dish"]: AliasType<{
+	id?:boolean | `@${string}`,
+	restaurant_id?:boolean | `@${string}`,
+	branch_id?:boolean | `@${string}`,
+	category_id?:boolean | `@${string}`,
+	subcategory_id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	slug?:boolean | `@${string}`,
+	description?:boolean | `@${string}`,
+	image?:boolean | `@${string}`,
+	banner_image?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	original_price?:boolean | `@${string}`,
+	currency?:boolean | `@${string}`,
+	discount_percentage?:boolean | `@${string}`,
+	is_available?:boolean | `@${string}`,
+	is_veg?:boolean | `@${string}`,
+	is_customizable?:boolean | `@${string}`,
+	spicy_level?:boolean | `@${string}`,
+	preparation_time_minutes?:boolean | `@${string}`,
+	dietary_tags?:boolean | `@${string}`,
+	ingredients?:boolean | `@${string}`,
+	availability_start_time?:boolean | `@${string}`,
+	availability_end_time?:boolean | `@${string}`,
+	stock_quantity?:boolean | `@${string}`,
+	min_order_qty?:boolean | `@${string}`,
+	max_order_qty?:boolean | `@${string}`,
+	rating?:boolean | `@${string}`,
+	approval_status?:boolean | `@${string}`,
+	rejection_reason?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+	deleted_at?:boolean | `@${string}`,
+	restaurant?:ValueTypes["Restaurant"],
+	branch?:ValueTypes["RBranch"],
+	category?:ValueTypes["Category"],
+	subcategory?:ValueTypes["SubCategory"],
+	ingredients_options?:ValueTypes["DIngredients"],
+		__typename?: boolean | `@${string}`
+}>;
+	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+["JSONObject"]:unknown;
+	/** Time custom scalar, formatted as HH:mm */
+["Time"]:unknown;
+	["DIngredients"]: AliasType<{
+	id?:boolean | `@${string}`,
+	dish_id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	image_url?:boolean | `@${string}`,
+	has_options?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+	options?:ValueTypes["DIOption"],
+		__typename?: boolean | `@${string}`
+}>;
+	["DIOption"]: AliasType<{
+	id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	ingredient_id?:boolean | `@${string}`,
+	description?:boolean | `@${string}`,
+	image_url?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["getDishByIdResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The getdishbyid data */
+	data?:ValueTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
 	["RootMutation"]: AliasType<{
 createRole?: [{	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: string | undefined | null | Variable<any, string>},ValueTypes["createRoleResponse"]],
 updateRole?: [{	id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: string | undefined | null | Variable<any, string>},ValueTypes["updateRoleResponse"]],
@@ -1363,6 +1456,7 @@ deleteRDeals?: [{	id?: number | undefined | null | Variable<any, string>},ValueT
 createRBDeal?: [{	deal_id?: number | undefined | null | Variable<any, string>,	rbranch_id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>},ValueTypes["createRBDealResponse"]],
 deleteRBDeal?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteRBDealResponse"]],
 createDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>},ValueTypes["createDishResponse"]],
+updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>},ValueTypes["updateDishResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["createRoleResponse"]: AliasType<{
@@ -1613,49 +1707,6 @@ createDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 	data?:ValueTypes["Dish"],
 		__typename?: boolean | `@${string}`
 }>;
-	["Dish"]: AliasType<{
-	id?:boolean | `@${string}`,
-	restaurant_id?:boolean | `@${string}`,
-	branch_id?:boolean | `@${string}`,
-	category_id?:boolean | `@${string}`,
-	subcategory_id?:boolean | `@${string}`,
-	name?:boolean | `@${string}`,
-	slug?:boolean | `@${string}`,
-	description?:boolean | `@${string}`,
-	image?:boolean | `@${string}`,
-	banner_image?:boolean | `@${string}`,
-	price?:boolean | `@${string}`,
-	original_price?:boolean | `@${string}`,
-	currency?:boolean | `@${string}`,
-	discount_percentage?:boolean | `@${string}`,
-	is_available?:boolean | `@${string}`,
-	is_veg?:boolean | `@${string}`,
-	is_customizable?:boolean | `@${string}`,
-	spicy_level?:boolean | `@${string}`,
-	preparation_time_minutes?:boolean | `@${string}`,
-	dietary_tags?:boolean | `@${string}`,
-	ingredients?:boolean | `@${string}`,
-	availability_start_time?:boolean | `@${string}`,
-	availability_end_time?:boolean | `@${string}`,
-	stock_quantity?:boolean | `@${string}`,
-	min_order_qty?:boolean | `@${string}`,
-	max_order_qty?:boolean | `@${string}`,
-	rating?:boolean | `@${string}`,
-	approval_status?:boolean | `@${string}`,
-	rejection_reason?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-	deleted_at?:boolean | `@${string}`,
-	restaurant?:ValueTypes["Restaurant"],
-	branch?:ValueTypes["RBranch"],
-	category?:ValueTypes["Category"],
-	subcategory?:ValueTypes["SubCategory"],
-		__typename?: boolean | `@${string}`
-}>;
-	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-["JSONObject"]:unknown;
-	/** Time custom scalar, formatted as HH:mm */
-["Time"]:unknown;
 	["IngredientInput"]: {
 	name?: string | undefined | null | Variable<any, string>,
 	image_url?: string | undefined | null | Variable<any, string>,
@@ -1670,6 +1721,16 @@ createDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 	description?: string | undefined | null | Variable<any, string>,
 	image_url?: string | undefined | null | Variable<any, string>
 };
+	["updateDishResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The updatedish data */
+	data?:ValueTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
 	["ID"]:unknown
   }
 
@@ -1693,6 +1754,8 @@ getCategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["Categor
 	categoryList?:ResolverInputTypes["CategoryListResponse"],
 subCategoriesList?: [{	category_id?: number | undefined | null},ResolverInputTypes["SubCategoriesListResponse"]],
 getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubCategoryByIdResponse"]],
+	dishList?:ResolverInputTypes["dishListResponse"],
+getDishById?: [{	id?: number | undefined | null},ResolverInputTypes["getDishByIdResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["roleListResponse"]: AliasType<{
@@ -2111,6 +2174,97 @@ getSubcategoryById?: [{	id?: number | undefined | null},ResolverInputTypes["SubC
 	data?:ResolverInputTypes["SubCategory"],
 		__typename?: boolean | `@${string}`
 }>;
+	["dishListResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The dishlist data */
+	data?:ResolverInputTypes["dishList"],
+		__typename?: boolean | `@${string}`
+}>;
+	["dishList"]: AliasType<{
+	count?:boolean | `@${string}`,
+	rows?:ResolverInputTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
+	["Dish"]: AliasType<{
+	id?:boolean | `@${string}`,
+	restaurant_id?:boolean | `@${string}`,
+	branch_id?:boolean | `@${string}`,
+	category_id?:boolean | `@${string}`,
+	subcategory_id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	slug?:boolean | `@${string}`,
+	description?:boolean | `@${string}`,
+	image?:boolean | `@${string}`,
+	banner_image?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	original_price?:boolean | `@${string}`,
+	currency?:boolean | `@${string}`,
+	discount_percentage?:boolean | `@${string}`,
+	is_available?:boolean | `@${string}`,
+	is_veg?:boolean | `@${string}`,
+	is_customizable?:boolean | `@${string}`,
+	spicy_level?:boolean | `@${string}`,
+	preparation_time_minutes?:boolean | `@${string}`,
+	dietary_tags?:boolean | `@${string}`,
+	ingredients?:boolean | `@${string}`,
+	availability_start_time?:boolean | `@${string}`,
+	availability_end_time?:boolean | `@${string}`,
+	stock_quantity?:boolean | `@${string}`,
+	min_order_qty?:boolean | `@${string}`,
+	max_order_qty?:boolean | `@${string}`,
+	rating?:boolean | `@${string}`,
+	approval_status?:boolean | `@${string}`,
+	rejection_reason?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+	deleted_at?:boolean | `@${string}`,
+	restaurant?:ResolverInputTypes["Restaurant"],
+	branch?:ResolverInputTypes["RBranch"],
+	category?:ResolverInputTypes["Category"],
+	subcategory?:ResolverInputTypes["SubCategory"],
+	ingredients_options?:ResolverInputTypes["DIngredients"],
+		__typename?: boolean | `@${string}`
+}>;
+	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+["JSONObject"]:unknown;
+	/** Time custom scalar, formatted as HH:mm */
+["Time"]:unknown;
+	["DIngredients"]: AliasType<{
+	id?:boolean | `@${string}`,
+	dish_id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	image_url?:boolean | `@${string}`,
+	has_options?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+	options?:ResolverInputTypes["DIOption"],
+		__typename?: boolean | `@${string}`
+}>;
+	["DIOption"]: AliasType<{
+	id?:boolean | `@${string}`,
+	name?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	ingredient_id?:boolean | `@${string}`,
+	description?:boolean | `@${string}`,
+	image_url?:boolean | `@${string}`,
+	created_at?:boolean | `@${string}`,
+	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["getDishByIdResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The getdishbyid data */
+	data?:ResolverInputTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
 	["RootMutation"]: AliasType<{
 createRole?: [{	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: string | undefined | null},ResolverInputTypes["createRoleResponse"]],
 updateRole?: [{	id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: string | undefined | null},ResolverInputTypes["updateRoleResponse"]],
@@ -2138,6 +2292,7 @@ deleteRDeals?: [{	id?: number | undefined | null},ResolverInputTypes["deleteRDea
 createRBDeal?: [{	deal_id?: number | undefined | null,	rbranch_id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null},ResolverInputTypes["createRBDealResponse"]],
 deleteRBDeal?: [{	id?: number | undefined | null},ResolverInputTypes["deleteRBDealResponse"]],
 createDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null},ResolverInputTypes["createDishResponse"]],
+updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null},ResolverInputTypes["updateDishResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["createRoleResponse"]: AliasType<{
@@ -2388,49 +2543,6 @@ createDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 	data?:ResolverInputTypes["Dish"],
 		__typename?: boolean | `@${string}`
 }>;
-	["Dish"]: AliasType<{
-	id?:boolean | `@${string}`,
-	restaurant_id?:boolean | `@${string}`,
-	branch_id?:boolean | `@${string}`,
-	category_id?:boolean | `@${string}`,
-	subcategory_id?:boolean | `@${string}`,
-	name?:boolean | `@${string}`,
-	slug?:boolean | `@${string}`,
-	description?:boolean | `@${string}`,
-	image?:boolean | `@${string}`,
-	banner_image?:boolean | `@${string}`,
-	price?:boolean | `@${string}`,
-	original_price?:boolean | `@${string}`,
-	currency?:boolean | `@${string}`,
-	discount_percentage?:boolean | `@${string}`,
-	is_available?:boolean | `@${string}`,
-	is_veg?:boolean | `@${string}`,
-	is_customizable?:boolean | `@${string}`,
-	spicy_level?:boolean | `@${string}`,
-	preparation_time_minutes?:boolean | `@${string}`,
-	dietary_tags?:boolean | `@${string}`,
-	ingredients?:boolean | `@${string}`,
-	availability_start_time?:boolean | `@${string}`,
-	availability_end_time?:boolean | `@${string}`,
-	stock_quantity?:boolean | `@${string}`,
-	min_order_qty?:boolean | `@${string}`,
-	max_order_qty?:boolean | `@${string}`,
-	rating?:boolean | `@${string}`,
-	approval_status?:boolean | `@${string}`,
-	rejection_reason?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-	deleted_at?:boolean | `@${string}`,
-	restaurant?:ResolverInputTypes["Restaurant"],
-	branch?:ResolverInputTypes["RBranch"],
-	category?:ResolverInputTypes["Category"],
-	subcategory?:ResolverInputTypes["SubCategory"],
-		__typename?: boolean | `@${string}`
-}>;
-	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-["JSONObject"]:unknown;
-	/** Time custom scalar, formatted as HH:mm */
-["Time"]:unknown;
 	["IngredientInput"]: {
 	name?: string | undefined | null,
 	image_url?: string | undefined | null,
@@ -2445,6 +2557,16 @@ createDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
 };
+	["updateDishResponse"]: AliasType<{
+	status?:boolean | `@${string}`,
+	success?:boolean | `@${string}`,
+	isToast?:boolean | `@${string}`,
+	isError?:boolean | `@${string}`,
+	message?:boolean | `@${string}`,
+	/** The updatedish data */
+	data?:ResolverInputTypes["Dish"],
+		__typename?: boolean | `@${string}`
+}>;
 	["ID"]:unknown
   }
 
@@ -2466,7 +2588,9 @@ export type ModelTypes = {
 	getCategoryById?: ModelTypes["CategoryByIdResponse"] | undefined | null,
 	categoryList?: ModelTypes["CategoryListResponse"] | undefined | null,
 	subCategoriesList?: ModelTypes["SubCategoriesListResponse"] | undefined | null,
-	getSubcategoryById?: ModelTypes["SubCategoryByIdResponse"] | undefined | null
+	getSubcategoryById?: ModelTypes["SubCategoryByIdResponse"] | undefined | null,
+	dishList?: ModelTypes["dishListResponse"] | undefined | null,
+	getDishById?: ModelTypes["getDishByIdResponse"] | undefined | null
 };
 	["roleListResponse"]: {
 		status?: number | undefined | null,
@@ -2861,6 +2985,91 @@ export type ModelTypes = {
 	/** The subcategorybyid data */
 	data?: ModelTypes["SubCategory"] | undefined | null
 };
+	["dishListResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The dishlist data */
+	data?: ModelTypes["dishList"] | undefined | null
+};
+	["dishList"]: {
+		count?: number | undefined | null,
+	rows?: Array<ModelTypes["Dish"] | undefined | null> | undefined | null
+};
+	["Dish"]: {
+		id?: number | undefined | null,
+	restaurant_id?: number | undefined | null,
+	branch_id?: number | undefined | null,
+	category_id?: number | undefined | null,
+	subcategory_id?: number | undefined | null,
+	name?: string | undefined | null,
+	slug?: string | undefined | null,
+	description?: string | undefined | null,
+	image?: string | undefined | null,
+	banner_image?: string | undefined | null,
+	price?: number | undefined | null,
+	original_price?: number | undefined | null,
+	currency?: string | undefined | null,
+	discount_percentage?: number | undefined | null,
+	is_available?: boolean | undefined | null,
+	is_veg?: boolean | undefined | null,
+	is_customizable?: boolean | undefined | null,
+	spicy_level?: string | undefined | null,
+	preparation_time_minutes?: number | undefined | null,
+	dietary_tags?: ModelTypes["JSONObject"] | undefined | null,
+	ingredients?: string | undefined | null,
+	availability_start_time?: ModelTypes["Time"] | undefined | null,
+	availability_end_time?: ModelTypes["Time"] | undefined | null,
+	stock_quantity?: number | undefined | null,
+	min_order_qty?: number | undefined | null,
+	max_order_qty?: number | undefined | null,
+	rating?: number | undefined | null,
+	approval_status?: string | undefined | null,
+	rejection_reason?: string | undefined | null,
+	created_at?: ModelTypes["Date"] | undefined | null,
+	updated_at?: ModelTypes["Date"] | undefined | null,
+	deleted_at?: ModelTypes["Date"] | undefined | null,
+	restaurant?: ModelTypes["Restaurant"] | undefined | null,
+	branch?: ModelTypes["RBranch"] | undefined | null,
+	category?: ModelTypes["Category"] | undefined | null,
+	subcategory?: ModelTypes["SubCategory"] | undefined | null,
+	ingredients_options?: Array<ModelTypes["DIngredients"] | undefined | null> | undefined | null
+};
+	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+["JSONObject"]:any;
+	/** Time custom scalar, formatted as HH:mm */
+["Time"]:any;
+	["DIngredients"]: {
+		id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	name?: string | undefined | null,
+	image_url?: string | undefined | null,
+	has_options?: boolean | undefined | null,
+	created_at?: ModelTypes["Date"] | undefined | null,
+	updated_at?: ModelTypes["Date"] | undefined | null,
+	options?: Array<ModelTypes["DIOption"] | undefined | null> | undefined | null
+};
+	["DIOption"]: {
+		id?: number | undefined | null,
+	name?: string | undefined | null,
+	price?: number | undefined | null,
+	ingredient_id?: number | undefined | null,
+	description?: string | undefined | null,
+	image_url?: string | undefined | null,
+	created_at?: ModelTypes["Date"] | undefined | null,
+	updated_at?: ModelTypes["Date"] | undefined | null
+};
+	["getDishByIdResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The getdishbyid data */
+	data?: ModelTypes["Dish"] | undefined | null
+};
 	["RootMutation"]: {
 		createRole?: ModelTypes["createRoleResponse"] | undefined | null,
 	updateRole?: ModelTypes["updateRoleResponse"] | undefined | null,
@@ -2887,7 +3096,8 @@ export type ModelTypes = {
 	deleteRDeals?: ModelTypes["deleteRDealResponse"] | undefined | null,
 	createRBDeal?: ModelTypes["createRBDealResponse"] | undefined | null,
 	deleteRBDeal?: ModelTypes["deleteRBDealResponse"] | undefined | null,
-	createDish?: ModelTypes["createDishResponse"] | undefined | null
+	createDish?: ModelTypes["createDishResponse"] | undefined | null,
+	updateDish?: ModelTypes["updateDishResponse"] | undefined | null
 };
 	["createRoleResponse"]: {
 		status?: number | undefined | null,
@@ -3111,48 +3321,6 @@ export type ModelTypes = {
 	/** The createdish data */
 	data?: ModelTypes["Dish"] | undefined | null
 };
-	["Dish"]: {
-		id?: number | undefined | null,
-	restaurant_id?: number | undefined | null,
-	branch_id?: number | undefined | null,
-	category_id?: number | undefined | null,
-	subcategory_id?: number | undefined | null,
-	name?: string | undefined | null,
-	slug?: string | undefined | null,
-	description?: string | undefined | null,
-	image?: string | undefined | null,
-	banner_image?: string | undefined | null,
-	price?: number | undefined | null,
-	original_price?: number | undefined | null,
-	currency?: string | undefined | null,
-	discount_percentage?: number | undefined | null,
-	is_available?: boolean | undefined | null,
-	is_veg?: boolean | undefined | null,
-	is_customizable?: boolean | undefined | null,
-	spicy_level?: string | undefined | null,
-	preparation_time_minutes?: number | undefined | null,
-	dietary_tags?: ModelTypes["JSONObject"] | undefined | null,
-	ingredients?: string | undefined | null,
-	availability_start_time?: ModelTypes["Time"] | undefined | null,
-	availability_end_time?: ModelTypes["Time"] | undefined | null,
-	stock_quantity?: number | undefined | null,
-	min_order_qty?: number | undefined | null,
-	max_order_qty?: number | undefined | null,
-	rating?: number | undefined | null,
-	approval_status?: string | undefined | null,
-	rejection_reason?: string | undefined | null,
-	created_at?: ModelTypes["Date"] | undefined | null,
-	updated_at?: ModelTypes["Date"] | undefined | null,
-	deleted_at?: ModelTypes["Date"] | undefined | null,
-	restaurant?: ModelTypes["Restaurant"] | undefined | null,
-	branch?: ModelTypes["RBranch"] | undefined | null,
-	category?: ModelTypes["Category"] | undefined | null,
-	subcategory?: ModelTypes["SubCategory"] | undefined | null
-};
-	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-["JSONObject"]:any;
-	/** Time custom scalar, formatted as HH:mm */
-["Time"]:any;
 	["IngredientInput"]: {
 	name?: string | undefined | null,
 	image_url?: string | undefined | null,
@@ -3166,6 +3334,15 @@ export type ModelTypes = {
 	price?: number | undefined | null,
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
+};
+	["updateDishResponse"]: {
+		status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The updatedish data */
+	data?: ModelTypes["Dish"] | undefined | null
 };
 	["ID"]:any
     }
@@ -3185,7 +3362,9 @@ export type GraphQLTypes = {
 	getCategoryById?: GraphQLTypes["CategoryByIdResponse"] | undefined | null,
 	categoryList?: GraphQLTypes["CategoryListResponse"] | undefined | null,
 	subCategoriesList?: GraphQLTypes["SubCategoriesListResponse"] | undefined | null,
-	getSubcategoryById?: GraphQLTypes["SubCategoryByIdResponse"] | undefined | null
+	getSubcategoryById?: GraphQLTypes["SubCategoryByIdResponse"] | undefined | null,
+	dishList?: GraphQLTypes["dishListResponse"] | undefined | null,
+	getDishById?: GraphQLTypes["getDishByIdResponse"] | undefined | null
 };
 	["roleListResponse"]: {
 	__typename: "roleListResponse",
@@ -3603,6 +3782,97 @@ export type GraphQLTypes = {
 	/** The subcategorybyid data */
 	data?: GraphQLTypes["SubCategory"] | undefined | null
 };
+	["dishListResponse"]: {
+	__typename: "dishListResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The dishlist data */
+	data?: GraphQLTypes["dishList"] | undefined | null
+};
+	["dishList"]: {
+	__typename: "dishList",
+	count?: number | undefined | null,
+	rows?: Array<GraphQLTypes["Dish"] | undefined | null> | undefined | null
+};
+	["Dish"]: {
+	__typename: "Dish",
+	id?: number | undefined | null,
+	restaurant_id?: number | undefined | null,
+	branch_id?: number | undefined | null,
+	category_id?: number | undefined | null,
+	subcategory_id?: number | undefined | null,
+	name?: string | undefined | null,
+	slug?: string | undefined | null,
+	description?: string | undefined | null,
+	image?: string | undefined | null,
+	banner_image?: string | undefined | null,
+	price?: number | undefined | null,
+	original_price?: number | undefined | null,
+	currency?: string | undefined | null,
+	discount_percentage?: number | undefined | null,
+	is_available?: boolean | undefined | null,
+	is_veg?: boolean | undefined | null,
+	is_customizable?: boolean | undefined | null,
+	spicy_level?: string | undefined | null,
+	preparation_time_minutes?: number | undefined | null,
+	dietary_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	ingredients?: string | undefined | null,
+	availability_start_time?: GraphQLTypes["Time"] | undefined | null,
+	availability_end_time?: GraphQLTypes["Time"] | undefined | null,
+	stock_quantity?: number | undefined | null,
+	min_order_qty?: number | undefined | null,
+	max_order_qty?: number | undefined | null,
+	rating?: number | undefined | null,
+	approval_status?: string | undefined | null,
+	rejection_reason?: string | undefined | null,
+	created_at?: GraphQLTypes["Date"] | undefined | null,
+	updated_at?: GraphQLTypes["Date"] | undefined | null,
+	deleted_at?: GraphQLTypes["Date"] | undefined | null,
+	restaurant?: GraphQLTypes["Restaurant"] | undefined | null,
+	branch?: GraphQLTypes["RBranch"] | undefined | null,
+	category?: GraphQLTypes["Category"] | undefined | null,
+	subcategory?: GraphQLTypes["SubCategory"] | undefined | null,
+	ingredients_options?: Array<GraphQLTypes["DIngredients"] | undefined | null> | undefined | null
+};
+	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+["JSONObject"]: "scalar" & { name: "JSONObject" };
+	/** Time custom scalar, formatted as HH:mm */
+["Time"]: "scalar" & { name: "Time" };
+	["DIngredients"]: {
+	__typename: "DIngredients",
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	name?: string | undefined | null,
+	image_url?: string | undefined | null,
+	has_options?: boolean | undefined | null,
+	created_at?: GraphQLTypes["Date"] | undefined | null,
+	updated_at?: GraphQLTypes["Date"] | undefined | null,
+	options?: Array<GraphQLTypes["DIOption"] | undefined | null> | undefined | null
+};
+	["DIOption"]: {
+	__typename: "DIOption",
+	id?: number | undefined | null,
+	name?: string | undefined | null,
+	price?: number | undefined | null,
+	ingredient_id?: number | undefined | null,
+	description?: string | undefined | null,
+	image_url?: string | undefined | null,
+	created_at?: GraphQLTypes["Date"] | undefined | null,
+	updated_at?: GraphQLTypes["Date"] | undefined | null
+};
+	["getDishByIdResponse"]: {
+	__typename: "getDishByIdResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The getdishbyid data */
+	data?: GraphQLTypes["Dish"] | undefined | null
+};
 	["RootMutation"]: {
 	__typename: "RootMutation",
 	createRole?: GraphQLTypes["createRoleResponse"] | undefined | null,
@@ -3630,7 +3900,8 @@ export type GraphQLTypes = {
 	deleteRDeals?: GraphQLTypes["deleteRDealResponse"] | undefined | null,
 	createRBDeal?: GraphQLTypes["createRBDealResponse"] | undefined | null,
 	deleteRBDeal?: GraphQLTypes["deleteRBDealResponse"] | undefined | null,
-	createDish?: GraphQLTypes["createDishResponse"] | undefined | null
+	createDish?: GraphQLTypes["createDishResponse"] | undefined | null,
+	updateDish?: GraphQLTypes["updateDishResponse"] | undefined | null
 };
 	["createRoleResponse"]: {
 	__typename: "createRoleResponse",
@@ -3880,49 +4151,6 @@ export type GraphQLTypes = {
 	/** The createdish data */
 	data?: GraphQLTypes["Dish"] | undefined | null
 };
-	["Dish"]: {
-	__typename: "Dish",
-	id?: number | undefined | null,
-	restaurant_id?: number | undefined | null,
-	branch_id?: number | undefined | null,
-	category_id?: number | undefined | null,
-	subcategory_id?: number | undefined | null,
-	name?: string | undefined | null,
-	slug?: string | undefined | null,
-	description?: string | undefined | null,
-	image?: string | undefined | null,
-	banner_image?: string | undefined | null,
-	price?: number | undefined | null,
-	original_price?: number | undefined | null,
-	currency?: string | undefined | null,
-	discount_percentage?: number | undefined | null,
-	is_available?: boolean | undefined | null,
-	is_veg?: boolean | undefined | null,
-	is_customizable?: boolean | undefined | null,
-	spicy_level?: string | undefined | null,
-	preparation_time_minutes?: number | undefined | null,
-	dietary_tags?: GraphQLTypes["JSONObject"] | undefined | null,
-	ingredients?: string | undefined | null,
-	availability_start_time?: GraphQLTypes["Time"] | undefined | null,
-	availability_end_time?: GraphQLTypes["Time"] | undefined | null,
-	stock_quantity?: number | undefined | null,
-	min_order_qty?: number | undefined | null,
-	max_order_qty?: number | undefined | null,
-	rating?: number | undefined | null,
-	approval_status?: string | undefined | null,
-	rejection_reason?: string | undefined | null,
-	created_at?: GraphQLTypes["Date"] | undefined | null,
-	updated_at?: GraphQLTypes["Date"] | undefined | null,
-	deleted_at?: GraphQLTypes["Date"] | undefined | null,
-	restaurant?: GraphQLTypes["Restaurant"] | undefined | null,
-	branch?: GraphQLTypes["RBranch"] | undefined | null,
-	category?: GraphQLTypes["Category"] | undefined | null,
-	subcategory?: GraphQLTypes["SubCategory"] | undefined | null
-};
-	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-["JSONObject"]: "scalar" & { name: "JSONObject" };
-	/** Time custom scalar, formatted as HH:mm */
-["Time"]: "scalar" & { name: "Time" };
 	["IngredientInput"]: {
 		name?: string | undefined | null,
 	image_url?: string | undefined | null,
@@ -3936,6 +4164,16 @@ export type GraphQLTypes = {
 	price?: number | undefined | null,
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
+};
+	["updateDishResponse"]: {
+	__typename: "updateDishResponse",
+	status?: number | undefined | null,
+	success?: boolean | undefined | null,
+	isToast?: boolean | undefined | null,
+	isError?: boolean | undefined | null,
+	message?: string | undefined | null,
+	/** The updatedish data */
+	data?: GraphQLTypes["Dish"] | undefined | null
 };
 	["ID"]: "scalar" & { name: "ID" }
     }

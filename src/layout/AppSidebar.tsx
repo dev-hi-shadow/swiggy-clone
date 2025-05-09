@@ -108,6 +108,12 @@ const AppSidebar: React.FC = () => {
        path: "/roles",
      },
      {
+       icon: <CalenderIcon />,
+       is_admin_only: true,
+       name: "Dishes",
+       path: "/dishes",
+     },
+     {
        icon: <UserCircleIcon />,
        name: "User Profile",
        path: "/profile",

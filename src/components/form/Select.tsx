@@ -5,6 +5,7 @@ import { FormikErrors, FormikTouched, FormikValues } from "formik";
 export interface Option {
   value: string;
   label: string;
+  text?: string;
 }
 
 interface SelectProps {
@@ -12,7 +13,7 @@ interface SelectProps {
   placeholder?: string;
   onChange: (value: string) => void;
   className?: string;
-  defaultValue?: number|string;
+  defaultValue?: number | string;
   label: string;
   isRequired?: boolean;
   labelClassName?: string;
@@ -22,6 +23,11 @@ interface SelectProps {
   errors?: FormikErrors<FormikValues>;
   touched?: FormikTouched<Record<string, boolean>>;
   name: string;
+  setFieldValue?: (
+    field: string,
+    value: unknown,
+    shouldValidate?: boolean
+  ) => void;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -38,6 +44,7 @@ const Select: React.FC<SelectProps> = ({
   errors,
   touched,
   name,
+  setFieldValue
 }) => {
   // Manage the selected value
   const [selectedValue, setSelectedValue] = useState<
@@ -54,6 +61,7 @@ const Select: React.FC<SelectProps> = ({
     const value = e.target.value;
     setSelectedValue(value);
     onChange(value); // Trigger parent handler
+    if (setFieldValue) setFieldValue(name, value);
   };
 
   return (

@@ -19,6 +19,8 @@
   "edit-sub-category": "Edit SubCategory",
   "add-role": "Add Role",
   "edit-role": "Edit Role",
+  "add-dish": "Add Dish",
+  "edit-dish": "Edit Dish",
 
   "modules": {
     "branches": "Branches",
@@ -34,8 +36,10 @@
     "email": "Email",
     "categories": "Categories",
     "roles": "Roles",
-    "sub-categories": "Sub Categories"
+    "sub-categories": "Sub Categories",
+    "dishes": "Dishes"
   },
+
   "button": {
     "accepting-order": "Accepting orders",
     "close-accepting-order": "Close accepting orders",

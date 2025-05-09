@@ -22,7 +22,6 @@ export interface IRegister {
   token?: string;
 }
 
- 
 export interface IRole {
   id: number | null;
   name: string | null;
@@ -197,14 +196,12 @@ export interface IActiveRestaurant {
   name: string;
 }
 
-
 export interface IActiveRBranch {
   id: number;
   location: string;
   orderAccepting: boolean;
-  dayOff : boolean
+  dayOff: boolean;
 }
-
 
 export interface ICategory {
   id: number;
@@ -253,7 +250,175 @@ export interface ISubCategory {
   deleted_by?: number | null;
 }
 
-
 export interface IAuthenticate {
   token: string;
+}
+
+export interface IDish {
+  id: number;
+  restaurant_id: number;
+  branch_id?: number;
+  category_id?: number;
+  subcategory_id?: number;
+  parent_dish_id?: number;
+  name: string;
+  slug?: string;
+  description?: string;
+  long_description?: string;
+  image?: string;
+  banner_image?: string;
+  gallery_images?: string[];
+  video_url?: string;
+  tags?: string[];
+  price: number;
+  original_price?: number;
+  currency: string;
+  price_unit?: "per_item" | "per_kg" | "per_litre" | "per_person";
+  tax_percentage?: number;
+  tax_inclusive?: boolean;
+  service_charge_percentage?: number;
+  packaging_charge?: number;
+  discount_type: "fixed" | "percentage";
+  discount_amount?: number;
+  discount_percentage?: number;
+  discount_start_time?: string;
+  discount_end_time?: string;
+  discount_max_quantity?: number;
+  discount_min_quantity?: number;
+  discount_max_quantity_per_user?: number;
+  discount_min_quantity_per_user?: number;
+  discount_max_quantity_per_order?: number;
+  discount_min_quantity_per_order?: number;
+  discount_max_quantity_per_user_per_order?: number;
+  discount_min_quantity_per_user_per_order?: number;
+  discount_applies_with_coupon?: boolean;
+  promo_code_applicable?: boolean;
+  is_available: boolean;
+  availability_days?: string[];
+  availability_start_time?: string;
+  availability_end_time?: string;
+  blackout_dates?: string[];
+  preorder_available?: boolean;
+  preorder_hours?: number;
+  delivery_eta_minutes?: number;
+  delivery_buffer_minutes?: number;
+  preparation_time_minutes?: number;
+  stock_quantity?: number;
+  min_order_qty?: number;
+  max_order_qty?: number;
+  available_portions?: number;
+  is_veg: boolean;
+  is_customizable: boolean;
+  spicy_level?: "mild" | "medium" | "hot";
+  dietary_tags?: string[];
+  allergen_info?: string[];
+  allergens?: string[];
+  ingredients?: string;
+  ingredients_options?: IDIngredient[];
+  customization_groups?: IDCustomization[];
+  addons_group_ids?: number[];
+  variant_group_ids?: number[];
+  combo_group_id?: number;
+  is_part_of_combo?: boolean;
+  meal_time_tags?: ("breakfast" | "lunch" | "dinner" | "snack")[];
+  featured: boolean;
+  is_featured: boolean;
+  is_new: boolean;
+  is_popular: boolean;
+  is_recommended: boolean;
+  is_best_seller: boolean;
+  is_chef_special: boolean;
+  is_available_for_delivery: boolean;
+  is_available_for_pickup: boolean;
+  is_available_for_dine_in: boolean;
+  is_available_for_takeaway: boolean;
+  language_tags?: string[];
+  regional_exclusivity?: string[];
+  cuisine_type?: string[];
+  name_translations?: Record<string, string>;
+  description_translations?: Record<string, string>;
+  seo_title?: string;
+  seo_description?: string;
+  promo_tags?: string[];
+  share_url?: string;
+  rating?: number;
+  total_reviews?: number;
+  average_rating?: number;
+  total_orders?: number;
+  reorder_rate?: number;
+  cart_additions?: number;
+  view_count?: number;
+  conversion_rate?: number;
+  user_likes_count?: number;
+  order_count?: number;
+  reorder_probability?: number;
+  smart_tags?: string[];
+  kitchen_station?: string;
+  priority_order?: number;
+  shelf_life_hours?: number;
+  is_ready_to_eat?: boolean;
+  approval_status: "pending" | "approved" | "rejected";
+  rejection_reason?: string;
+  fssai_info?: {
+    license_number: string;
+    label_required: boolean;
+  };
+  auto_tags?: string[];
+  paired_dish_ids?: number[];
+  created_at: Date;
+  updated_at: Date;
+  deleted_at?: Date | null;
+  created_by?: number | null;
+  updated_by?: number | null;
+  deleted_by?: number | null;
+}
+
+export interface IDIngredient {
+  id: number;
+  dish_id: number;
+  name: string;
+  image_url?: string;
+  has_options: boolean;
+  created_at: Date;
+  updated_at: Date;
+  options?: IDIOption[];
+}
+
+export interface IDIOption {
+  id: number;
+  name: string;
+  price: number;
+  ingredient_id: number;
+  description?: string;
+  image_url?: string;
+  created_at: Date;
+  updated_at: Date;
+}
+export interface IDCustomization {
+  id: number;
+  dish_id: number;
+  title: string;
+  is_required: boolean;
+  min_selection: number;
+  max_selection: number;
+  selection_type: "single" | "multiple";
+  order: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
+  options?: IDCOption[];
+}
+
+export interface IDCOption {
+  id: number;
+  customization_id: number;
+  title: string;
+  price: number;
+  is_default: boolean;
+  is_available: boolean;
+  calories?: number | null;
+  order: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date | null;
 }

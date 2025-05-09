@@ -29,9 +29,11 @@ const RBranches = React.lazy(() => import("./pages/RBranches"));
 const Categories = React.lazy(() => import("./pages/Categories"));
 const SubCategories = React.lazy(() => import("./pages/Sub-Categories"));
 const Roles = React.lazy(() => import("./pages/Roles"));
+const Dishes = React.lazy(() => import("./pages/Dishes"));
 const AddEditRBranch = React.lazy(() => import("./pages/RBranches/AddEditRBranch"));
 const AddEditRestaurant = React.lazy(() => import("./pages/Restaurants/AddEditRestaurant"));
 const AddEditRole = React.lazy(() => import("./pages/Roles/AddEditRole"));
+const AddEditDish = React.lazy(() => import("./pages/Dishes/AddEditDish"));
 const AddEditCategory = React.lazy(
   () => import("./pages/Categories/AddEditCategory")
 );
@@ -106,6 +108,18 @@ const PRIVATE_ROUTES: IRoutes[] = [
   {
     path: AppRoutes.EDIT_ROLE,
     element: <AddEditRole />,
+  },
+  {
+    path: AppRoutes.DISHES,
+    element: <Dishes />,
+  },
+  {
+    path: AppRoutes.ADD_DISH,
+    element: <AddEditDish />,
+  },
+  {
+    path: AppRoutes.EDIT_DISH,
+    element: <AddEditDish />,
   },
   {
     path: AppRoutes.EDIT_BRANCH,

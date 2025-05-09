@@ -25,9 +25,14 @@ export const AllTypesProps: Record<string,any> = {
 		},
 		getSubcategoryById:{
 
+		},
+		getDishById:{
+
 		}
 	},
 	Date: `scalar.Date` as const,
+	JSONObject: `scalar.JSONObject` as const,
+	Time: `scalar.Time` as const,
 	RootMutation:{
 		createRole:{
 			created_at:"Date",
@@ -137,10 +142,17 @@ export const AllTypesProps: Record<string,any> = {
 			updated_at:"Date",
 			deleted_at:"Date",
 			ingredients_options:"IngredientInput"
+		},
+		updateDish:{
+			dietary_tags:"JSONObject",
+			availability_start_time:"Time",
+			availability_end_time:"Time",
+			created_at:"Date",
+			updated_at:"Date",
+			deleted_at:"Date",
+			ingredients_options:"IngredientInput"
 		}
 	},
-	JSONObject: `scalar.JSONObject` as const,
-	Time: `scalar.Time` as const,
 	IngredientInput:{
 		created_at:"Date",
 		updated_at:"Date",
@@ -166,7 +178,9 @@ export const ReturnTypes: Record<string,any> = {
 		getCategoryById:"CategoryByIdResponse",
 		categoryList:"CategoryListResponse",
 		subCategoriesList:"SubCategoriesListResponse",
-		getSubcategoryById:"SubCategoryByIdResponse"
+		getSubcategoryById:"SubCategoryByIdResponse",
+		dishList:"dishListResponse",
+		getDishById:"getDishByIdResponse"
 	},
 	roleListResponse:{
 		status:"Int",
@@ -548,6 +562,87 @@ export const ReturnTypes: Record<string,any> = {
 		message:"String",
 		data:"SubCategory"
 	},
+	dishListResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"dishList"
+	},
+	dishList:{
+		count:"Int",
+		rows:"Dish"
+	},
+	Dish:{
+		id:"Int",
+		restaurant_id:"Int",
+		branch_id:"Int",
+		category_id:"Int",
+		subcategory_id:"Int",
+		name:"String",
+		slug:"String",
+		description:"String",
+		image:"String",
+		banner_image:"String",
+		price:"Float",
+		original_price:"Float",
+		currency:"String",
+		discount_percentage:"Float",
+		is_available:"Boolean",
+		is_veg:"Boolean",
+		is_customizable:"Boolean",
+		spicy_level:"String",
+		preparation_time_minutes:"Int",
+		dietary_tags:"JSONObject",
+		ingredients:"String",
+		availability_start_time:"Time",
+		availability_end_time:"Time",
+		stock_quantity:"Int",
+		min_order_qty:"Int",
+		max_order_qty:"Int",
+		rating:"Float",
+		approval_status:"String",
+		rejection_reason:"String",
+		created_at:"Date",
+		updated_at:"Date",
+		deleted_at:"Date",
+		restaurant:"Restaurant",
+		branch:"RBranch",
+		category:"Category",
+		subcategory:"SubCategory",
+		ingredients_options:"DIngredients"
+	},
+	JSONObject: `scalar.JSONObject` as const,
+	Time: `scalar.Time` as const,
+	DIngredients:{
+		id:"Int",
+		dish_id:"Int",
+		name:"String",
+		image_url:"String",
+		has_options:"Boolean",
+		created_at:"Date",
+		updated_at:"Date",
+		options:"DIOption"
+	},
+	DIOption:{
+		id:"Int",
+		name:"String",
+		price:"Float",
+		ingredient_id:"Int",
+		description:"String",
+		image_url:"String",
+		created_at:"Date",
+		updated_at:"Date"
+	},
+	getDishByIdResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"Dish"
+	},
 	RootMutation:{
 		createRole:"createRoleResponse",
 		updateRole:"updateRoleResponse",
@@ -574,7 +669,8 @@ export const ReturnTypes: Record<string,any> = {
 		deleteRDeals:"deleteRDealResponse",
 		createRBDeal:"createRBDealResponse",
 		deleteRBDeal:"deleteRBDealResponse",
-		createDish:"createDishResponse"
+		createDish:"createDishResponse",
+		updateDish:"updateDishResponse"
 	},
 	createRoleResponse:{
 		status:"Int",
@@ -779,46 +875,14 @@ export const ReturnTypes: Record<string,any> = {
 		message:"String",
 		data:"Dish"
 	},
-	Dish:{
-		id:"Int",
-		restaurant_id:"Int",
-		branch_id:"Int",
-		category_id:"Int",
-		subcategory_id:"Int",
-		name:"String",
-		slug:"String",
-		description:"String",
-		image:"String",
-		banner_image:"String",
-		price:"Float",
-		original_price:"Float",
-		currency:"String",
-		discount_percentage:"Float",
-		is_available:"Boolean",
-		is_veg:"Boolean",
-		is_customizable:"Boolean",
-		spicy_level:"String",
-		preparation_time_minutes:"Int",
-		dietary_tags:"JSONObject",
-		ingredients:"String",
-		availability_start_time:"Time",
-		availability_end_time:"Time",
-		stock_quantity:"Int",
-		min_order_qty:"Int",
-		max_order_qty:"Int",
-		rating:"Float",
-		approval_status:"String",
-		rejection_reason:"String",
-		created_at:"Date",
-		updated_at:"Date",
-		deleted_at:"Date",
-		restaurant:"Restaurant",
-		branch:"RBranch",
-		category:"Category",
-		subcategory:"SubCategory"
+	updateDishResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"Dish"
 	},
-	JSONObject: `scalar.JSONObject` as const,
-	Time: `scalar.Time` as const,
 	ID: `scalar.ID` as const
 }
 

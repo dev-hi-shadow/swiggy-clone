@@ -1,5 +1,7 @@
+import { FormikErrors, FormikTouched, FormikValues } from "formik";
 import type React from "react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 interface Option {
   value: string;
@@ -12,14 +14,29 @@ interface MultiSelectProps {
   defaultSelected?: string[];
   onChange?: (selected: string[]) => void;
   disabled?: boolean;
+  setFieldTouched?: (name: string) => void;
+  setFieldError?: (field: string, value: string | undefined) => void;
+  values?: FormikValues;
+  errors?: FormikErrors<FormikValues>;
+  touched?: FormikTouched<Record<string, boolean>>;
+  name: string;
+  setFieldValue?: (
+    field: string,
+    value: unknown,
+    shouldValidate?: boolean
+  ) => void;
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
+  values,
+
+  name,
   label,
   options,
-  defaultSelected = [],
+  defaultSelected = values ? values[name] : [],
   onChange,
   disabled = false,
+  setFieldValue,
 }) => {
   const [selectedOptions, setSelectedOptions] =
     useState<string[]>(defaultSelected);
@@ -36,127 +53,128 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
 
     setSelectedOptions(newSelectedOptions);
     onChange?.(newSelectedOptions);
+    if (setFieldValue) setFieldValue(name, newSelectedOptions);
   };
 
   const removeOption = (value: string) => {
     const newSelectedOptions = selectedOptions.filter((opt) => opt !== value);
     setSelectedOptions(newSelectedOptions);
     onChange?.(newSelectedOptions);
+    if (setFieldValue) {
+      setFieldValue(name, newSelectedOptions);
+    }
   };
 
   const selectedValuesText = selectedOptions.map(
-    (value) => options.find((option) => option.value === value)?.text || ""
+    (value) => options.find((option) => option.value === value)?.text ?? ""
   );
 
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useOutsideClick(wrapperRef, () => {
+    if (isOpen) setIsOpen(false);
+  });
+  // Calculate visible tags and overflow count
+  const maxVisibleTags = 2; // Show maximum 2 tags before showing counter
+  const visibleTags = selectedValuesText.slice(0, maxVisibleTags);
+  const hiddenCount = selectedValuesText.length - maxVisibleTags;
+
   return (
-    <div className="w-full">
+    <div ref={wrapperRef} className="w-full relative">
       <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
         {label}
       </label>
 
-      <div className="relative z-20 inline-block w-full">
-        <div className="relative flex flex-col items-center">
-          <div onClick={toggleDropdown} className="w-full">
-            <div className="mb-2 flex h-11 rounded-lg border border-gray-300 py-1.5 pl-3 pr-3 shadow-theme-xs outline-hidden transition focus:border-brand-300 focus:shadow-focus-ring dark:border-gray-700 dark:bg-gray-900 dark:focus:border-brand-300">
-              <div className="flex flex-wrap flex-auto gap-2">
-                {selectedValuesText.length > 0 ? (
-                  selectedValuesText.map((text, index) => (
-                    <div
-                      key={index}
-                      className="group flex items-center justify-center rounded-full border-[0.7px] border-transparent bg-gray-100 py-1 pl-2.5 pr-2 text-sm text-gray-800 hover:border-gray-200 dark:bg-gray-800 dark:text-white/90 dark:hover:border-gray-800"
-                    >
-                      <span className="flex-initial max-w-full">{text}</span>
-                      <div className="flex flex-row-reverse flex-auto">
-                        <div
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            removeOption(selectedOptions[index]);
-                          }}
-                          className="pl-2 text-gray-500 cursor-pointer group-hover:text-gray-400 dark:text-gray-400"
-                        >
-                          <svg
-                            className="fill-current"
-                            role="button"
-                            width="14"
-                            height="14"
-                            viewBox="0 0 14 14"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M3.40717 4.46881C3.11428 4.17591 3.11428 3.70104 3.40717 3.40815C3.70006 3.11525 4.17494 3.11525 4.46783 3.40815L6.99943 5.93975L9.53095 3.40822C9.82385 3.11533 10.2987 3.11533 10.5916 3.40822C10.8845 3.70112 10.8845 4.17599 10.5916 4.46888L8.06009 7.00041L10.5916 9.53193C10.8845 9.82482 10.8845 10.2997 10.5916 10.5926C10.2987 10.8855 9.82385 10.8855 9.53095 10.5926L6.99943 8.06107L4.46783 10.5927C4.17494 10.8856 3.70006 10.8856 3.40717 10.5927C3.11428 10.2998 3.11428 9.8249 3.40717 9.53201L5.93877 7.00041L3.40717 4.46881Z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <input
-                    placeholder="Select option"
-                    className="dark:text-white w-full h-full p-1 pr-2 text-sm bg-transparent border-0 outline-hidden appearance-none placeholder:text-gray-800 focus:border-0 focus:outline-hidden focus:ring-0 dark:placeholder:text-white/90"
-                    readOnly
-                    value="Select option"
-                  />
-                )}
-              </div>
-              <div className="flex items-center py-1 pl-1 pr-1 w-7">
+      <div className="relative">
+        <div
+          onClick={toggleDropdown}
+          className={`flex h-11 items-center rounded-lg border border-gray-300 py-1.5 pl-3 pr-3 shadow-theme-xs transition-all ${
+            isOpen
+              ? "border-brand-300 ring-2 ring-brand-200 dark:border-brand-300 dark:ring-brand-700"
+              : "hover:border-gray-400 dark:hover:border-gray-600"
+          } dark:border-gray-700 dark:bg-gray-900 cursor-pointer`}
+        >
+          <div className="flex flex-1 flex-wrap gap-2 overflow-hidden">
+            {visibleTags.map((text, index) => (
+              <div
+                key={index}
+                className="flex items-center rounded-full border border-gray-200 bg-gray-100 px-2.5 py-1 text-sm text-gray-800 hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white/90"
+              >
+                <span className="max-w-[120px] truncate">{text}</span>
                 <button
                   type="button"
-                  onClick={toggleDropdown}
-                  className="w-5 h-5 text-gray-700 outline-hidden cursor-pointer focus:outline-hidden dark:text-gray-400"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    removeOption(selectedOptions[index]);
+                  }}
+                  className="ml-1.5 -mr-1 text-gray-500 hover:text-gray-600 dark:text-gray-400"
                 >
-                  <svg
-                    className={`stroke-current ${isOpen ? "rotate-180" : ""}`}
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4.79175 7.39551L10.0001 12.6038L15.2084 7.39551"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  ×
                 </button>
               </div>
-            </div>
+            ))}
+
+            {hiddenCount > 0 && (
+              <div className="flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400">
+                +{hiddenCount} more
+              </div>
+            )}
+
+            {selectedValuesText.length === 0 && (
+              <span className="text-gray-500 dark:text-gray-400">
+                Select options...
+              </span>
+            )}
           </div>
 
-          {isOpen && (
-            <div
-              className="absolute left-0 z-40 w-full overflow-y-auto bg-white rounded-lg shadow-sm top-full max-h-select dark:bg-gray-900"
-              onClick={(e) => e.stopPropagation()}
+          {/* Chevron icon */}
+          <div className="ml-2 flex-shrink-0">
+            <svg
+              className={`h-5 w-5 transform transition-transform ${
+                isOpen ? "rotate-180" : ""
+              } text-gray-500 dark:text-gray-400`}
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-              <div className="flex flex-col">
-                {options.map((option, index) => (
-                  <div
-                    key={index}
-                    className={`hover:bg-primary/5 w-full cursor-pointer rounded-t border-b border-gray-200 dark:border-gray-800`}
-                    onClick={() => handleSelect(option.value)}
-                  >
-                    <div
-                      className={`relative flex w-full items-center p-2 pl-2 ${
-                        selectedOptions.includes(option.value)
-                          ? "bg-primary/10"
-                          : ""
-                      }`}
-                    >
-                      <div className="mx-2 leading-6 text-gray-800 dark:text-white/90">
-                        {option.text}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
         </div>
+
+        {/* Dropdown list */}
+        {isOpen && (
+          <div className="absolute mt-1 w-full rounded-md bg-white shadow-lg dark:bg-gray-800 z-50">
+            <div className="max-h-60 overflow-y-auto no-scrollbar rounded-md border border-gray-200 dark:border-gray-700">
+              {options.map((option) => (
+                <div
+                  key={option.value}
+                  onClick={() => handleSelect(option.value)}
+                  className={`relative cursor-pointer select-none px-4 py-2 text-gray-900 transition-colors
+                     ${
+                       selectedOptions.includes(option.value)
+                         ? "bg-brand-100/50 dark:bg-brand-900/20"
+                         : "hover:bg-gray-100 dark:hover:bg-gray-700"
+                     }
+                     dark:text-white`}
+                >
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={selectedOptions.includes(option.value)}
+                      readOnly
+                      className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600"
+                    />
+                    <span className="ml-3 block truncate">{option.text}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
