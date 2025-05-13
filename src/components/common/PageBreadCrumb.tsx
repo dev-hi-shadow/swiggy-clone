@@ -5,12 +5,14 @@ interface BreadcrumbProps {
   pageTitle: string;
   isBack?: boolean;
   backPath?: string;
+  isTitle?: boolean;
 }
 
 const PageBreadcrumb: React.FC<BreadcrumbProps> = ({
   pageTitle,
   isBack,
   backPath,
+  isTitle = true,
 }) => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
@@ -27,7 +29,7 @@ const PageBreadcrumb: React.FC<BreadcrumbProps> = ({
           className="text-xl font-semibold text-gray-800 dark:text-white/90"
           x-text="pageName"
         >
-          {pageTitle}
+          {isTitle ? pageTitle : null}
         </h2>
       </div>
       <nav>

@@ -6,12 +6,12 @@ export default function ResponsiveImage({
   width,
   isCenter,
 }: {
-  readonly image: string;
-  readonly border?: boolean;
-  readonly className?: string;
-  readonly height?: number;
-  readonly width?: number;
-  readonly isCenter?: boolean;
+  image: string;
+  border?: boolean;
+  className?: string;
+  height?: number;
+  width?: number;
+  isCenter?: boolean;
 }) {
   if (border) {
     className += "border border-gray-200  dark:border-gray-800";

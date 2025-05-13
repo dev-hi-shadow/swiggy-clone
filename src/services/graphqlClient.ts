@@ -7,7 +7,8 @@ export const graphql = Chain(API_URL, {
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${
-      queryClient.getQueryData<IAuthenticate>(["auth"])?.token
+      queryClient.getQueryData<IAuthenticate>(["auth"])?.token ??
+      localStorage.getItem("authToken")
     }`,
   },
 }); 

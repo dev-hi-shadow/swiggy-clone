@@ -113,27 +113,6 @@ export const AllTypesProps: Record<string,any> = {
 		deleteBranch:{
 
 		},
-		createCDeal:{
-			created_at:"Date",
-			updated_at:"Date"
-		},
-		deleteCDeals:{
-
-		},
-		createRDeal:{
-			created_at:"Date",
-			updated_at:"Date"
-		},
-		deleteRDeals:{
-
-		},
-		createRBDeal:{
-			created_at:"Date",
-			updated_at:"Date"
-		},
-		deleteRBDeal:{
-
-		},
 		createDish:{
 			dietary_tags:"JSONObject",
 			availability_start_time:"Time",
@@ -141,7 +120,27 @@ export const AllTypesProps: Record<string,any> = {
 			created_at:"Date",
 			updated_at:"Date",
 			deleted_at:"Date",
-			ingredients_options:"IngredientInput"
+			gallery_images:"JSONObject",
+			tags:"JSONObject",
+			discount_start_time:"Date",
+			discount_end_time:"Date",
+			ingredients_options:"IngredientInput",
+			customization_groups:"DCusDCustomization",
+			allergen_info:"JSONObject",
+			allergens:"JSONObject",
+			addons_group_ids:"JSONObject",
+			variant_group_ids:"JSONObject",
+			meal_time_tags:"JSONObject",
+			language_tags:"JSONObject",
+			regional_exclusivity:"JSONObject",
+			cuisine_type:"JSONObject",
+			name_translations:"JSONObject",
+			description_translations:"JSONObject",
+			promo_tags:"JSONObject",
+			smart_tags:"JSONObject",
+			fssai_info:"JSONObject",
+			auto_tags:"JSONObject",
+			paired_dish_ids:"JSONObject"
 		},
 		updateDish:{
 			dietary_tags:"JSONObject",
@@ -150,7 +149,27 @@ export const AllTypesProps: Record<string,any> = {
 			created_at:"Date",
 			updated_at:"Date",
 			deleted_at:"Date",
-			ingredients_options:"IngredientInput"
+			gallery_images:"JSONObject",
+			tags:"JSONObject",
+			discount_start_time:"Date",
+			discount_end_time:"Date",
+			ingredients_options:"IngredientInput",
+			customization_groups:"DCusDCustomization",
+			allergen_info:"JSONObject",
+			allergens:"JSONObject",
+			addons_group_ids:"JSONObject",
+			variant_group_ids:"JSONObject",
+			meal_time_tags:"JSONObject",
+			language_tags:"JSONObject",
+			regional_exclusivity:"JSONObject",
+			cuisine_type:"JSONObject",
+			name_translations:"JSONObject",
+			description_translations:"JSONObject",
+			promo_tags:"JSONObject",
+			smart_tags:"JSONObject",
+			fssai_info:"JSONObject",
+			auto_tags:"JSONObject",
+			paired_dish_ids:"JSONObject"
 		}
 	},
 	IngredientInput:{
@@ -160,6 +179,19 @@ export const AllTypesProps: Record<string,any> = {
 	},
 	DIOptionInput:{
 
+	},
+	DCusDCustomization:{
+		selection_type:"SelectionType",
+		createdAt:"Date",
+		updatedAt:"Date",
+		deletedAt:"Date",
+		options:"IDCOptionInput"
+	},
+	SelectionType: "enum" as const,
+	IDCOptionInput:{
+		createdAt:"Date",
+		updatedAt:"Date",
+		deletedAt:"Date"
 	},
 	ID: `scalar.ID` as const
 }
@@ -607,11 +639,88 @@ export const ReturnTypes: Record<string,any> = {
 		created_at:"Date",
 		updated_at:"Date",
 		deleted_at:"Date",
+		parent_dish_id:"Int",
+		long_description:"String",
+		gallery_images:"JSONObject",
+		video_url:"String",
+		tags:"JSONObject",
+		price_unit:"String",
+		tax_percentage:"Float",
+		tax_inclusive:"Boolean",
+		service_charge_percentage:"Float",
+		packaging_charge:"Float",
+		discount_type:"String",
+		discount_amount:"Float",
+		discount_amount_upto:"Float",
+		discount_start_time:"Date",
+		discount_end_time:"Date",
+		discount_max_quantity:"Int",
+		discount_min_quantity:"Int",
+		discount_max_quantity_per_user:"Int",
+		discount_min_quantity_per_user:"Int",
+		discount_max_quantity_per_order:"Int",
+		discount_min_quantity_per_order:"Int",
+		discount_applies_with_coupon:"Boolean",
+		promo_code_applicable:"Boolean",
+		availability_days:"String",
+		blackout_dates:"String",
+		preorder_available:"Boolean",
+		preorder_hours:"Int",
+		delivery_eta_minutes:"Int",
+		delivery_buffer_minutes:"Int",
+		available_portions:"Int",
+		ingredients_options:"DIngredients",
+		customization_groups:"JSONObject",
+		allergen_info:"JSONObject",
+		allergens:"JSONObject",
+		addons_group_ids:"JSONObject",
+		variant_group_ids:"JSONObject",
+		combo_group_id:"Int",
+		is_part_of_combo:"Boolean",
+		meal_time_tags:"JSONObject",
+		featured:"Boolean",
+		is_featured:"Boolean",
+		is_new:"Boolean",
+		is_popular:"Boolean",
+		is_recommended:"Boolean",
+		is_best_seller:"Boolean",
+		is_chef_special:"Boolean",
+		is_available_for_delivery:"Boolean",
+		is_available_for_pickup:"Boolean",
+		is_available_for_dine_in:"Boolean",
+		is_available_for_takeaway:"Boolean",
+		language_tags:"JSONObject",
+		regional_exclusivity:"JSONObject",
+		cuisine_type:"JSONObject",
+		name_translations:"JSONObject",
+		description_translations:"JSONObject",
+		seo_title:"String",
+		seo_description:"String",
+		promo_tags:"JSONObject",
+		share_url:"String",
+		total_reviews:"Int",
+		average_rating:"Float",
+		total_orders:"Int",
+		reorder_rate:"Float",
+		cart_additions:"Int",
+		view_count:"Int",
+		conversion_rate:"Float",
+		user_likes_count:"Int",
+		order_count:"Int",
+		reorder_probability:"Float",
+		smart_tags:"JSONObject",
+		kitchen_station:"String",
+		priority_order:"Int",
+		shelf_life_hours:"Int",
+		is_ready_to_eat:"Boolean",
+		fssai_info:"JSONObject",
+		auto_tags:"JSONObject",
+		paired_dish_ids:"JSONObject",
 		restaurant:"Restaurant",
 		branch:"RBranch",
 		category:"Category",
 		subcategory:"SubCategory",
-		ingredients_options:"DIngredients"
+		created_by:"User"
 	},
 	JSONObject: `scalar.JSONObject` as const,
 	Time: `scalar.Time` as const,
@@ -663,12 +772,6 @@ export const ReturnTypes: Record<string,any> = {
 		createBranch:"createBranchResponse",
 		updateBranch:"updateBranchResponse",
 		deleteBranch:"deleteBranchResponse",
-		createCDeal:"createCDealResponse",
-		deleteCDeals:"deleteCDealResponse",
-		createRDeal:"createRDealResponse",
-		deleteRDeals:"deleteRDealResponse",
-		createRBDeal:"createRBDealResponse",
-		deleteRBDeal:"deleteRBDealResponse",
 		createDish:"createDishResponse",
 		updateDish:"updateDishResponse"
 	},
@@ -797,75 +900,6 @@ export const ReturnTypes: Record<string,any> = {
 		isError:"Boolean",
 		message:"String",
 		data:"RBranch"
-	},
-	createCDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"CDeals"
-	},
-	CDeals:{
-		id:"Int",
-		deal_id:"Int",
-		category_id:"Int",
-		created_at:"Date",
-		updated_at:"Date"
-	},
-	deleteCDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"CDeals"
-	},
-	createRDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"RDeals"
-	},
-	RDeals:{
-		id:"Int",
-		deal_id:"Int",
-		restaurant_id:"Int",
-		created_at:"Date",
-		updated_at:"Date"
-	},
-	deleteRDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"RDeals"
-	},
-	createRBDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"RBDeals"
-	},
-	RBDeals:{
-		id:"Int",
-		deal_id:"Int",
-		rbranch_id:"Int",
-		created_at:"Date",
-		updated_at:"Date"
-	},
-	deleteRBDealResponse:{
-		status:"Int",
-		success:"Boolean",
-		isToast:"Boolean",
-		isError:"Boolean",
-		message:"String",
-		data:"RBDeals"
 	},
 	createDishResponse:{
 		status:"Int",

@@ -39,6 +39,7 @@ export default function SignUpForm() {
 queryClient.setQueryData<IAuthenticate>(["auth"], {
   token: data?.token as string,
 });
+localStorage.setItem("authToken", data?.token as string);
 navigate(AppRoutes.DASHBOARD);
     }
   }, [data?.token, isSuccess, navigate]);

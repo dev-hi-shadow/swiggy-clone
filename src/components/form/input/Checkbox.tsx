@@ -50,6 +50,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <div className="relative w-5 h-5">
           <input
             id={id}
+            name={name}
             type="checkbox"
             className={`w-5 h-5 appearance-none cursor-pointer dark:border-gray-700 border border-gray-300 checked:border-transparent rounded-md checked:bg-brand-500 disabled:opacity-60 ${className}`}
             checked={isChecked}
@@ -93,7 +94,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         )}
       </label>
       {errors && touched && touched[name] && errors[name] && (
-        <span className="text-sm text-red-500">{String(errors[name])}</span>
+        <span className="text-sm text-error-500">{String(errors[name])}</span>
       )}
     </div>
   );

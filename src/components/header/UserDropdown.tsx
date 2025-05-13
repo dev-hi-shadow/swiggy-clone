@@ -9,7 +9,7 @@ import { AppRoutes } from "../../constants";
 import { useLogout } from "../../services/api-hooks/useAuthHook";
 import { useSwitchToAdmin } from "../../services/api-hooks/usersHook";
  
-export default function UserDropdown({ data }: { readonly data: Partial<IUser> }) {
+export default function UserDropdown({ data }: {  data: Partial<IUser> }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: logout } = useLogout({

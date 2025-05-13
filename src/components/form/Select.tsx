@@ -3,15 +3,16 @@ import Label from "./Label";
 import { FormikErrors, FormikTouched, FormikValues } from "formik";
 
 export interface Option {
-  value: string;
+  value: string | number;
   label: string;
-  text?: string;
+  text?: string | number;
 }
 
 interface SelectProps {
   options: Option[];
+  type?: "String" | "Number";
   placeholder?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   className?: string;
   defaultValue?: number | string;
   label: string;
@@ -33,10 +34,11 @@ interface SelectProps {
 const Select: React.FC<SelectProps> = ({
   label,
   options,
+  type = "String",
   placeholder = "Select an option",
   onChange,
   className = "",
-  defaultValue,
+  defaultValue = "",
   isRequired = false,
   labelClassName,
   setFieldTouched,
@@ -44,7 +46,7 @@ const Select: React.FC<SelectProps> = ({
   errors,
   touched,
   name,
-  setFieldValue
+  setFieldValue,
 }) => {
   // Manage the selected value
   const [selectedValue, setSelectedValue] = useState<
@@ -60,8 +62,9 @@ const Select: React.FC<SelectProps> = ({
     }
     const value = e.target.value;
     setSelectedValue(value);
-    onChange(value); // Trigger parent handler
-    if (setFieldValue) setFieldValue(name, value);
+    if (onChange) onChange(value); // Trigger parent handler
+    if (setFieldValue)
+      setFieldValue(name, type === "Number" ? Number(value) : String(value));
   };
 
   return (
@@ -71,7 +74,7 @@ const Select: React.FC<SelectProps> = ({
         {isRequired && <span className="text-error-500">*</span>}
       </Label>
       <select
-        className={`h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 ${
+        className={`truncate h-11 w-full appearance-none rounded-lg border border-gray-300  bg-transparent px-4 py-2.5 pr-11 text-sm shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 ${
           selectedValue
             ? "text-gray-800 dark:text-white/90"
             : "text-gray-400 dark:text-gray-400"
@@ -92,7 +95,7 @@ const Select: React.FC<SelectProps> = ({
           <option
             key={index}
             value={option.value}
-            className="text-gray-700 dark:bg-gray-900 dark:text-gray-400"
+            className="text-gray-700 dark:bg-gray-900 dark:text-gray-400 truncate "
           >
             {option.label}
           </option>

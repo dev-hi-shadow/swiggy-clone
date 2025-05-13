@@ -27,9 +27,9 @@ export interface ITableHeaderProps<T> {
 }
 
 interface IProps<T> {
-  readonly columns: Array<ITableHeaderProps<T>>;
-  readonly data?: Array<unknown> | Record<string, unknown>;
-  readonly saveButton?: {
+  columns: Array<ITableHeaderProps<T>>;
+  data?: Array<unknown> | Record<string, unknown>;
+  saveButton?: {
     label?: string;
     onClick: () => void;
     type?: "button" | "submit" | "reset";
@@ -38,7 +38,7 @@ interface IProps<T> {
     loading?: boolean;
     icon?: React.ReactNode;
   };
-  readonly cancelButton?: {
+  cancelButton?: {
     label?: string;
     onClick: () => void;
     type?: "button" | "submit" | "reset";

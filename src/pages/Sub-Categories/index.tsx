@@ -11,6 +11,7 @@ import { Modal } from "../../components/ui/modal";
 import Button from "../../components/ui/button/Button";
 import { AppRoutes } from "../../constants";
 import { useGetSubCategories } from "../../services/api-hooks/subCategoryHooks";
+import INF from "../../icons/images/image-not-found.png";
 const Index = () => {
   const { t } = useTranslation();
   const {category_id} = useParams()
@@ -38,7 +39,7 @@ const Index = () => {
                  <ComponentCard
                    image={{
                      className: "w-50 h-50",
-                     src: subCategory?.image ?? "",
+                     src: subCategory?.image ?? INF,
                      isCenter: true,
                    }}
                  >

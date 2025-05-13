@@ -6,7 +6,7 @@ import ComponentCard from "../../components/common/ComponentCard";
 import Input from "../../components/form/input/InputField";
 import DropzoneComponent from "../../components/form/form-elements/DropZone";
 import { FormikValues, useFormik } from "formik";
-import { ISubCategory } from "../../types";
+import { ICategory, ISubCategory } from "../../types";
 import _ from "lodash";
 import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
@@ -40,7 +40,7 @@ const fields: (keyof ISubCategory)[] = [
 
 const validationSchema = Yup.object().shape({
   id: Yup.number().label("Id").nullable(),
-  category_id: Yup.number().label("SubCategory").required(),
+  category_id: Yup.number().label("Category").required(),
   name: Yup.string().label("Name").required(),
   slug: Yup.string().label("Slug").nullable(),
   short_description: Yup.string().label("Short Description").nullable(),
@@ -59,6 +59,7 @@ const AddEditSubSubCategory = () => {
   const navigate = useNavigate();
   const [SubCategoryDetails, setSubCategoryDetails] =
     useState<ISubCategory | null>(null);
+  const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
   const { t } = useTranslation();
 
   const { mutate: addMutate } = useCreateSubCategoryMutation({
@@ -73,7 +74,7 @@ const AddEditSubSubCategory = () => {
       navigate(`/categories`);
     },
   });
-  const {data  : categoriesData}  = useGetCategories()
+  const { data: categoriesData } = useGetCategories();
   const { data, isSuccess } = useGetSubCategory(Number(decodeId(String(id))));
 
   const handleAddEditSubCategory = (values: FormikValues) => {
@@ -104,12 +105,25 @@ const AddEditSubSubCategory = () => {
     onSubmit: handleAddEditSubCategory,
     enableReinitialize: true,
   });
-    console.log("🚀 ~ AddEditSubSubCategory ~ values:", values)
+
   useEffect(() => {
     if (isSuccess) {
       setSubCategoryDetails(data?.data as ISubCategory);
     }
   }, [isSuccess, data?.data]);
+
+  useEffect(() => {
+    if (categoriesData?.data?.count) {
+      const options: Option[] = categoriesData?.data?.rows.map(
+        (category: Partial<ICategory>) => ({
+          value: category.id?.toString() ?? "",
+          label: _.startCase(category.name),
+          text: _.startCase(category.name),
+        })
+      );
+      setCategoryOptions(options);
+    }
+  }, [categoriesData?.data?.count, categoriesData?.data?.rows]);
 
   return (
     <div>
@@ -143,22 +157,16 @@ const AddEditSubSubCategory = () => {
                 <div>
                   <Select
                     isRequired
-                    key={values.category_id}
+                    key={JSON.stringify(categoryOptions)}
+                    type="Number"
                     defaultValue={values.category_id}
                     label="Category"
-                    onChange={(value) =>
-                      setFieldValue("category_id", Number(value))
-                    }
+                    setFieldValue={setFieldValue}
                     name="category_id"
                     setFieldError={setFieldError}
                     setFieldTouched={setFieldTouched}
                     values={values}
-                    options={
-                      _.map(categoriesData?.data?.rows, (category) => ({
-                        label: category.name,
-                        value: category.id?.toString(),
-                      })) as Option[]
-                    }
+                    options={categoryOptions}
                   />
                 </div>
               </div>

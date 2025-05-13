@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useGetRoles } from "../../services/api-hooks/roleHooks";
 import ComponentCard from "../../components/common/ComponentCard";
 import { useNavigate } from "react-router";
-import { AppRoutes } from "../../constants/index";
+import { AppRoutes, FEATURES_NAME } from "../../constants/index";
 import BasicTableOne, {
   ITableHeaderProps,
 } from "../../components/tables/BasicTables/BasicTableOne";
@@ -36,7 +36,9 @@ const Index = () => {
               key={key}
               className="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
             >
-              {`${_.capitalize(key)} : ${_.join(_.sortBy(permission), ", ")}`}
+              {`${_.capitalize(
+                FEATURES_NAME[key as keyof typeof FEATURES_NAME] ?? key
+              )} : ${_.join(_.sortBy(permission), ", ")}`}
             </span>
           ))}
         </div>

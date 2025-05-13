@@ -11,6 +11,8 @@ import { useModal } from "../../hooks/useModal";
 import { Modal } from "../../components/ui/modal";
 import Button from "../../components/ui/button/Button";
 import { AppRoutes } from "../../constants";
+import INF from "../../icons/images/image-not-found.png";
+
 const Index = () => {
   const { t } = useTranslation();
   const { data } = useGetCategories();
@@ -36,7 +38,7 @@ const Index = () => {
                  <ComponentCard
                    image={{
                      className: "w-50 h-50",
-                     src: category?.image ?? "",
+                     src: category?.image ?? INF,
                      isCenter: true,
                    }}
                  >

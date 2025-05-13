@@ -46,9 +46,6 @@ export const getDishes = async (): Promise<
           created_at: true,
           updated_at: true,
           deleted_at: true,
-          created_by: true,
-          updated_by: true,
-          deleted_by: true,
           ingredients_options: {
             has_options: true,
             name: true,
@@ -116,9 +113,6 @@ export const getDishById = async (input: {
           created_at: true,
           updated_at: true,
           deleted_at: true,
-          created_by: true,
-          updated_by: true,
-          deleted_by: true,
           ingredients_options: {
             has_options: true,
             name: true,
@@ -150,6 +144,7 @@ export const createDish = async (
     createDish: [
       {
         ...input,
+        customization_groups: null,
       },
       {
         data: {
@@ -185,7 +180,6 @@ export const createDish = async (
           created_at: true,
           updated_at: true,
           deleted_at: true,
-          created_by: true,
         },
         isError: true,
         status: true,
@@ -204,6 +198,7 @@ export const updateDish = async (
     updateDish: [
       {
         ...input,
+        customization_groups: null,
       },
       {
         data: {
@@ -239,7 +234,6 @@ export const updateDish = async (
           created_at: true,
           updated_at: true,
           deleted_at: true,
-          created_by: true,
         },
         isError: true,
         status: true,

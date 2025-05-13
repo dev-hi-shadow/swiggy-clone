@@ -2,7 +2,7 @@ import { IUser } from "../../types";
 import _ from "lodash";
 
 interface IProps {
-  readonly userDetails: Partial<IUser> | null;
+  userDetails: Partial<IUser> | null;
 }
 
 export default function UserMetaCard({ userDetails }: IProps) {

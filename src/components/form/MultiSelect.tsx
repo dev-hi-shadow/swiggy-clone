@@ -4,15 +4,16 @@ import { useRef, useState } from "react";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
 
 interface Option {
-  value: string;
-  text: string;
+  value: string | number;
+  label: string;
+  text?: string | number;
 }
 
 interface MultiSelectProps {
   label: string;
   options: Option[];
   defaultSelected?: string[];
-  onChange?: (selected: string[]) => void;
+  onChange?: (selected: (string | number)[]) => void;
   disabled?: boolean;
   setFieldTouched?: (name: string) => void;
   setFieldError?: (field: string, value: string | undefined) => void;
@@ -25,11 +26,13 @@ interface MultiSelectProps {
     value: unknown,
     shouldValidate?: boolean
   ) => void;
+  type?: "Number" | "String";
+  isRequired?: boolean;
 }
 
 const MultiSelect: React.FC<MultiSelectProps> = ({
   values,
-
+  isRequired = false,
   name,
   label,
   options,
@@ -37,9 +40,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   onChange,
   disabled = false,
   setFieldValue,
+  type = "String",
 }) => {
   const [selectedOptions, setSelectedOptions] =
-    useState<string[]>(defaultSelected);
+    useState<(string | number)[]>(defaultSelected);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -51,12 +55,16 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       ? selectedOptions.filter((value) => value !== optionValue)
       : [...selectedOptions, optionValue];
 
-    setSelectedOptions(newSelectedOptions);
-    onChange?.(newSelectedOptions);
+    setSelectedOptions(
+      newSelectedOptions.map((value) =>
+        type === "Number" ? Number(value) : String(value)
+      )
+    );
+    onChange?.(newSelectedOptions.map(String));
     if (setFieldValue) setFieldValue(name, newSelectedOptions);
   };
 
-  const removeOption = (value: string) => {
+  const removeOption = (value: string | number) => {
     const newSelectedOptions = selectedOptions.filter((opt) => opt !== value);
     setSelectedOptions(newSelectedOptions);
     onChange?.(newSelectedOptions);
@@ -82,7 +90,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
   return (
     <div ref={wrapperRef} className="w-full relative">
       <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-        {label}
+        {label}{isRequired ? <span className="text-error-500">*</span> : ""}
       </label>
 
       <div className="relative">
@@ -121,7 +129,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             )}
 
             {selectedValuesText.length === 0 && (
-              <span className="text-gray-500 dark:text-gray-400">
+              <span className="sm:text-xs md:text-base text-gray-500 dark:text-gray-400">
                 Select options...
               </span>
             )}
@@ -152,10 +160,10 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
               {options.map((option) => (
                 <div
                   key={option.value}
-                  onClick={() => handleSelect(option.value)}
+                  onClick={() => handleSelect(option.value as string)}
                   className={`relative cursor-pointer select-none px-4 py-2 text-gray-900 transition-colors
                      ${
-                       selectedOptions.includes(option.value)
+                       selectedOptions.includes(option.value as string)
                          ? "bg-brand-100/50 dark:bg-brand-900/20"
                          : "hover:bg-gray-100 dark:hover:bg-gray-700"
                      }
@@ -164,7 +172,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
                   <div className="flex items-center">
                     <input
                       type="checkbox"
-                      checked={selectedOptions.includes(option.value)}
+                      checked={selectedOptions.includes(option.value as string)}
                       readOnly
                       className="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600"
                     />

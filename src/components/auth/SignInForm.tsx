@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons/svgs";
  import Input from "../form/input/InputField";
@@ -31,15 +31,16 @@ export default function SignInForm() {
       queryClient.setQueryData<IAuthenticate>(["auth"], {
         token: data?.token as string,
       });
-       i18n.changeLanguage(
-         data?.data?.language_preference as LanguagePreferences
-       );
+      localStorage.setItem("authToken", data?.token as string);
+      i18n.changeLanguage(
+        data?.data?.language_preference as LanguagePreferences
+      );
       navigate(AppRoutes.DASHBOARD);
     },
   });
 
-  useLayoutEffect(() => {
-    const token = queryClient.getQueryData<IAuthenticate>(["auth"])?.token;
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
     if (token) {
       navigate(AppRoutes.DASHBOARD);
     }

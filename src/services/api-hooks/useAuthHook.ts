@@ -59,6 +59,7 @@ export const useLogout = ({
       queryClient.removeQueries({ queryKey: ["profile"] });
       queryClient.removeQueries({ queryKey: ["activeRestaurant"] });
       queryClient.removeQueries({ queryKey: ["activeRBranch"] });
+      localStorage.removeItem("authToken");
     },
     onSuccess,
     onError,

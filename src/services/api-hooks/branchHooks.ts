@@ -7,6 +7,7 @@ export const useGetRBranches = (restaurant_id: number) => {
   return useQuery<ApiResponse<Array<Partial<IRBranch>>>, Error>({
     queryKey: ["getRBranches"],
     queryFn: () => getRBranches(restaurant_id),
+    enabled: !!restaurant_id,
   });
 };
 export const useGetRBranch = (id: number) => {

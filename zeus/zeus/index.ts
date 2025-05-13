@@ -1386,11 +1386,88 @@ getDishById?: [{	id?: number | undefined | null | Variable<any, string>},ValueTy
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
+	parent_dish_id?:boolean | `@${string}`,
+	long_description?:boolean | `@${string}`,
+	gallery_images?:boolean | `@${string}`,
+	video_url?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	price_unit?:boolean | `@${string}`,
+	tax_percentage?:boolean | `@${string}`,
+	tax_inclusive?:boolean | `@${string}`,
+	service_charge_percentage?:boolean | `@${string}`,
+	packaging_charge?:boolean | `@${string}`,
+	discount_type?:boolean | `@${string}`,
+	discount_amount?:boolean | `@${string}`,
+	discount_amount_upto?:boolean | `@${string}`,
+	discount_start_time?:boolean | `@${string}`,
+	discount_end_time?:boolean | `@${string}`,
+	discount_max_quantity?:boolean | `@${string}`,
+	discount_min_quantity?:boolean | `@${string}`,
+	discount_max_quantity_per_user?:boolean | `@${string}`,
+	discount_min_quantity_per_user?:boolean | `@${string}`,
+	discount_max_quantity_per_order?:boolean | `@${string}`,
+	discount_min_quantity_per_order?:boolean | `@${string}`,
+	discount_applies_with_coupon?:boolean | `@${string}`,
+	promo_code_applicable?:boolean | `@${string}`,
+	availability_days?:boolean | `@${string}`,
+	blackout_dates?:boolean | `@${string}`,
+	preorder_available?:boolean | `@${string}`,
+	preorder_hours?:boolean | `@${string}`,
+	delivery_eta_minutes?:boolean | `@${string}`,
+	delivery_buffer_minutes?:boolean | `@${string}`,
+	available_portions?:boolean | `@${string}`,
+	ingredients_options?:ValueTypes["DIngredients"],
+	customization_groups?:boolean | `@${string}`,
+	allergen_info?:boolean | `@${string}`,
+	allergens?:boolean | `@${string}`,
+	addons_group_ids?:boolean | `@${string}`,
+	variant_group_ids?:boolean | `@${string}`,
+	combo_group_id?:boolean | `@${string}`,
+	is_part_of_combo?:boolean | `@${string}`,
+	meal_time_tags?:boolean | `@${string}`,
+	featured?:boolean | `@${string}`,
+	is_featured?:boolean | `@${string}`,
+	is_new?:boolean | `@${string}`,
+	is_popular?:boolean | `@${string}`,
+	is_recommended?:boolean | `@${string}`,
+	is_best_seller?:boolean | `@${string}`,
+	is_chef_special?:boolean | `@${string}`,
+	is_available_for_delivery?:boolean | `@${string}`,
+	is_available_for_pickup?:boolean | `@${string}`,
+	is_available_for_dine_in?:boolean | `@${string}`,
+	is_available_for_takeaway?:boolean | `@${string}`,
+	language_tags?:boolean | `@${string}`,
+	regional_exclusivity?:boolean | `@${string}`,
+	cuisine_type?:boolean | `@${string}`,
+	name_translations?:boolean | `@${string}`,
+	description_translations?:boolean | `@${string}`,
+	seo_title?:boolean | `@${string}`,
+	seo_description?:boolean | `@${string}`,
+	promo_tags?:boolean | `@${string}`,
+	share_url?:boolean | `@${string}`,
+	total_reviews?:boolean | `@${string}`,
+	average_rating?:boolean | `@${string}`,
+	total_orders?:boolean | `@${string}`,
+	reorder_rate?:boolean | `@${string}`,
+	cart_additions?:boolean | `@${string}`,
+	view_count?:boolean | `@${string}`,
+	conversion_rate?:boolean | `@${string}`,
+	user_likes_count?:boolean | `@${string}`,
+	order_count?:boolean | `@${string}`,
+	reorder_probability?:boolean | `@${string}`,
+	smart_tags?:boolean | `@${string}`,
+	kitchen_station?:boolean | `@${string}`,
+	priority_order?:boolean | `@${string}`,
+	shelf_life_hours?:boolean | `@${string}`,
+	is_ready_to_eat?:boolean | `@${string}`,
+	fssai_info?:boolean | `@${string}`,
+	auto_tags?:boolean | `@${string}`,
+	paired_dish_ids?:boolean | `@${string}`,
 	restaurant?:ValueTypes["Restaurant"],
 	branch?:ValueTypes["RBranch"],
 	category?:ValueTypes["Category"],
 	subcategory?:ValueTypes["SubCategory"],
-	ingredients_options?:ValueTypes["DIngredients"],
+	created_by?:ValueTypes["User"],
 		__typename?: boolean | `@${string}`
 }>;
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -1449,14 +1526,8 @@ deleteSubcategory?: [{	id?: number | undefined | null | Variable<any, string>},V
 createBranch?: [{	description?: string | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	owner_id?: number | undefined | null | Variable<any, string>,	manager_id?: number | undefined | null | Variable<any, string>,	location?: string | undefined | null | Variable<any, string>,	longitude?: number | undefined | null | Variable<any, string>,	latitude?: number | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	phone_number?: string | undefined | null | Variable<any, string>,	alternate_phone_number?: string | undefined | null | Variable<any, string>,	expected_delivery_time?: string | undefined | null | Variable<any, string>,	average_price_for_one?: number | undefined | null | Variable<any, string>,	average_price_for_two?: number | undefined | null | Variable<any, string>,	delivery_charge?: number | undefined | null | Variable<any, string>,	min_order_value?: number | undefined | null | Variable<any, string>,	max_order_value?: number | undefined | null | Variable<any, string>,	packaging_charge?: number | undefined | null | Variable<any, string>,	is_open?: boolean | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_available_for_delivery?: boolean | undefined | null | Variable<any, string>,	is_available_for_pickup?: boolean | undefined | null | Variable<any, string>,	is_veg_only?: boolean | undefined | null | Variable<any, string>,	opening_time?: string | undefined | null | Variable<any, string>,	closing_time?: string | undefined | null | Variable<any, string>,	special_opening_time?: string | undefined | null | Variable<any, string>,	special_closing_time?: string | undefined | null | Variable<any, string>,	average_preparation_time?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	short_description?: string | undefined | null | Variable<any, string>,	full_description?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	service_radius_km?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	approval_notes?: string | undefined | null | Variable<any, string>,	cancellation_policy?: string | undefined | null | Variable<any, string>,	external_integration_id?: string | undefined | null | Variable<any, string>,	timezone?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	zip_code?: string | undefined | null | Variable<any, string>,	landmark?: string | undefined | null | Variable<any, string>,	block_floor_number?: number | undefined | null | Variable<any, string>,	nearby_landmark?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>},ValueTypes["createBranchResponse"]],
 updateBranch?: [{	id?: number | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	owner_id?: number | undefined | null | Variable<any, string>,	manager_id?: number | undefined | null | Variable<any, string>,	location?: string | undefined | null | Variable<any, string>,	longitude?: number | undefined | null | Variable<any, string>,	latitude?: number | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	phone_number?: string | undefined | null | Variable<any, string>,	alternate_phone_number?: string | undefined | null | Variable<any, string>,	expected_delivery_time?: string | undefined | null | Variable<any, string>,	average_price_for_one?: number | undefined | null | Variable<any, string>,	average_price_for_two?: number | undefined | null | Variable<any, string>,	delivery_charge?: number | undefined | null | Variable<any, string>,	min_order_value?: number | undefined | null | Variable<any, string>,	max_order_value?: number | undefined | null | Variable<any, string>,	packaging_charge?: number | undefined | null | Variable<any, string>,	is_open?: boolean | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_available_for_delivery?: boolean | undefined | null | Variable<any, string>,	is_available_for_pickup?: boolean | undefined | null | Variable<any, string>,	is_veg_only?: boolean | undefined | null | Variable<any, string>,	opening_time?: string | undefined | null | Variable<any, string>,	closing_time?: string | undefined | null | Variable<any, string>,	special_opening_time?: string | undefined | null | Variable<any, string>,	special_closing_time?: string | undefined | null | Variable<any, string>,	average_preparation_time?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	short_description?: string | undefined | null | Variable<any, string>,	full_description?: string | undefined | null | Variable<any, string>,	gst_number?: string | undefined | null | Variable<any, string>,	fssai_license_number?: string | undefined | null | Variable<any, string>,	service_radius_km?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	approval_notes?: string | undefined | null | Variable<any, string>,	cancellation_policy?: string | undefined | null | Variable<any, string>,	external_integration_id?: string | undefined | null | Variable<any, string>,	timezone?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	zip_code?: string | undefined | null | Variable<any, string>,	landmark?: string | undefined | null | Variable<any, string>,	block_floor_number?: number | undefined | null | Variable<any, string>,	nearby_landmark?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	created_by?: number | undefined | null | Variable<any, string>,	updated_by?: number | undefined | null | Variable<any, string>,	deleted_by?: number | undefined | null | Variable<any, string>},ValueTypes["updateBranchResponse"]],
 deleteBranch?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteBranchResponse"]],
-createCDeal?: [{	deal_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>},ValueTypes["createCDealResponse"]],
-deleteCDeals?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteCDealResponse"]],
-createRDeal?: [{	deal_id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>},ValueTypes["createRDealResponse"]],
-deleteRDeals?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteRDealResponse"]],
-createRBDeal?: [{	deal_id?: number | undefined | null | Variable<any, string>,	rbranch_id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>},ValueTypes["createRBDealResponse"]],
-deleteRBDeal?: [{	id?: number | undefined | null | Variable<any, string>},ValueTypes["deleteRBDealResponse"]],
-createDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>},ValueTypes["createDishResponse"]],
-updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>},ValueTypes["updateDishResponse"]],
+createDish?: [{	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	parent_dish_id?: number | undefined | null | Variable<any, string>,	long_description?: string | undefined | null | Variable<any, string>,	gallery_images?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	video_url?: string | undefined | null | Variable<any, string>,	tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	price_unit?: string | undefined | null | Variable<any, string>,	tax_percentage?: number | undefined | null | Variable<any, string>,	tax_inclusive?: boolean | undefined | null | Variable<any, string>,	service_charge_percentage?: number | undefined | null | Variable<any, string>,	packaging_charge?: number | undefined | null | Variable<any, string>,	discount_type?: string | undefined | null | Variable<any, string>,	discount_amount?: number | undefined | null | Variable<any, string>,	discount_amount_upto?: number | undefined | null | Variable<any, string>,	discount_start_time?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	discount_end_time?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	discount_max_quantity?: number | undefined | null | Variable<any, string>,	discount_min_quantity?: number | undefined | null | Variable<any, string>,	discount_max_quantity_per_user?: number | undefined | null | Variable<any, string>,	discount_min_quantity_per_user?: number | undefined | null | Variable<any, string>,	discount_max_quantity_per_order?: number | undefined | null | Variable<any, string>,	discount_min_quantity_per_order?: number | undefined | null | Variable<any, string>,	discount_applies_with_coupon?: boolean | undefined | null | Variable<any, string>,	promo_code_applicable?: boolean | undefined | null | Variable<any, string>,	availability_days?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	blackout_dates?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	preorder_available?: boolean | undefined | null | Variable<any, string>,	preorder_hours?: number | undefined | null | Variable<any, string>,	delivery_eta_minutes?: number | undefined | null | Variable<any, string>,	delivery_buffer_minutes?: number | undefined | null | Variable<any, string>,	available_portions?: number | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>,	customization_groups?: ValueTypes["DCusDCustomization"] | undefined | null | Variable<any, string>,	allergen_info?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	allergens?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	addons_group_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	variant_group_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	combo_group_id?: number | undefined | null | Variable<any, string>,	is_part_of_combo?: boolean | undefined | null | Variable<any, string>,	meal_time_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	featured?: boolean | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_new?: boolean | undefined | null | Variable<any, string>,	is_popular?: boolean | undefined | null | Variable<any, string>,	is_recommended?: boolean | undefined | null | Variable<any, string>,	is_best_seller?: boolean | undefined | null | Variable<any, string>,	is_chef_special?: boolean | undefined | null | Variable<any, string>,	is_available_for_delivery?: boolean | undefined | null | Variable<any, string>,	is_available_for_pickup?: boolean | undefined | null | Variable<any, string>,	is_available_for_dine_in?: boolean | undefined | null | Variable<any, string>,	is_available_for_takeaway?: boolean | undefined | null | Variable<any, string>,	language_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	regional_exclusivity?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	cuisine_type?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	name_translations?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	description_translations?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	seo_title?: string | undefined | null | Variable<any, string>,	seo_description?: string | undefined | null | Variable<any, string>,	promo_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	share_url?: string | undefined | null | Variable<any, string>,	total_reviews?: number | undefined | null | Variable<any, string>,	average_rating?: number | undefined | null | Variable<any, string>,	total_orders?: number | undefined | null | Variable<any, string>,	reorder_rate?: number | undefined | null | Variable<any, string>,	cart_additions?: number | undefined | null | Variable<any, string>,	view_count?: number | undefined | null | Variable<any, string>,	conversion_rate?: number | undefined | null | Variable<any, string>,	user_likes_count?: number | undefined | null | Variable<any, string>,	order_count?: number | undefined | null | Variable<any, string>,	reorder_probability?: number | undefined | null | Variable<any, string>,	smart_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	kitchen_station?: string | undefined | null | Variable<any, string>,	priority_order?: number | undefined | null | Variable<any, string>,	shelf_life_hours?: number | undefined | null | Variable<any, string>,	is_ready_to_eat?: boolean | undefined | null | Variable<any, string>,	fssai_info?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	auto_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	paired_dish_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>},ValueTypes["createDishResponse"]],
+updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaurant_id?: number | undefined | null | Variable<any, string>,	branch_id?: number | undefined | null | Variable<any, string>,	category_id?: number | undefined | null | Variable<any, string>,	subcategory_id?: number | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	slug?: string | undefined | null | Variable<any, string>,	description?: string | undefined | null | Variable<any, string>,	image?: string | undefined | null | Variable<any, string>,	banner_image?: string | undefined | null | Variable<any, string>,	price?: number | undefined | null | Variable<any, string>,	original_price?: number | undefined | null | Variable<any, string>,	currency?: string | undefined | null | Variable<any, string>,	discount_percentage?: number | undefined | null | Variable<any, string>,	is_available?: boolean | undefined | null | Variable<any, string>,	is_veg?: boolean | undefined | null | Variable<any, string>,	is_customizable?: boolean | undefined | null | Variable<any, string>,	spicy_level?: string | undefined | null | Variable<any, string>,	preparation_time_minutes?: number | undefined | null | Variable<any, string>,	dietary_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	ingredients?: string | undefined | null | Variable<any, string>,	availability_start_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	availability_end_time?: ValueTypes["Time"] | undefined | null | Variable<any, string>,	stock_quantity?: number | undefined | null | Variable<any, string>,	min_order_qty?: number | undefined | null | Variable<any, string>,	max_order_qty?: number | undefined | null | Variable<any, string>,	rating?: number | undefined | null | Variable<any, string>,	approval_status?: string | undefined | null | Variable<any, string>,	rejection_reason?: string | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	parent_dish_id?: number | undefined | null | Variable<any, string>,	long_description?: string | undefined | null | Variable<any, string>,	gallery_images?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	video_url?: string | undefined | null | Variable<any, string>,	tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	price_unit?: string | undefined | null | Variable<any, string>,	tax_percentage?: number | undefined | null | Variable<any, string>,	tax_inclusive?: boolean | undefined | null | Variable<any, string>,	service_charge_percentage?: number | undefined | null | Variable<any, string>,	packaging_charge?: number | undefined | null | Variable<any, string>,	discount_type?: string | undefined | null | Variable<any, string>,	discount_amount?: number | undefined | null | Variable<any, string>,	discount_amount_upto?: number | undefined | null | Variable<any, string>,	discount_start_time?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	discount_end_time?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	discount_max_quantity?: number | undefined | null | Variable<any, string>,	discount_min_quantity?: number | undefined | null | Variable<any, string>,	discount_max_quantity_per_user?: number | undefined | null | Variable<any, string>,	discount_min_quantity_per_user?: number | undefined | null | Variable<any, string>,	discount_max_quantity_per_order?: number | undefined | null | Variable<any, string>,	discount_min_quantity_per_order?: number | undefined | null | Variable<any, string>,	discount_applies_with_coupon?: boolean | undefined | null | Variable<any, string>,	promo_code_applicable?: boolean | undefined | null | Variable<any, string>,	availability_days?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	blackout_dates?: Array<string | undefined | null> | undefined | null | Variable<any, string>,	preorder_available?: boolean | undefined | null | Variable<any, string>,	preorder_hours?: number | undefined | null | Variable<any, string>,	delivery_eta_minutes?: number | undefined | null | Variable<any, string>,	delivery_buffer_minutes?: number | undefined | null | Variable<any, string>,	available_portions?: number | undefined | null | Variable<any, string>,	ingredients_options?: Array<ValueTypes["IngredientInput"] | undefined | null> | undefined | null | Variable<any, string>,	customization_groups?: ValueTypes["DCusDCustomization"] | undefined | null | Variable<any, string>,	allergen_info?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	allergens?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	addons_group_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	variant_group_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	combo_group_id?: number | undefined | null | Variable<any, string>,	is_part_of_combo?: boolean | undefined | null | Variable<any, string>,	meal_time_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	featured?: boolean | undefined | null | Variable<any, string>,	is_featured?: boolean | undefined | null | Variable<any, string>,	is_new?: boolean | undefined | null | Variable<any, string>,	is_popular?: boolean | undefined | null | Variable<any, string>,	is_recommended?: boolean | undefined | null | Variable<any, string>,	is_best_seller?: boolean | undefined | null | Variable<any, string>,	is_chef_special?: boolean | undefined | null | Variable<any, string>,	is_available_for_delivery?: boolean | undefined | null | Variable<any, string>,	is_available_for_pickup?: boolean | undefined | null | Variable<any, string>,	is_available_for_dine_in?: boolean | undefined | null | Variable<any, string>,	is_available_for_takeaway?: boolean | undefined | null | Variable<any, string>,	language_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	regional_exclusivity?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	cuisine_type?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	name_translations?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	description_translations?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	seo_title?: string | undefined | null | Variable<any, string>,	seo_description?: string | undefined | null | Variable<any, string>,	promo_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	share_url?: string | undefined | null | Variable<any, string>,	total_reviews?: number | undefined | null | Variable<any, string>,	average_rating?: number | undefined | null | Variable<any, string>,	total_orders?: number | undefined | null | Variable<any, string>,	reorder_rate?: number | undefined | null | Variable<any, string>,	cart_additions?: number | undefined | null | Variable<any, string>,	view_count?: number | undefined | null | Variable<any, string>,	conversion_rate?: number | undefined | null | Variable<any, string>,	user_likes_count?: number | undefined | null | Variable<any, string>,	order_count?: number | undefined | null | Variable<any, string>,	reorder_probability?: number | undefined | null | Variable<any, string>,	smart_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	kitchen_station?: string | undefined | null | Variable<any, string>,	priority_order?: number | undefined | null | Variable<any, string>,	shelf_life_hours?: number | undefined | null | Variable<any, string>,	is_ready_to_eat?: boolean | undefined | null | Variable<any, string>,	fssai_info?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	auto_tags?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>,	paired_dish_ids?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>},ValueTypes["updateDishResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["createRoleResponse"]: AliasType<{
@@ -1613,90 +1684,6 @@ updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 	data?:ValueTypes["RBranch"],
 		__typename?: boolean | `@${string}`
 }>;
-	["createCDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createcdeal data */
-	data?:ValueTypes["CDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["CDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	category_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteCDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deletecdeal data */
-	data?:ValueTypes["CDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["createRDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createrdeal data */
-	data?:ValueTypes["RDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["RDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	restaurant_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteRDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deleterdeal data */
-	data?:ValueTypes["RDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["createRBDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createrbdeal data */
-	data?:ValueTypes["RBDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["RBDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	rbranch_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteRBDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deleterbdeal data */
-	data?:ValueTypes["RBDeals"],
-		__typename?: boolean | `@${string}`
-}>;
 	["createDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
 	success?:boolean | `@${string}`,
@@ -1708,6 +1695,8 @@ updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 		__typename?: boolean | `@${string}`
 }>;
 	["IngredientInput"]: {
+	id?: number | undefined | null | Variable<any, string>,
+	dish_id?: number | undefined | null | Variable<any, string>,
 	name?: string | undefined | null | Variable<any, string>,
 	image_url?: string | undefined | null | Variable<any, string>,
 	has_options?: boolean | undefined | null | Variable<any, string>,
@@ -1720,6 +1709,31 @@ updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 	price?: number | undefined | null | Variable<any, string>,
 	description?: string | undefined | null | Variable<any, string>,
 	image_url?: string | undefined | null | Variable<any, string>
+};
+	["DCusDCustomization"]: {
+	id?: number | undefined | null | Variable<any, string>,
+	dish_id?: number | undefined | null | Variable<any, string>,
+	title?: string | undefined | null | Variable<any, string>,
+	is_required?: boolean | undefined | null | Variable<any, string>,
+	min_selection?: number | undefined | null | Variable<any, string>,
+	max_selection?: number | undefined | null | Variable<any, string>,
+	selection_type?: ValueTypes["SelectionType"] | undefined | null | Variable<any, string>,
+	order?: number | undefined | null | Variable<any, string>,
+	createdAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
+	updatedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
+	deletedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
+	options?: ValueTypes["IDCOptionInput"] | undefined | null | Variable<any, string>
+};
+	["SelectionType"]:SelectionType;
+	["IDCOptionInput"]: {
+	id?: number | undefined | null | Variable<any, string>,
+	customization_id?: number | undefined | null | Variable<any, string>,
+	title?: string | undefined | null | Variable<any, string>,
+	price?: number | undefined | null | Variable<any, string>,
+	order?: number | undefined | null | Variable<any, string>,
+	createdAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
+	updatedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
+	deletedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>
 };
 	["updateDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
@@ -2222,11 +2236,88 @@ getDishById?: [{	id?: number | undefined | null},ResolverInputTypes["getDishById
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
 	deleted_at?:boolean | `@${string}`,
+	parent_dish_id?:boolean | `@${string}`,
+	long_description?:boolean | `@${string}`,
+	gallery_images?:boolean | `@${string}`,
+	video_url?:boolean | `@${string}`,
+	tags?:boolean | `@${string}`,
+	price_unit?:boolean | `@${string}`,
+	tax_percentage?:boolean | `@${string}`,
+	tax_inclusive?:boolean | `@${string}`,
+	service_charge_percentage?:boolean | `@${string}`,
+	packaging_charge?:boolean | `@${string}`,
+	discount_type?:boolean | `@${string}`,
+	discount_amount?:boolean | `@${string}`,
+	discount_amount_upto?:boolean | `@${string}`,
+	discount_start_time?:boolean | `@${string}`,
+	discount_end_time?:boolean | `@${string}`,
+	discount_max_quantity?:boolean | `@${string}`,
+	discount_min_quantity?:boolean | `@${string}`,
+	discount_max_quantity_per_user?:boolean | `@${string}`,
+	discount_min_quantity_per_user?:boolean | `@${string}`,
+	discount_max_quantity_per_order?:boolean | `@${string}`,
+	discount_min_quantity_per_order?:boolean | `@${string}`,
+	discount_applies_with_coupon?:boolean | `@${string}`,
+	promo_code_applicable?:boolean | `@${string}`,
+	availability_days?:boolean | `@${string}`,
+	blackout_dates?:boolean | `@${string}`,
+	preorder_available?:boolean | `@${string}`,
+	preorder_hours?:boolean | `@${string}`,
+	delivery_eta_minutes?:boolean | `@${string}`,
+	delivery_buffer_minutes?:boolean | `@${string}`,
+	available_portions?:boolean | `@${string}`,
+	ingredients_options?:ResolverInputTypes["DIngredients"],
+	customization_groups?:boolean | `@${string}`,
+	allergen_info?:boolean | `@${string}`,
+	allergens?:boolean | `@${string}`,
+	addons_group_ids?:boolean | `@${string}`,
+	variant_group_ids?:boolean | `@${string}`,
+	combo_group_id?:boolean | `@${string}`,
+	is_part_of_combo?:boolean | `@${string}`,
+	meal_time_tags?:boolean | `@${string}`,
+	featured?:boolean | `@${string}`,
+	is_featured?:boolean | `@${string}`,
+	is_new?:boolean | `@${string}`,
+	is_popular?:boolean | `@${string}`,
+	is_recommended?:boolean | `@${string}`,
+	is_best_seller?:boolean | `@${string}`,
+	is_chef_special?:boolean | `@${string}`,
+	is_available_for_delivery?:boolean | `@${string}`,
+	is_available_for_pickup?:boolean | `@${string}`,
+	is_available_for_dine_in?:boolean | `@${string}`,
+	is_available_for_takeaway?:boolean | `@${string}`,
+	language_tags?:boolean | `@${string}`,
+	regional_exclusivity?:boolean | `@${string}`,
+	cuisine_type?:boolean | `@${string}`,
+	name_translations?:boolean | `@${string}`,
+	description_translations?:boolean | `@${string}`,
+	seo_title?:boolean | `@${string}`,
+	seo_description?:boolean | `@${string}`,
+	promo_tags?:boolean | `@${string}`,
+	share_url?:boolean | `@${string}`,
+	total_reviews?:boolean | `@${string}`,
+	average_rating?:boolean | `@${string}`,
+	total_orders?:boolean | `@${string}`,
+	reorder_rate?:boolean | `@${string}`,
+	cart_additions?:boolean | `@${string}`,
+	view_count?:boolean | `@${string}`,
+	conversion_rate?:boolean | `@${string}`,
+	user_likes_count?:boolean | `@${string}`,
+	order_count?:boolean | `@${string}`,
+	reorder_probability?:boolean | `@${string}`,
+	smart_tags?:boolean | `@${string}`,
+	kitchen_station?:boolean | `@${string}`,
+	priority_order?:boolean | `@${string}`,
+	shelf_life_hours?:boolean | `@${string}`,
+	is_ready_to_eat?:boolean | `@${string}`,
+	fssai_info?:boolean | `@${string}`,
+	auto_tags?:boolean | `@${string}`,
+	paired_dish_ids?:boolean | `@${string}`,
 	restaurant?:ResolverInputTypes["Restaurant"],
 	branch?:ResolverInputTypes["RBranch"],
 	category?:ResolverInputTypes["Category"],
 	subcategory?:ResolverInputTypes["SubCategory"],
-	ingredients_options?:ResolverInputTypes["DIngredients"],
+	created_by?:ResolverInputTypes["User"],
 		__typename?: boolean | `@${string}`
 }>;
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -2285,14 +2376,8 @@ deleteSubcategory?: [{	id?: number | undefined | null},ResolverInputTypes["delet
 createBranch?: [{	description?: string | undefined | null,	restaurant_id?: number | undefined | null,	owner_id?: number | undefined | null,	manager_id?: number | undefined | null,	location?: string | undefined | null,	longitude?: number | undefined | null,	latitude?: number | undefined | null,	image?: string | undefined | null,	email?: string | undefined | null,	phone_number?: string | undefined | null,	alternate_phone_number?: string | undefined | null,	expected_delivery_time?: string | undefined | null,	average_price_for_one?: number | undefined | null,	average_price_for_two?: number | undefined | null,	delivery_charge?: number | undefined | null,	min_order_value?: number | undefined | null,	max_order_value?: number | undefined | null,	packaging_charge?: number | undefined | null,	is_open?: boolean | undefined | null,	is_featured?: boolean | undefined | null,	is_available_for_delivery?: boolean | undefined | null,	is_available_for_pickup?: boolean | undefined | null,	is_veg_only?: boolean | undefined | null,	opening_time?: string | undefined | null,	closing_time?: string | undefined | null,	special_opening_time?: string | undefined | null,	special_closing_time?: string | undefined | null,	average_preparation_time?: string | undefined | null,	slug?: string | undefined | null,	short_description?: string | undefined | null,	full_description?: string | undefined | null,	gst_number?: string | undefined | null,	fssai_license_number?: string | undefined | null,	service_radius_km?: number | undefined | null,	approval_status?: string | undefined | null,	approval_notes?: string | undefined | null,	cancellation_policy?: string | undefined | null,	external_integration_id?: string | undefined | null,	timezone?: string | undefined | null,	country?: string | undefined | null,	state?: string | undefined | null,	city?: string | undefined | null,	zip_code?: string | undefined | null,	landmark?: string | undefined | null,	block_floor_number?: number | undefined | null,	nearby_landmark?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null},ResolverInputTypes["createBranchResponse"]],
 updateBranch?: [{	id?: number | undefined | null,	description?: string | undefined | null,	restaurant_id?: number | undefined | null,	owner_id?: number | undefined | null,	manager_id?: number | undefined | null,	location?: string | undefined | null,	longitude?: number | undefined | null,	latitude?: number | undefined | null,	image?: string | undefined | null,	email?: string | undefined | null,	phone_number?: string | undefined | null,	alternate_phone_number?: string | undefined | null,	expected_delivery_time?: string | undefined | null,	average_price_for_one?: number | undefined | null,	average_price_for_two?: number | undefined | null,	delivery_charge?: number | undefined | null,	min_order_value?: number | undefined | null,	max_order_value?: number | undefined | null,	packaging_charge?: number | undefined | null,	is_open?: boolean | undefined | null,	is_featured?: boolean | undefined | null,	is_available_for_delivery?: boolean | undefined | null,	is_available_for_pickup?: boolean | undefined | null,	is_veg_only?: boolean | undefined | null,	opening_time?: string | undefined | null,	closing_time?: string | undefined | null,	special_opening_time?: string | undefined | null,	special_closing_time?: string | undefined | null,	average_preparation_time?: string | undefined | null,	slug?: string | undefined | null,	short_description?: string | undefined | null,	full_description?: string | undefined | null,	gst_number?: string | undefined | null,	fssai_license_number?: string | undefined | null,	service_radius_km?: number | undefined | null,	approval_status?: string | undefined | null,	approval_notes?: string | undefined | null,	cancellation_policy?: string | undefined | null,	external_integration_id?: string | undefined | null,	timezone?: string | undefined | null,	country?: string | undefined | null,	state?: string | undefined | null,	city?: string | undefined | null,	zip_code?: string | undefined | null,	landmark?: string | undefined | null,	block_floor_number?: number | undefined | null,	nearby_landmark?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	created_by?: number | undefined | null,	updated_by?: number | undefined | null,	deleted_by?: number | undefined | null},ResolverInputTypes["updateBranchResponse"]],
 deleteBranch?: [{	id?: number | undefined | null},ResolverInputTypes["deleteBranchResponse"]],
-createCDeal?: [{	deal_id?: number | undefined | null,	category_id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null},ResolverInputTypes["createCDealResponse"]],
-deleteCDeals?: [{	id?: number | undefined | null},ResolverInputTypes["deleteCDealResponse"]],
-createRDeal?: [{	deal_id?: number | undefined | null,	restaurant_id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null},ResolverInputTypes["createRDealResponse"]],
-deleteRDeals?: [{	id?: number | undefined | null},ResolverInputTypes["deleteRDealResponse"]],
-createRBDeal?: [{	deal_id?: number | undefined | null,	rbranch_id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null},ResolverInputTypes["createRBDealResponse"]],
-deleteRBDeal?: [{	id?: number | undefined | null},ResolverInputTypes["deleteRBDealResponse"]],
-createDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null},ResolverInputTypes["createDishResponse"]],
-updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null},ResolverInputTypes["updateDishResponse"]],
+createDish?: [{	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	parent_dish_id?: number | undefined | null,	long_description?: string | undefined | null,	gallery_images?: ResolverInputTypes["JSONObject"] | undefined | null,	video_url?: string | undefined | null,	tags?: ResolverInputTypes["JSONObject"] | undefined | null,	price_unit?: string | undefined | null,	tax_percentage?: number | undefined | null,	tax_inclusive?: boolean | undefined | null,	service_charge_percentage?: number | undefined | null,	packaging_charge?: number | undefined | null,	discount_type?: string | undefined | null,	discount_amount?: number | undefined | null,	discount_amount_upto?: number | undefined | null,	discount_start_time?: ResolverInputTypes["Date"] | undefined | null,	discount_end_time?: ResolverInputTypes["Date"] | undefined | null,	discount_max_quantity?: number | undefined | null,	discount_min_quantity?: number | undefined | null,	discount_max_quantity_per_user?: number | undefined | null,	discount_min_quantity_per_user?: number | undefined | null,	discount_max_quantity_per_order?: number | undefined | null,	discount_min_quantity_per_order?: number | undefined | null,	discount_applies_with_coupon?: boolean | undefined | null,	promo_code_applicable?: boolean | undefined | null,	availability_days?: Array<string | undefined | null> | undefined | null,	blackout_dates?: Array<string | undefined | null> | undefined | null,	preorder_available?: boolean | undefined | null,	preorder_hours?: number | undefined | null,	delivery_eta_minutes?: number | undefined | null,	delivery_buffer_minutes?: number | undefined | null,	available_portions?: number | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null,	customization_groups?: ResolverInputTypes["DCusDCustomization"] | undefined | null,	allergen_info?: ResolverInputTypes["JSONObject"] | undefined | null,	allergens?: ResolverInputTypes["JSONObject"] | undefined | null,	addons_group_ids?: ResolverInputTypes["JSONObject"] | undefined | null,	variant_group_ids?: ResolverInputTypes["JSONObject"] | undefined | null,	combo_group_id?: number | undefined | null,	is_part_of_combo?: boolean | undefined | null,	meal_time_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	featured?: boolean | undefined | null,	is_featured?: boolean | undefined | null,	is_new?: boolean | undefined | null,	is_popular?: boolean | undefined | null,	is_recommended?: boolean | undefined | null,	is_best_seller?: boolean | undefined | null,	is_chef_special?: boolean | undefined | null,	is_available_for_delivery?: boolean | undefined | null,	is_available_for_pickup?: boolean | undefined | null,	is_available_for_dine_in?: boolean | undefined | null,	is_available_for_takeaway?: boolean | undefined | null,	language_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	regional_exclusivity?: ResolverInputTypes["JSONObject"] | undefined | null,	cuisine_type?: ResolverInputTypes["JSONObject"] | undefined | null,	name_translations?: ResolverInputTypes["JSONObject"] | undefined | null,	description_translations?: ResolverInputTypes["JSONObject"] | undefined | null,	seo_title?: string | undefined | null,	seo_description?: string | undefined | null,	promo_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	share_url?: string | undefined | null,	total_reviews?: number | undefined | null,	average_rating?: number | undefined | null,	total_orders?: number | undefined | null,	reorder_rate?: number | undefined | null,	cart_additions?: number | undefined | null,	view_count?: number | undefined | null,	conversion_rate?: number | undefined | null,	user_likes_count?: number | undefined | null,	order_count?: number | undefined | null,	reorder_probability?: number | undefined | null,	smart_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	kitchen_station?: string | undefined | null,	priority_order?: number | undefined | null,	shelf_life_hours?: number | undefined | null,	is_ready_to_eat?: boolean | undefined | null,	fssai_info?: ResolverInputTypes["JSONObject"] | undefined | null,	auto_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	paired_dish_ids?: ResolverInputTypes["JSONObject"] | undefined | null},ResolverInputTypes["createDishResponse"]],
+updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefined | null,	branch_id?: number | undefined | null,	category_id?: number | undefined | null,	subcategory_id?: number | undefined | null,	name?: string | undefined | null,	slug?: string | undefined | null,	description?: string | undefined | null,	image?: string | undefined | null,	banner_image?: string | undefined | null,	price?: number | undefined | null,	original_price?: number | undefined | null,	currency?: string | undefined | null,	discount_percentage?: number | undefined | null,	is_available?: boolean | undefined | null,	is_veg?: boolean | undefined | null,	is_customizable?: boolean | undefined | null,	spicy_level?: string | undefined | null,	preparation_time_minutes?: number | undefined | null,	dietary_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	ingredients?: string | undefined | null,	availability_start_time?: ResolverInputTypes["Time"] | undefined | null,	availability_end_time?: ResolverInputTypes["Time"] | undefined | null,	stock_quantity?: number | undefined | null,	min_order_qty?: number | undefined | null,	max_order_qty?: number | undefined | null,	rating?: number | undefined | null,	approval_status?: string | undefined | null,	rejection_reason?: string | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	parent_dish_id?: number | undefined | null,	long_description?: string | undefined | null,	gallery_images?: ResolverInputTypes["JSONObject"] | undefined | null,	video_url?: string | undefined | null,	tags?: ResolverInputTypes["JSONObject"] | undefined | null,	price_unit?: string | undefined | null,	tax_percentage?: number | undefined | null,	tax_inclusive?: boolean | undefined | null,	service_charge_percentage?: number | undefined | null,	packaging_charge?: number | undefined | null,	discount_type?: string | undefined | null,	discount_amount?: number | undefined | null,	discount_amount_upto?: number | undefined | null,	discount_start_time?: ResolverInputTypes["Date"] | undefined | null,	discount_end_time?: ResolverInputTypes["Date"] | undefined | null,	discount_max_quantity?: number | undefined | null,	discount_min_quantity?: number | undefined | null,	discount_max_quantity_per_user?: number | undefined | null,	discount_min_quantity_per_user?: number | undefined | null,	discount_max_quantity_per_order?: number | undefined | null,	discount_min_quantity_per_order?: number | undefined | null,	discount_applies_with_coupon?: boolean | undefined | null,	promo_code_applicable?: boolean | undefined | null,	availability_days?: Array<string | undefined | null> | undefined | null,	blackout_dates?: Array<string | undefined | null> | undefined | null,	preorder_available?: boolean | undefined | null,	preorder_hours?: number | undefined | null,	delivery_eta_minutes?: number | undefined | null,	delivery_buffer_minutes?: number | undefined | null,	available_portions?: number | undefined | null,	ingredients_options?: Array<ResolverInputTypes["IngredientInput"] | undefined | null> | undefined | null,	customization_groups?: ResolverInputTypes["DCusDCustomization"] | undefined | null,	allergen_info?: ResolverInputTypes["JSONObject"] | undefined | null,	allergens?: ResolverInputTypes["JSONObject"] | undefined | null,	addons_group_ids?: ResolverInputTypes["JSONObject"] | undefined | null,	variant_group_ids?: ResolverInputTypes["JSONObject"] | undefined | null,	combo_group_id?: number | undefined | null,	is_part_of_combo?: boolean | undefined | null,	meal_time_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	featured?: boolean | undefined | null,	is_featured?: boolean | undefined | null,	is_new?: boolean | undefined | null,	is_popular?: boolean | undefined | null,	is_recommended?: boolean | undefined | null,	is_best_seller?: boolean | undefined | null,	is_chef_special?: boolean | undefined | null,	is_available_for_delivery?: boolean | undefined | null,	is_available_for_pickup?: boolean | undefined | null,	is_available_for_dine_in?: boolean | undefined | null,	is_available_for_takeaway?: boolean | undefined | null,	language_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	regional_exclusivity?: ResolverInputTypes["JSONObject"] | undefined | null,	cuisine_type?: ResolverInputTypes["JSONObject"] | undefined | null,	name_translations?: ResolverInputTypes["JSONObject"] | undefined | null,	description_translations?: ResolverInputTypes["JSONObject"] | undefined | null,	seo_title?: string | undefined | null,	seo_description?: string | undefined | null,	promo_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	share_url?: string | undefined | null,	total_reviews?: number | undefined | null,	average_rating?: number | undefined | null,	total_orders?: number | undefined | null,	reorder_rate?: number | undefined | null,	cart_additions?: number | undefined | null,	view_count?: number | undefined | null,	conversion_rate?: number | undefined | null,	user_likes_count?: number | undefined | null,	order_count?: number | undefined | null,	reorder_probability?: number | undefined | null,	smart_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	kitchen_station?: string | undefined | null,	priority_order?: number | undefined | null,	shelf_life_hours?: number | undefined | null,	is_ready_to_eat?: boolean | undefined | null,	fssai_info?: ResolverInputTypes["JSONObject"] | undefined | null,	auto_tags?: ResolverInputTypes["JSONObject"] | undefined | null,	paired_dish_ids?: ResolverInputTypes["JSONObject"] | undefined | null},ResolverInputTypes["updateDishResponse"]],
 		__typename?: boolean | `@${string}`
 }>;
 	["createRoleResponse"]: AliasType<{
@@ -2449,90 +2534,6 @@ updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 	data?:ResolverInputTypes["RBranch"],
 		__typename?: boolean | `@${string}`
 }>;
-	["createCDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createcdeal data */
-	data?:ResolverInputTypes["CDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["CDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	category_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteCDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deletecdeal data */
-	data?:ResolverInputTypes["CDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["createRDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createrdeal data */
-	data?:ResolverInputTypes["RDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["RDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	restaurant_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteRDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deleterdeal data */
-	data?:ResolverInputTypes["RDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["createRBDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The createrbdeal data */
-	data?:ResolverInputTypes["RBDeals"],
-		__typename?: boolean | `@${string}`
-}>;
-	["RBDeals"]: AliasType<{
-	id?:boolean | `@${string}`,
-	deal_id?:boolean | `@${string}`,
-	rbranch_id?:boolean | `@${string}`,
-	created_at?:boolean | `@${string}`,
-	updated_at?:boolean | `@${string}`,
-		__typename?: boolean | `@${string}`
-}>;
-	["deleteRBDealResponse"]: AliasType<{
-	status?:boolean | `@${string}`,
-	success?:boolean | `@${string}`,
-	isToast?:boolean | `@${string}`,
-	isError?:boolean | `@${string}`,
-	message?:boolean | `@${string}`,
-	/** The deleterbdeal data */
-	data?:ResolverInputTypes["RBDeals"],
-		__typename?: boolean | `@${string}`
-}>;
 	["createDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
 	success?:boolean | `@${string}`,
@@ -2544,6 +2545,8 @@ updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 		__typename?: boolean | `@${string}`
 }>;
 	["IngredientInput"]: {
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
 	name?: string | undefined | null,
 	image_url?: string | undefined | null,
 	has_options?: boolean | undefined | null,
@@ -2556,6 +2559,31 @@ updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 	price?: number | undefined | null,
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
+};
+	["DCusDCustomization"]: {
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	title?: string | undefined | null,
+	is_required?: boolean | undefined | null,
+	min_selection?: number | undefined | null,
+	max_selection?: number | undefined | null,
+	selection_type?: ResolverInputTypes["SelectionType"] | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: ResolverInputTypes["Date"] | undefined | null,
+	updatedAt?: ResolverInputTypes["Date"] | undefined | null,
+	deletedAt?: ResolverInputTypes["Date"] | undefined | null,
+	options?: ResolverInputTypes["IDCOptionInput"] | undefined | null
+};
+	["SelectionType"]:SelectionType;
+	["IDCOptionInput"]: {
+	id?: number | undefined | null,
+	customization_id?: number | undefined | null,
+	title?: string | undefined | null,
+	price?: number | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: ResolverInputTypes["Date"] | undefined | null,
+	updatedAt?: ResolverInputTypes["Date"] | undefined | null,
+	deletedAt?: ResolverInputTypes["Date"] | undefined | null
 };
 	["updateDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
@@ -3031,11 +3059,88 @@ export type ModelTypes = {
 	created_at?: ModelTypes["Date"] | undefined | null,
 	updated_at?: ModelTypes["Date"] | undefined | null,
 	deleted_at?: ModelTypes["Date"] | undefined | null,
+	parent_dish_id?: number | undefined | null,
+	long_description?: string | undefined | null,
+	gallery_images?: ModelTypes["JSONObject"] | undefined | null,
+	video_url?: string | undefined | null,
+	tags?: ModelTypes["JSONObject"] | undefined | null,
+	price_unit?: string | undefined | null,
+	tax_percentage?: number | undefined | null,
+	tax_inclusive?: boolean | undefined | null,
+	service_charge_percentage?: number | undefined | null,
+	packaging_charge?: number | undefined | null,
+	discount_type?: string | undefined | null,
+	discount_amount?: number | undefined | null,
+	discount_amount_upto?: number | undefined | null,
+	discount_start_time?: ModelTypes["Date"] | undefined | null,
+	discount_end_time?: ModelTypes["Date"] | undefined | null,
+	discount_max_quantity?: number | undefined | null,
+	discount_min_quantity?: number | undefined | null,
+	discount_max_quantity_per_user?: number | undefined | null,
+	discount_min_quantity_per_user?: number | undefined | null,
+	discount_max_quantity_per_order?: number | undefined | null,
+	discount_min_quantity_per_order?: number | undefined | null,
+	discount_applies_with_coupon?: boolean | undefined | null,
+	promo_code_applicable?: boolean | undefined | null,
+	availability_days?: Array<string | undefined | null> | undefined | null,
+	blackout_dates?: Array<string | undefined | null> | undefined | null,
+	preorder_available?: boolean | undefined | null,
+	preorder_hours?: number | undefined | null,
+	delivery_eta_minutes?: number | undefined | null,
+	delivery_buffer_minutes?: number | undefined | null,
+	available_portions?: number | undefined | null,
+	ingredients_options?: Array<ModelTypes["DIngredients"] | undefined | null> | undefined | null,
+	customization_groups?: ModelTypes["JSONObject"] | undefined | null,
+	allergen_info?: ModelTypes["JSONObject"] | undefined | null,
+	allergens?: ModelTypes["JSONObject"] | undefined | null,
+	addons_group_ids?: ModelTypes["JSONObject"] | undefined | null,
+	variant_group_ids?: ModelTypes["JSONObject"] | undefined | null,
+	combo_group_id?: number | undefined | null,
+	is_part_of_combo?: boolean | undefined | null,
+	meal_time_tags?: ModelTypes["JSONObject"] | undefined | null,
+	featured?: boolean | undefined | null,
+	is_featured?: boolean | undefined | null,
+	is_new?: boolean | undefined | null,
+	is_popular?: boolean | undefined | null,
+	is_recommended?: boolean | undefined | null,
+	is_best_seller?: boolean | undefined | null,
+	is_chef_special?: boolean | undefined | null,
+	is_available_for_delivery?: boolean | undefined | null,
+	is_available_for_pickup?: boolean | undefined | null,
+	is_available_for_dine_in?: boolean | undefined | null,
+	is_available_for_takeaway?: boolean | undefined | null,
+	language_tags?: ModelTypes["JSONObject"] | undefined | null,
+	regional_exclusivity?: ModelTypes["JSONObject"] | undefined | null,
+	cuisine_type?: ModelTypes["JSONObject"] | undefined | null,
+	name_translations?: ModelTypes["JSONObject"] | undefined | null,
+	description_translations?: ModelTypes["JSONObject"] | undefined | null,
+	seo_title?: string | undefined | null,
+	seo_description?: string | undefined | null,
+	promo_tags?: ModelTypes["JSONObject"] | undefined | null,
+	share_url?: string | undefined | null,
+	total_reviews?: number | undefined | null,
+	average_rating?: number | undefined | null,
+	total_orders?: number | undefined | null,
+	reorder_rate?: number | undefined | null,
+	cart_additions?: number | undefined | null,
+	view_count?: number | undefined | null,
+	conversion_rate?: number | undefined | null,
+	user_likes_count?: number | undefined | null,
+	order_count?: number | undefined | null,
+	reorder_probability?: number | undefined | null,
+	smart_tags?: ModelTypes["JSONObject"] | undefined | null,
+	kitchen_station?: string | undefined | null,
+	priority_order?: number | undefined | null,
+	shelf_life_hours?: number | undefined | null,
+	is_ready_to_eat?: boolean | undefined | null,
+	fssai_info?: ModelTypes["JSONObject"] | undefined | null,
+	auto_tags?: ModelTypes["JSONObject"] | undefined | null,
+	paired_dish_ids?: ModelTypes["JSONObject"] | undefined | null,
 	restaurant?: ModelTypes["Restaurant"] | undefined | null,
 	branch?: ModelTypes["RBranch"] | undefined | null,
 	category?: ModelTypes["Category"] | undefined | null,
 	subcategory?: ModelTypes["SubCategory"] | undefined | null,
-	ingredients_options?: Array<ModelTypes["DIngredients"] | undefined | null> | undefined | null
+	created_by?: ModelTypes["User"] | undefined | null
 };
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
 ["JSONObject"]:any;
@@ -3090,12 +3195,6 @@ export type ModelTypes = {
 	createBranch?: ModelTypes["createBranchResponse"] | undefined | null,
 	updateBranch?: ModelTypes["updateBranchResponse"] | undefined | null,
 	deleteBranch?: ModelTypes["deleteBranchResponse"] | undefined | null,
-	createCDeal?: ModelTypes["createCDealResponse"] | undefined | null,
-	deleteCDeals?: ModelTypes["deleteCDealResponse"] | undefined | null,
-	createRDeal?: ModelTypes["createRDealResponse"] | undefined | null,
-	deleteRDeals?: ModelTypes["deleteRDealResponse"] | undefined | null,
-	createRBDeal?: ModelTypes["createRBDealResponse"] | undefined | null,
-	deleteRBDeal?: ModelTypes["deleteRBDealResponse"] | undefined | null,
 	createDish?: ModelTypes["createDishResponse"] | undefined | null,
 	updateDish?: ModelTypes["updateDishResponse"] | undefined | null
 };
@@ -3237,81 +3336,6 @@ export type ModelTypes = {
 	/** The deletebranch data */
 	data?: ModelTypes["RBranch"] | undefined | null
 };
-	["createCDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createcdeal data */
-	data?: ModelTypes["CDeals"] | undefined | null
-};
-	["CDeals"]: {
-		id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	category_id?: number | undefined | null,
-	created_at?: ModelTypes["Date"] | undefined | null,
-	updated_at?: ModelTypes["Date"] | undefined | null
-};
-	["deleteCDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deletecdeal data */
-	data?: ModelTypes["CDeals"] | undefined | null
-};
-	["createRDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createrdeal data */
-	data?: ModelTypes["RDeals"] | undefined | null
-};
-	["RDeals"]: {
-		id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	restaurant_id?: number | undefined | null,
-	created_at?: ModelTypes["Date"] | undefined | null,
-	updated_at?: ModelTypes["Date"] | undefined | null
-};
-	["deleteRDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deleterdeal data */
-	data?: ModelTypes["RDeals"] | undefined | null
-};
-	["createRBDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createrbdeal data */
-	data?: ModelTypes["RBDeals"] | undefined | null
-};
-	["RBDeals"]: {
-		id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	rbranch_id?: number | undefined | null,
-	created_at?: ModelTypes["Date"] | undefined | null,
-	updated_at?: ModelTypes["Date"] | undefined | null
-};
-	["deleteRBDealResponse"]: {
-		status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deleterbdeal data */
-	data?: ModelTypes["RBDeals"] | undefined | null
-};
 	["createDishResponse"]: {
 		status?: number | undefined | null,
 	success?: boolean | undefined | null,
@@ -3322,6 +3346,8 @@ export type ModelTypes = {
 	data?: ModelTypes["Dish"] | undefined | null
 };
 	["IngredientInput"]: {
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
 	name?: string | undefined | null,
 	image_url?: string | undefined | null,
 	has_options?: boolean | undefined | null,
@@ -3334,6 +3360,31 @@ export type ModelTypes = {
 	price?: number | undefined | null,
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
+};
+	["DCusDCustomization"]: {
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	title?: string | undefined | null,
+	is_required?: boolean | undefined | null,
+	min_selection?: number | undefined | null,
+	max_selection?: number | undefined | null,
+	selection_type?: ModelTypes["SelectionType"] | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: ModelTypes["Date"] | undefined | null,
+	updatedAt?: ModelTypes["Date"] | undefined | null,
+	deletedAt?: ModelTypes["Date"] | undefined | null,
+	options?: ModelTypes["IDCOptionInput"] | undefined | null
+};
+	["SelectionType"]:SelectionType;
+	["IDCOptionInput"]: {
+	id?: number | undefined | null,
+	customization_id?: number | undefined | null,
+	title?: string | undefined | null,
+	price?: number | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: ModelTypes["Date"] | undefined | null,
+	updatedAt?: ModelTypes["Date"] | undefined | null,
+	deletedAt?: ModelTypes["Date"] | undefined | null
 };
 	["updateDishResponse"]: {
 		status?: number | undefined | null,
@@ -3831,11 +3882,88 @@ export type GraphQLTypes = {
 	created_at?: GraphQLTypes["Date"] | undefined | null,
 	updated_at?: GraphQLTypes["Date"] | undefined | null,
 	deleted_at?: GraphQLTypes["Date"] | undefined | null,
+	parent_dish_id?: number | undefined | null,
+	long_description?: string | undefined | null,
+	gallery_images?: GraphQLTypes["JSONObject"] | undefined | null,
+	video_url?: string | undefined | null,
+	tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	price_unit?: string | undefined | null,
+	tax_percentage?: number | undefined | null,
+	tax_inclusive?: boolean | undefined | null,
+	service_charge_percentage?: number | undefined | null,
+	packaging_charge?: number | undefined | null,
+	discount_type?: string | undefined | null,
+	discount_amount?: number | undefined | null,
+	discount_amount_upto?: number | undefined | null,
+	discount_start_time?: GraphQLTypes["Date"] | undefined | null,
+	discount_end_time?: GraphQLTypes["Date"] | undefined | null,
+	discount_max_quantity?: number | undefined | null,
+	discount_min_quantity?: number | undefined | null,
+	discount_max_quantity_per_user?: number | undefined | null,
+	discount_min_quantity_per_user?: number | undefined | null,
+	discount_max_quantity_per_order?: number | undefined | null,
+	discount_min_quantity_per_order?: number | undefined | null,
+	discount_applies_with_coupon?: boolean | undefined | null,
+	promo_code_applicable?: boolean | undefined | null,
+	availability_days?: Array<string | undefined | null> | undefined | null,
+	blackout_dates?: Array<string | undefined | null> | undefined | null,
+	preorder_available?: boolean | undefined | null,
+	preorder_hours?: number | undefined | null,
+	delivery_eta_minutes?: number | undefined | null,
+	delivery_buffer_minutes?: number | undefined | null,
+	available_portions?: number | undefined | null,
+	ingredients_options?: Array<GraphQLTypes["DIngredients"] | undefined | null> | undefined | null,
+	customization_groups?: GraphQLTypes["JSONObject"] | undefined | null,
+	allergen_info?: GraphQLTypes["JSONObject"] | undefined | null,
+	allergens?: GraphQLTypes["JSONObject"] | undefined | null,
+	addons_group_ids?: GraphQLTypes["JSONObject"] | undefined | null,
+	variant_group_ids?: GraphQLTypes["JSONObject"] | undefined | null,
+	combo_group_id?: number | undefined | null,
+	is_part_of_combo?: boolean | undefined | null,
+	meal_time_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	featured?: boolean | undefined | null,
+	is_featured?: boolean | undefined | null,
+	is_new?: boolean | undefined | null,
+	is_popular?: boolean | undefined | null,
+	is_recommended?: boolean | undefined | null,
+	is_best_seller?: boolean | undefined | null,
+	is_chef_special?: boolean | undefined | null,
+	is_available_for_delivery?: boolean | undefined | null,
+	is_available_for_pickup?: boolean | undefined | null,
+	is_available_for_dine_in?: boolean | undefined | null,
+	is_available_for_takeaway?: boolean | undefined | null,
+	language_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	regional_exclusivity?: GraphQLTypes["JSONObject"] | undefined | null,
+	cuisine_type?: GraphQLTypes["JSONObject"] | undefined | null,
+	name_translations?: GraphQLTypes["JSONObject"] | undefined | null,
+	description_translations?: GraphQLTypes["JSONObject"] | undefined | null,
+	seo_title?: string | undefined | null,
+	seo_description?: string | undefined | null,
+	promo_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	share_url?: string | undefined | null,
+	total_reviews?: number | undefined | null,
+	average_rating?: number | undefined | null,
+	total_orders?: number | undefined | null,
+	reorder_rate?: number | undefined | null,
+	cart_additions?: number | undefined | null,
+	view_count?: number | undefined | null,
+	conversion_rate?: number | undefined | null,
+	user_likes_count?: number | undefined | null,
+	order_count?: number | undefined | null,
+	reorder_probability?: number | undefined | null,
+	smart_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	kitchen_station?: string | undefined | null,
+	priority_order?: number | undefined | null,
+	shelf_life_hours?: number | undefined | null,
+	is_ready_to_eat?: boolean | undefined | null,
+	fssai_info?: GraphQLTypes["JSONObject"] | undefined | null,
+	auto_tags?: GraphQLTypes["JSONObject"] | undefined | null,
+	paired_dish_ids?: GraphQLTypes["JSONObject"] | undefined | null,
 	restaurant?: GraphQLTypes["Restaurant"] | undefined | null,
 	branch?: GraphQLTypes["RBranch"] | undefined | null,
 	category?: GraphQLTypes["Category"] | undefined | null,
 	subcategory?: GraphQLTypes["SubCategory"] | undefined | null,
-	ingredients_options?: Array<GraphQLTypes["DIngredients"] | undefined | null> | undefined | null
+	created_by?: GraphQLTypes["User"] | undefined | null
 };
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
 ["JSONObject"]: "scalar" & { name: "JSONObject" };
@@ -3894,12 +4022,6 @@ export type GraphQLTypes = {
 	createBranch?: GraphQLTypes["createBranchResponse"] | undefined | null,
 	updateBranch?: GraphQLTypes["updateBranchResponse"] | undefined | null,
 	deleteBranch?: GraphQLTypes["deleteBranchResponse"] | undefined | null,
-	createCDeal?: GraphQLTypes["createCDealResponse"] | undefined | null,
-	deleteCDeals?: GraphQLTypes["deleteCDealResponse"] | undefined | null,
-	createRDeal?: GraphQLTypes["createRDealResponse"] | undefined | null,
-	deleteRDeals?: GraphQLTypes["deleteRDealResponse"] | undefined | null,
-	createRBDeal?: GraphQLTypes["createRBDealResponse"] | undefined | null,
-	deleteRBDeal?: GraphQLTypes["deleteRBDealResponse"] | undefined | null,
 	createDish?: GraphQLTypes["createDishResponse"] | undefined | null,
 	updateDish?: GraphQLTypes["updateDishResponse"] | undefined | null
 };
@@ -4057,90 +4179,6 @@ export type GraphQLTypes = {
 	/** The deletebranch data */
 	data?: GraphQLTypes["RBranch"] | undefined | null
 };
-	["createCDealResponse"]: {
-	__typename: "createCDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createcdeal data */
-	data?: GraphQLTypes["CDeals"] | undefined | null
-};
-	["CDeals"]: {
-	__typename: "CDeals",
-	id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	category_id?: number | undefined | null,
-	created_at?: GraphQLTypes["Date"] | undefined | null,
-	updated_at?: GraphQLTypes["Date"] | undefined | null
-};
-	["deleteCDealResponse"]: {
-	__typename: "deleteCDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deletecdeal data */
-	data?: GraphQLTypes["CDeals"] | undefined | null
-};
-	["createRDealResponse"]: {
-	__typename: "createRDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createrdeal data */
-	data?: GraphQLTypes["RDeals"] | undefined | null
-};
-	["RDeals"]: {
-	__typename: "RDeals",
-	id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	restaurant_id?: number | undefined | null,
-	created_at?: GraphQLTypes["Date"] | undefined | null,
-	updated_at?: GraphQLTypes["Date"] | undefined | null
-};
-	["deleteRDealResponse"]: {
-	__typename: "deleteRDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deleterdeal data */
-	data?: GraphQLTypes["RDeals"] | undefined | null
-};
-	["createRBDealResponse"]: {
-	__typename: "createRBDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The createrbdeal data */
-	data?: GraphQLTypes["RBDeals"] | undefined | null
-};
-	["RBDeals"]: {
-	__typename: "RBDeals",
-	id?: number | undefined | null,
-	deal_id?: number | undefined | null,
-	rbranch_id?: number | undefined | null,
-	created_at?: GraphQLTypes["Date"] | undefined | null,
-	updated_at?: GraphQLTypes["Date"] | undefined | null
-};
-	["deleteRBDealResponse"]: {
-	__typename: "deleteRBDealResponse",
-	status?: number | undefined | null,
-	success?: boolean | undefined | null,
-	isToast?: boolean | undefined | null,
-	isError?: boolean | undefined | null,
-	message?: string | undefined | null,
-	/** The deleterbdeal data */
-	data?: GraphQLTypes["RBDeals"] | undefined | null
-};
 	["createDishResponse"]: {
 	__typename: "createDishResponse",
 	status?: number | undefined | null,
@@ -4152,7 +4190,9 @@ export type GraphQLTypes = {
 	data?: GraphQLTypes["Dish"] | undefined | null
 };
 	["IngredientInput"]: {
-		name?: string | undefined | null,
+		id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	name?: string | undefined | null,
 	image_url?: string | undefined | null,
 	has_options?: boolean | undefined | null,
 	created_at?: GraphQLTypes["Date"] | undefined | null,
@@ -4164,6 +4204,31 @@ export type GraphQLTypes = {
 	price?: number | undefined | null,
 	description?: string | undefined | null,
 	image_url?: string | undefined | null
+};
+	["DCusDCustomization"]: {
+		id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	title?: string | undefined | null,
+	is_required?: boolean | undefined | null,
+	min_selection?: number | undefined | null,
+	max_selection?: number | undefined | null,
+	selection_type?: GraphQLTypes["SelectionType"] | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: GraphQLTypes["Date"] | undefined | null,
+	updatedAt?: GraphQLTypes["Date"] | undefined | null,
+	deletedAt?: GraphQLTypes["Date"] | undefined | null,
+	options?: GraphQLTypes["IDCOptionInput"] | undefined | null
+};
+	["SelectionType"]: SelectionType;
+	["IDCOptionInput"]: {
+		id?: number | undefined | null,
+	customization_id?: number | undefined | null,
+	title?: string | undefined | null,
+	price?: number | undefined | null,
+	order?: number | undefined | null,
+	createdAt?: GraphQLTypes["Date"] | undefined | null,
+	updatedAt?: GraphQLTypes["Date"] | undefined | null,
+	deletedAt?: GraphQLTypes["Date"] | undefined | null
 };
 	["updateDishResponse"]: {
 	__typename: "updateDishResponse",
@@ -4177,7 +4242,10 @@ export type GraphQLTypes = {
 };
 	["ID"]: "scalar" & { name: "ID" }
     }
-
+export enum SelectionType {
+	single = "single",
+	multiple = "multiple"
+}
 
 type ZEUS_VARIABLES = {
 	["Date"]: ValueTypes["Date"];
@@ -4185,5 +4253,8 @@ type ZEUS_VARIABLES = {
 	["Time"]: ValueTypes["Time"];
 	["IngredientInput"]: ValueTypes["IngredientInput"];
 	["DIOptionInput"]: ValueTypes["DIOptionInput"];
+	["DCusDCustomization"]: ValueTypes["DCusDCustomization"];
+	["SelectionType"]: ValueTypes["SelectionType"];
+	["IDCOptionInput"]: ValueTypes["IDCOptionInput"];
 	["ID"]: ValueTypes["ID"];
 }

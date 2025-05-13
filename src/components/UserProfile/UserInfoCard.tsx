@@ -12,8 +12,8 @@ import * as Yup from "yup";
 import { useUpdateUser } from "../../services/api-hooks/usersHook";
 import { Dispatch, SetStateAction } from "react";
 interface IProps {
-  readonly userDetails: Partial<IUser> | null;
-  readonly setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
+  userDetails: Partial<IUser> | null;
+  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
 }
 
 const validationSchema = Yup.object().shape({

@@ -9,6 +9,7 @@ interface ComponentCardProps {
     alt?: string;
     className?: string;
     isCenter?: boolean;
+    noSpacing?: boolean;
   };
   title?: string | React.ReactNode;
   children: React.ReactNode;
@@ -52,13 +53,13 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   saveButton,
   desClassName,
   titleClassName,
-}) => {
+ }) => {
   return (
     <div
       className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
     >
       {/* Card Header */}
-      <div className="px-6 py-5">
+      <div className={`${image?.noSpacing ? "p-0" : "px-6 py-5"}`}>
         <div className="flex justify-between items-center">
           <h3
             className={`text-base w-full font-medium text-gray-800 dark:text-white/90 ${titleClassName}`}

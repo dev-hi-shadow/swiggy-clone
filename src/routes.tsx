@@ -2,11 +2,10 @@ import React, { Suspense, useEffect } from "react";
 import { matchPath, Route, Routes, useLocation, useNavigate } from "react-router";
 import Loader from "./context/Loader";
 import _ from "lodash";
-import { IAuthenticate, IRoutes } from "./types";
+import { IRoutes } from "./types";
 import { AppRoutes, LanguagePreferences } from "./constants";
 import i18n from "./i18n";
-import { queryClient } from "./services/QueryClient";
-
+ 
 const SignIn = React.lazy(() => import("./pages/AuthPages/SignIn"));
 const SignUp = React.lazy(() => import("./pages/AuthPages/SignUp"));
 const UserProfiles = React.lazy(() => import("./pages/UserProfiles"));
@@ -203,7 +202,10 @@ const navigate = useNavigate();
 
     if (
       isProtectedRoute &&
-      !queryClient.getQueryData<IAuthenticate>(["auth"])?.token
+      !(
+        // queryClient.getQueryData<IAuthenticate>(["auth"])?.token &&
+        localStorage.getItem("authToken")
+      )
     ) {
       navigate(AppRoutes.SIGN_IN, { replace: true });
     }

@@ -14,7 +14,7 @@ import { Dispatch, SetStateAction } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface IProps {
-  readonly userDetails: Partial<IUser> | null;
+  userDetails: Partial<IUser> | null;
   setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
 }
 const fields: (keyof IUser)[] = ["id", "state", "city", "country", "zip_code"];

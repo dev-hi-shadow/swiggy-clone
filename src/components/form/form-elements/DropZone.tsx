@@ -71,8 +71,8 @@ const DropzoneComponent: React.FC<IProps> = (props) => {
           {/* Text Content */}
           <h4 className="mb-3 text-center font-semibold text-gray-800 text-theme-xl dark:text-white/90">
             {isDragActive
-              ? `Drop ${props.label ?? "Files"} Here`
-              : `Drag & Drop ${props.label ?? "Files"} Here`}
+              ? `Drop ${props.label ?? "Files"} `
+              : `Drag & Drop ${props.label ?? "Files"}`}
           </h4>
 
           <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
