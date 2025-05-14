@@ -1,12 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApiResponse, IRole } from "../../types";
+import { ApiResponse, IPagination, IRole } from "../../types";
  import { createRole, getRole, getRoles, updateRole } from "../APIs/roles";
 
-export const useGetRoles = () => {
- 
+export const useGetRoles = (payload?: null | IPagination<IRole>) => {
   return useQuery<ApiResponse<Array<Partial<IRole>>>, Error>({
     queryKey: ["getRoles"],
-    queryFn: getRoles,
+    queryFn: () => getRoles(payload),
     staleTime: Infinity,
   });
 };

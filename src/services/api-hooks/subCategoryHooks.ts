@@ -1,11 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApiResponse, ISubCategory } from "../../types";
+import { ApiResponse, IPagination, ISubCategory } from "../../types";
   
 import { createSubCategory, getSubCategories, getSubCategory, updateSubCategory } from "../APIs/subCategory";
 
-export const useGetSubCategories = (category_id: number) => {
- 
-
+export const useGetSubCategories = (payload?: null | IPagination<ISubCategory>) => {
   return useQuery<
     ApiResponse<{
       count: number;
@@ -13,13 +11,10 @@ export const useGetSubCategories = (category_id: number) => {
     }>,
     Error
   >({
-    queryKey: ["getCategories", { category_id }],
-    queryFn: ({ queryKey }) => {
-      const [, { category_id }] = queryKey as [string, { category_id: number }];
-      return getSubCategories(category_id);
-    },
+    queryKey: ["getCategories"],
+    queryFn: () => getSubCategories(payload),
     staleTime: Infinity,
-    enabled: !!category_id,
+    enabled: !!payload?.category_id,
   });
 };
 export const useGetSubCategory = (id: number) => {

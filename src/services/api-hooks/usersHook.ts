@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import type { IUser, ApiResponse } from "../../types";
+import type { IUser, ApiResponse, IPagination } from "../../types";
 import { getUserDetails, getUsers, updateUser } from "../APIs/users";
 import { queryClient } from "../QueryClient";
 
@@ -37,7 +37,7 @@ export const useGetUserDetails = () => {
   });
 };
 
-export const useGetUsers = () => {
+export const useGetUsers = (payload?: null | IPagination<IUser>) => {
   return useQuery<
     ApiResponse<{
       count: number;
@@ -45,7 +45,7 @@ export const useGetUsers = () => {
     }>
   >({
     queryKey: ["getUsers"],
-    queryFn: getUsers,
+    queryFn: () => getUsers(payload),
     staleTime: Infinity,
   });
 };

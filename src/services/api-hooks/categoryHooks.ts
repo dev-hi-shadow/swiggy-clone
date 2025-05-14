@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApiResponse, ICategory } from "../../types";
+import { ApiResponse, ICategory, IPagination } from "../../types";
  import {
    createCategory,
    getCategories,
@@ -7,7 +7,7 @@ import { ApiResponse, ICategory } from "../../types";
    updateCategory,
  } from "../APIs/categories";
 
-export const useGetCategories = () => {
+export const useGetCategories = (payload?: null | IPagination<ICategory>) => {
   return useQuery<
     ApiResponse<{
       count: number;
@@ -16,7 +16,7 @@ export const useGetCategories = () => {
     Error
   >({
     queryKey: ["getCategories"],
-    queryFn: getCategories,
+    queryFn: () => getCategories(payload),
     staleTime: Infinity,
   });
 };

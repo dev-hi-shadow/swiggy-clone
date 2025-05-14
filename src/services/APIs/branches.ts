@@ -1,14 +1,12 @@
-import { ApiResponse, IRBranch } from "../../types";
+import { ApiResponse, IPagination, IRBranch } from "../../types";
 import { graphql } from "../graphqlClient";
 
 export const getRBranches = async (
-  restaurant_id: number
+  payload?: null | IPagination<IRBranch>
 ): Promise<ApiResponse<Array<Partial<IRBranch>>>> => {
   const res = await graphql("query")({
     RBranchList: [
-      {
-        restaurant_id,
-      },
+      payload || {},
       {
         status: true,
         success: true,

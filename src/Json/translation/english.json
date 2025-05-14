@@ -22,6 +22,10 @@
   "add-dish": "Add Dish",
   "edit-dish": "Edit Dish",
 
+  "by-category" : "By Category",
+  "by-restaurant" : "By Restaurant",
+
+
   "modules": {
     "branches": "Branches",
     "restaurants": "Restaurants",

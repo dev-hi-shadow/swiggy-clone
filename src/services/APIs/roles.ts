@@ -1,23 +1,26 @@
 import _ from "lodash";
-import { ApiResponse, IRole } from "../../types";
+import { ApiResponse, IPagination, IRole } from "../../types";
 import { graphql } from "../graphqlClient";
 
-export const getRoles = async (): Promise<
-  ApiResponse<Array<Partial<IRole>>>
-> => {
+export const getRoles = async (
+  payload?: null | IPagination<IRole>
+): Promise<ApiResponse<Array<Partial<IRole>>>> => {
   const res = await graphql("query")({
-    roleList: {
-      status: true,
-      success: true,
-      isToast: true,
-      message: true,
-      data: {
-        name: true,
-        permissions: true,
-        id: true,
-        is_admin: true,
+    roleList: [
+      payload || {},
+      {
+        status: true,
+        success: true,
+        isToast: true,
+        message: true,
+        data: {
+          name: true,
+          permissions: true,
+          id: true,
+          is_admin: true,
+        },
       },
-    },
+    ],
   });
   if (res.roleList?.data?.length) {
     res.roleList.data = _.map(res.roleList.data, (role) => ({

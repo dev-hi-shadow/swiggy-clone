@@ -1,29 +1,34 @@
-import { ApiResponse, ICategory } from "../../types";
+import { ApiResponse, ICategory, IPagination } from "../../types";
 import { graphql } from "../graphqlClient";
 
-export const getCategories = async (): Promise<
+export const getCategories = async (
+  payload?: null | IPagination<ICategory>
+): Promise<
   ApiResponse<{
     count: number;
     rows: Array<Partial<ICategory>>;
   }>
 > => {
   const res = await graphql("query")({
-    categoryList: {
-      status: true,
-      success: true,
-      isToast: true,
-      message: true,
-      data: {
-        count: true,
-        rows: {
-          name: true,
-          id: true,
-          image: true,
-          short_description: true,
-          is_active: true,
+    categoryList: [
+      payload ?? {},
+      {
+        status: true,
+        success: true,
+        isToast: true,
+        message: true,
+        data: {
+          count: true,
+          rows: {
+            name: true,
+            id: true,
+            image: true,
+            short_description: true,
+            is_active: true,
+          },
         },
       },
-    },
+    ],
   });
   return res?.categoryList as ApiResponse<{
     count: number;

@@ -2,14 +2,23 @@
 
 export const AllTypesProps: Record<string,any> = {
 	RootQuery:{
+		roleList:{
+			filter:"JSONObject"
+		},
 		getRoleById:{
 
+		},
+		usersList:{
+			filter:"JSONObject"
+		},
+		RestaurantList:{
+			filter:"JSONObject"
 		},
 		restaurant:{
 
 		},
 		RBranchList:{
-
+			filter:"JSONObject"
 		},
 		getBranchById:{
 
@@ -20,14 +29,23 @@ export const AllTypesProps: Record<string,any> = {
 		getCategoryById:{
 
 		},
+		categoryList:{
+			filter:"JSONObject"
+		},
 		subCategoriesList:{
-
+			filter:"JSONObject"
 		},
 		getSubcategoryById:{
 
 		},
+		dishList:{
+			filter:"JSONObject"
+		},
 		getDishById:{
 
+		},
+		getDishByCategories:{
+			filter:"JSONObject"
 		}
 	},
 	Date: `scalar.Date` as const,
@@ -114,62 +132,36 @@ export const AllTypesProps: Record<string,any> = {
 
 		},
 		createDish:{
-			dietary_tags:"JSONObject",
 			availability_start_time:"Time",
 			availability_end_time:"Time",
 			created_at:"Date",
 			updated_at:"Date",
 			deleted_at:"Date",
-			gallery_images:"JSONObject",
-			tags:"JSONObject",
 			discount_start_time:"Date",
 			discount_end_time:"Date",
-			ingredients_options:"IngredientInput",
-			customization_groups:"DCusDCustomization",
 			allergen_info:"JSONObject",
-			allergens:"JSONObject",
-			addons_group_ids:"JSONObject",
-			variant_group_ids:"JSONObject",
-			meal_time_tags:"JSONObject",
 			language_tags:"JSONObject",
-			regional_exclusivity:"JSONObject",
-			cuisine_type:"JSONObject",
 			name_translations:"JSONObject",
 			description_translations:"JSONObject",
-			promo_tags:"JSONObject",
-			smart_tags:"JSONObject",
 			fssai_info:"JSONObject",
-			auto_tags:"JSONObject",
-			paired_dish_ids:"JSONObject"
+			ingredients_options:"IngredientInput",
+			customization_groups:"DCusDCustomization"
 		},
 		updateDish:{
-			dietary_tags:"JSONObject",
 			availability_start_time:"Time",
 			availability_end_time:"Time",
 			created_at:"Date",
 			updated_at:"Date",
 			deleted_at:"Date",
-			gallery_images:"JSONObject",
-			tags:"JSONObject",
 			discount_start_time:"Date",
 			discount_end_time:"Date",
-			ingredients_options:"IngredientInput",
-			customization_groups:"DCusDCustomization",
 			allergen_info:"JSONObject",
-			allergens:"JSONObject",
-			addons_group_ids:"JSONObject",
-			variant_group_ids:"JSONObject",
-			meal_time_tags:"JSONObject",
 			language_tags:"JSONObject",
-			regional_exclusivity:"JSONObject",
-			cuisine_type:"JSONObject",
 			name_translations:"JSONObject",
 			description_translations:"JSONObject",
-			promo_tags:"JSONObject",
-			smart_tags:"JSONObject",
 			fssai_info:"JSONObject",
-			auto_tags:"JSONObject",
-			paired_dish_ids:"JSONObject"
+			ingredients_options:"IngredientInput",
+			customization_groups:"DCusDCustomization"
 		}
 	},
 	IngredientInput:{
@@ -212,7 +204,8 @@ export const ReturnTypes: Record<string,any> = {
 		subCategoriesList:"SubCategoriesListResponse",
 		getSubcategoryById:"SubCategoryByIdResponse",
 		dishList:"dishListResponse",
-		getDishById:"getDishByIdResponse"
+		getDishById:"getDishByIdResponse",
+		getDishByCategories:"getDishByCategoriesTypeResponse"
 	},
 	roleListResponse:{
 		status:"Int",
@@ -232,6 +225,7 @@ export const ReturnTypes: Record<string,any> = {
 		permissions:"String"
 	},
 	Date: `scalar.Date` as const,
+	JSONObject: `scalar.JSONObject` as const,
 	getRoleByIdResponse:{
 		status:"Int",
 		success:"Boolean",
@@ -626,7 +620,7 @@ export const ReturnTypes: Record<string,any> = {
 		is_customizable:"Boolean",
 		spicy_level:"String",
 		preparation_time_minutes:"Int",
-		dietary_tags:"JSONObject",
+		dietary_tags:"String",
 		ingredients:"String",
 		availability_start_time:"Time",
 		availability_end_time:"Time",
@@ -641,9 +635,9 @@ export const ReturnTypes: Record<string,any> = {
 		deleted_at:"Date",
 		parent_dish_id:"Int",
 		long_description:"String",
-		gallery_images:"JSONObject",
+		gallery_images:"String",
 		video_url:"String",
-		tags:"JSONObject",
+		tags:"String",
 		price_unit:"String",
 		tax_percentage:"Float",
 		tax_inclusive:"Boolean",
@@ -669,15 +663,9 @@ export const ReturnTypes: Record<string,any> = {
 		delivery_eta_minutes:"Int",
 		delivery_buffer_minutes:"Int",
 		available_portions:"Int",
-		ingredients_options:"DIngredients",
-		customization_groups:"JSONObject",
 		allergen_info:"JSONObject",
-		allergens:"JSONObject",
-		addons_group_ids:"JSONObject",
-		variant_group_ids:"JSONObject",
-		combo_group_id:"Int",
-		is_part_of_combo:"Boolean",
-		meal_time_tags:"JSONObject",
+		allergens:"String",
+		meal_time_tags:"String",
 		featured:"Boolean",
 		is_featured:"Boolean",
 		is_new:"Boolean",
@@ -690,13 +678,13 @@ export const ReturnTypes: Record<string,any> = {
 		is_available_for_dine_in:"Boolean",
 		is_available_for_takeaway:"Boolean",
 		language_tags:"JSONObject",
-		regional_exclusivity:"JSONObject",
-		cuisine_type:"JSONObject",
+		regional_exclusivity:"String",
+		cuisine_type:"String",
 		name_translations:"JSONObject",
 		description_translations:"JSONObject",
 		seo_title:"String",
 		seo_description:"String",
-		promo_tags:"JSONObject",
+		promo_tags:"String",
 		share_url:"String",
 		total_reviews:"Int",
 		average_rating:"Float",
@@ -708,21 +696,20 @@ export const ReturnTypes: Record<string,any> = {
 		user_likes_count:"Int",
 		order_count:"Int",
 		reorder_probability:"Float",
-		smart_tags:"JSONObject",
+		smart_tags:"String",
 		kitchen_station:"String",
 		priority_order:"Int",
 		shelf_life_hours:"Int",
 		is_ready_to_eat:"Boolean",
 		fssai_info:"JSONObject",
-		auto_tags:"JSONObject",
-		paired_dish_ids:"JSONObject",
+		auto_tags:"String",
 		restaurant:"Restaurant",
 		branch:"RBranch",
 		category:"Category",
 		subcategory:"SubCategory",
-		created_by:"User"
+		created_by:"User",
+		ingredients_options:"DIngredients"
 	},
-	JSONObject: `scalar.JSONObject` as const,
 	Time: `scalar.Time` as const,
 	DIngredients:{
 		id:"Int",
@@ -751,6 +738,23 @@ export const ReturnTypes: Record<string,any> = {
 		isError:"Boolean",
 		message:"String",
 		data:"Dish"
+	},
+	getDishByCategoriesTypeResponse:{
+		status:"Int",
+		success:"Boolean",
+		isToast:"Boolean",
+		isError:"Boolean",
+		message:"String",
+		data:"getDishByCategoriesData"
+	},
+	getDishByCategoriesData:{
+		count:"Int",
+		rows:"getDishByCategoriesRows"
+	},
+	getDishByCategoriesRows:{
+		id:"Int",
+		name:"String",
+		dishes:"Dish"
 	},
 	RootMutation:{
 		createRole:"createRoleResponse",

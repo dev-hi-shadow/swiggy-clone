@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApiResponse, IDish } from "../../types";
-import { createDish, getDishById, getDishes, updateDish } from "../APIs/dishes";
+import { ApiResponse, IDish, IPagination } from "../../types";
+import { createDish, getDishById, getDishes, getDishesByCategory, updateDish } from "../APIs/dishes";
 
-export const useGetDishes = () => {
+export const useGetDishes = (payload?: null | IPagination<IDish>) => {
   return useQuery<
     ApiResponse<{
       count: number;
@@ -11,7 +11,21 @@ export const useGetDishes = () => {
     Error
   >({
     queryKey: ["getDishes"],
-    queryFn: getDishes,
+    queryFn: () => getDishes(payload),
+    staleTime: Infinity,
+  });
+};
+
+export const useGetDishByCategory  = (payload?: null | IPagination<IDish>) => {
+  return useQuery<
+    ApiResponse<{
+      count: number;
+      rows: Array<Partial<IDish>>;
+    }>,
+    Error
+  >({
+    queryKey: ["getDishes"],
+    queryFn: () => getDishesByCategory(payload),
     staleTime: Infinity,
   });
 };

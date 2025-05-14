@@ -1,4 +1,4 @@
-import { IUser, ApiResponse } from "../../types";
+import { IUser, ApiResponse, IPagination } from "../../types";
 import { graphql } from "../graphqlClient";
 
 export const updateUser = async (
@@ -127,27 +127,32 @@ export const getUserDetails = async (): Promise<ApiResponse<Partial<IUser>>> => 
 };
 
 
-export const getUsers = async (): Promise<
+export const getUsers = async (
+  payload?: null | IPagination<IUser>
+): Promise<
   ApiResponse<{
     count: number;
     rows: Array<Partial<IUser>>;
   }>
 > => {
   const res = await graphql("query")({
-    usersList: {
-      status: true,
-      success: true,
-      isToast: true,
-      message: true,
-      data: {
-        count: true,
-        rows: {
-          id: true,
-          first_name: true,
-          last_name: true,
+    usersList: [
+      payload || {},
+      {
+        status: true,
+        success: true,
+        isToast: true,
+        message: true,
+        data: {
+          count: true,
+          rows: {
+            id: true,
+            first_name: true,
+            last_name: true,
+          },
         },
       },
-    },
+    ],
   });
   return res?.usersList as unknown as ApiResponse<{
     count: number;

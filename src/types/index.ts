@@ -6,6 +6,16 @@ export interface ApiResponse<T> {
   data?: T;
   [key: string]: unknown;
 }
+export interface IPagination<T> {
+  page?: number;
+  pageSize?: number;
+  total?: number;
+  totalPages?: number;
+  filter?: Record<keyof T | string, unknown>;
+  sortBy?: keyof T | string;
+  sortOrder?: "asc" | "desc";
+  [key: string]: unknown;
+}
 
 export interface IRoutes {
   path: string;
@@ -316,10 +326,6 @@ export interface IDish {
   ingredients?: string;
   ingredients_options?: IDIngredient[];
   customization_groups?: IDCustomization[];
-  addons_group_ids?: number[];
-  variant_group_ids?: number[];
-  combo_group_id?: number;
-  is_part_of_combo?: boolean;
   meal_time_tags?: ("breakfast" | "lunch" | "dinner" | "snack")[];
   featured: boolean;
   is_featured: boolean;
@@ -372,7 +378,6 @@ export interface IDish {
   updated_by?: number | null;
   deleted_by?: number | null;
 }
-
 export interface IDIngredient {
   id: number;
   dish_id: number;

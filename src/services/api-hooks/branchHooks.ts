@@ -1,13 +1,13 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { ApiResponse, IActiveRBranch, IRBranch } from "../../types";
+import { ApiResponse, IActiveRBranch, IPagination, IRBranch, IRestaurant } from "../../types";
 import { createRBranch, getRBranch, getRBranches, updateRBranch } from "../APIs/branches";
 import { queryClient } from "../QueryClient";
 
-export const useGetRBranches = (restaurant_id: number) => {
+export const useGetRBranches = (payload?: null | IPagination<IRestaurant>) => {
   return useQuery<ApiResponse<Array<Partial<IRBranch>>>, Error>({
     queryKey: ["getRBranches"],
-    queryFn: () => getRBranches(restaurant_id),
-    enabled: !!restaurant_id,
+    queryFn: () => getRBranches(payload),
+    enabled: !!payload?.restaurant_id,
   });
 };
 export const useGetRBranch = (id: number) => {

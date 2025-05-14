@@ -1,39 +1,42 @@
-import { ApiResponse, IRestaurant } from "../../types";
+import { ApiResponse, IPagination, IRestaurant } from "../../types";
 import { graphql } from "../graphqlClient";
 
-export const getRestaurants = async (): Promise<
-  ApiResponse<Array<Partial<IRestaurant>>>
-> => {
+export const getRestaurants = async (
+  payload?: null | IPagination<IRestaurant>
+): Promise<ApiResponse<Array<Partial<IRestaurant>>>> => {
   const res = await graphql("query")({
-    RestaurantList: {
-      status: true,
-      success: true,
-      isToast: true,
-      message: true,
-      data: {
-        id: true,
-        name: true,
-        gst_number: true,
+    RestaurantList: [
+      payload || {},
+      {
         status: true,
-        website_url: true,
-        phone_number: true,
-        email: true,
-        is_verified: true,
-        facebook_url: true,
-        instagram_url: true,
-        owner: {
-          first_name: true,
-          last_name: true,
-        },
-        branches: {
+        success: true,
+        isToast: true,
+        message: true,
+        data: {
           id: true,
-          location: true,
-          is_open: true,
-          is_available_for_delivery: true,
-          is_available_for_pickup: true,
+          name: true,
+          gst_number: true,
+          status: true,
+          website_url: true,
+          phone_number: true,
+          email: true,
+          is_verified: true,
+          facebook_url: true,
+          instagram_url: true,
+          owner: {
+            first_name: true,
+            last_name: true,
+          },
+          branches: {
+            id: true,
+            location: true,
+            is_open: true,
+            is_available_for_delivery: true,
+            is_available_for_pickup: true,
+          },
         },
       },
-    },
+    ],
   });
 
   return res.RestaurantList as ApiResponse<Array<Partial<IRestaurant>>>;

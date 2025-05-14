@@ -1,5 +1,5 @@
 import { useMutation, useQuery, } from "@tanstack/react-query";
-import { ApiResponse, IRestaurant, IActiveRestaurant } from "../../types";
+import { ApiResponse, IRestaurant, IActiveRestaurant, IPagination } from "../../types";
 import {
   createRestaurant,
   getRestaurant,
@@ -7,10 +7,10 @@ import {
   updateRestaurant,
 } from "../APIs/restaurants";
   
-export const useGetRestaurants = () => { 
+export const useGetRestaurants = (payload?: null | IPagination<IRestaurant>) => {
   return useQuery<ApiResponse<Array<Partial<IRestaurant>>>, Error>({
     queryKey: ["getRestaurants"],
-    queryFn: getRestaurants,
+    queryFn: () => getRestaurants(payload),
     staleTime: Infinity,
   });
 };

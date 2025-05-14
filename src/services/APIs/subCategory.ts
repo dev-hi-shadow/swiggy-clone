@@ -1,8 +1,8 @@
-import { ApiResponse, ISubCategory } from "../../types";
+import { ApiResponse, IPagination, ISubCategory } from "../../types";
 import { graphql } from "../graphqlClient";
 
 export const getSubCategories = async (
-  category_id: number
+  payload?: null | IPagination<ISubCategory>
 ): Promise<
   ApiResponse<{
     count: number;
@@ -11,7 +11,7 @@ export const getSubCategories = async (
 > => {
   const res = await graphql("query")({
     subCategoriesList: [
-      { category_id },
+      { ...payload },
       {
         status: true,
         success: true,
