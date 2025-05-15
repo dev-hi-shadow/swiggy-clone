@@ -3,7 +3,10 @@ import { ApiResponse, IPagination, ISubCategory } from "../../types";
   
 import { createSubCategory, getSubCategories, getSubCategory, updateSubCategory } from "../APIs/subCategory";
 
-export const useGetSubCategories = (payload?: null | IPagination<ISubCategory>) => {
+export const useGetSubCategories = (
+  payload?: null | IPagination<ISubCategory>
+) => {
+  console.log("🚀 ~ payload:", payload)
   return useQuery<
     ApiResponse<{
       count: number;
@@ -11,8 +14,14 @@ export const useGetSubCategories = (payload?: null | IPagination<ISubCategory>) 
     }>,
     Error
   >({
-    queryKey: ["getCategories"],
-    queryFn: () => getSubCategories(payload),
+    queryKey: ["getSubCategories", payload],
+    queryFn: ({ queryKey }) => {
+      const [, payload] = queryKey as [
+        string,
+        { payload: IPagination<ISubCategory> }
+      ];
+      return getSubCategories(payload);
+    },
     staleTime: Infinity,
     enabled: !!payload?.category_id,
   });

@@ -26,10 +26,18 @@ const PageBreadcrumb: React.FC<BreadcrumbProps> = ({
           </Link>
         )}
         <h2
-          className="text-xl font-semibold text-gray-800 dark:text-white/90"
+          className="text-2xl font-semibold text-gray-800 dark:text-white/90"
           x-text="pageName"
         >
-          {isTitle ? pageTitle : null}
+          {isTitle ? (
+            pageTitle ? (
+              pageTitle
+            ) : (
+              <div role="status" className="max-w-sm animate-pulse">
+                <div className="h-10 text-2xl  bg-gray-200 rounded-full dark:bg-gray-700 w-50"></div>
+              </div>
+            )
+          ) : null}
         </h2>
       </div>
       <nav>

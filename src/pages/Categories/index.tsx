@@ -15,7 +15,7 @@ import INF from "../../icons/images/image-not-found.png";
 
 const Index = () => {
   const { t } = useTranslation();
-  const { data } = useGetCategories();
+  const { data } = useGetCategories({});
   const navigate = useNavigate();
   const { closeModal, isOpen, openModal } = useModal();
    return (
@@ -26,6 +26,7 @@ const Index = () => {
            description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
          />
          <PageBreadcrumb pageTitle={t("modules.categories")} />
+
          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 h-full">
            {_.map(data?.data?.rows, (category) => (
              <div
@@ -78,7 +79,6 @@ const Index = () => {
            </span>
          </Link>
        </div>
-
        <Modal isOpen={isOpen} onClose={closeModal} className="w-full max-w-md">
          <div className="p-6">
            <h2 className="text-lg dark:text-white/90 font-semibold">

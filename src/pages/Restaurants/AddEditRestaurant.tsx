@@ -377,10 +377,12 @@ const AddEditRestaurant = () => {
                    <MultiSelect
                      options={[
                        {
+                         label: "Hello",
                          text: "Hello",
                          value: "hello",
                        },
                      ]}
+                     name="cuisine_types"
                      onChange={(value) => setFieldValue("cuisine_types", value)}
                      label="Cuisine Types"
                    />
@@ -391,10 +393,12 @@ const AddEditRestaurant = () => {
                    <MultiSelect
                      options={[
                        {
+                         label: "Hello",
                          text: "Hello",
                          value: "hello",
                        },
                      ]}
+                     name="cuisine_types"
                      onChange={(value) => setFieldValue("cuisine_types", value)}
                      label="Cuisine Types"
                    />
@@ -556,7 +560,7 @@ const AddEditRestaurant = () => {
           </ComponentCard>
         </div> */}
 
-         <div className="  z-9999 border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]  rounded-2xl py-4  border flex justify-end sticky bottom-0 mt-10">
+         <div className="  z-9999 border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900  rounded-2xl py-4  border flex justify-end sticky bottom-0 mt-10">
            <div className="flex gap-5 mr-4">
              <Button type="button" variant="outline" onClick={handleReset}>
                Reset

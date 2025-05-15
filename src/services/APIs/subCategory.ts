@@ -4,11 +4,12 @@ import { graphql } from "../graphqlClient";
 export const getSubCategories = async (
   payload?: null | IPagination<ISubCategory>
 ): Promise<
-  ApiResponse<{
-    count: number;
-    rows: Array<Partial<ISubCategory>>;
-  }>
+ApiResponse<{
+  count: number;
+  rows: Array<Partial<ISubCategory>>;
+}>
 > => {
+  console.log("🚀 ~ payload:", payload)
   const res = await graphql("query")({
     subCategoriesList: [
       { ...payload },

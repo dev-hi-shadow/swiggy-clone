@@ -27,6 +27,7 @@ export enum AppRoutes {
   EDIT_ROLE = "/role/:id",
   ADD_DISH = "/dish/new",
   EDIT_DISH = "/dish/:id",
+  DETAILS_DISH = "/dish/de/:id",
   DISHES = "/dishes",
 }
 

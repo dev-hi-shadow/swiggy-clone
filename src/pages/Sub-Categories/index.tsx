@@ -15,7 +15,9 @@ import INF from "../../icons/images/image-not-found.png";
 const Index = () => {
   const { t } = useTranslation();
   const {category_id} = useParams()
-   const { data } = useGetSubCategories(Number(decodeId(String(category_id))));
+   const { data } = useGetSubCategories({
+     category_id: Number(decodeId(String(category_id))),
+   });
   const navigate = useNavigate();
   const { closeModal, isOpen, openModal } = useModal();
    return (

@@ -40,7 +40,7 @@ export const useFetchProfile = () => {
   return useQuery<ApiResponse<Partial<IUser>>, Error>({
     queryKey: ["profile"],
     queryFn: getProfile,
-    staleTime: 1000 * 60 * 5,
+    staleTime: Infinity,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });

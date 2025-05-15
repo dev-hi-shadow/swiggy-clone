@@ -6,7 +6,13 @@ import ComponentCard from "../../components/common/ComponentCard";
 import Input from "../../components/form/input/InputField";
 import DropzoneComponent from "../../components/form/form-elements/DropZone";
 import { FormikValues, useFormik } from "formik";
-import { ICategory, IDish, IRBranch, IRestaurant, ISubCategory } from "../../types";
+import {
+  ICategory,
+  IDish,
+  IRBranch,
+  IRestaurant,
+  ISubCategory,
+} from "../../types";
 import _ from "lodash";
 import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
@@ -22,7 +28,7 @@ import Select, { Option } from "../../components/form/Select";
 import Checkbox from "../../components/form/input/Checkbox";
 import MultiSelect from "../../components/form/MultiSelect";
 import DatePicker from "../../components/form/date-picker";
- import { useGetCategories } from "../../services/api-hooks/categoryHooks";
+import { useGetCategories } from "../../services/api-hooks/categoryHooks";
 import { useGetSubCategories } from "../../services/api-hooks/subCategoryHooks";
 import { useGetRestaurants } from "../../services/api-hooks/restaurantsHook";
 import { useGetRBranches } from "../../services/api-hooks/branchHooks";
@@ -252,8 +258,7 @@ const fields: (keyof IDish)[] = [
   "rejection_reason",
   "fssai_info",
   "auto_tags",
-  "paired_dish_ids",
-  "created_at",
+   "created_at",
   "updated_at",
   "deleted_at",
   "created_by",
@@ -261,15 +266,14 @@ const fields: (keyof IDish)[] = [
   "deleted_by",
 ];
 
-
 const validationSchema = Yup.object().shape({
   id: Yup.string().label("id").nullable(),
-  restaurant_id: Yup.string().label("restaurant_id").nullable(),
-  branch_id: Yup.string().label("branch_id").nullable(),
-  category_id: Yup.string().label("category_id").nullable(),
-  subcategory_id: Yup.string().label("subcategory_id").nullable(),
+  restaurant_id: Yup.string().label("Restaurant").required(),
+  branch_id: Yup.string().label("Branch").required(),
+  category_id: Yup.string().label("Category").required(),
+  subcategory_id: Yup.string().label("Sub Category").required(),
   parent_dish_id: Yup.string().label("parent_dish_id").nullable(),
-  name: Yup.string().label("name").nullable(),
+  name: Yup.string().label("Name").required(),
   slug: Yup.string().label("slug").nullable(),
   description: Yup.string().label("description").nullable(),
   long_description: Yup.string().label("long_description").nullable(),
@@ -279,80 +283,115 @@ const validationSchema = Yup.object().shape({
   video_url: Yup.string().label("video_url").nullable(),
   tags: Yup.string().label("tags").nullable(),
   price: Yup.string().label("price").nullable(),
-  original_price: Yup.string().label("original_price").nullable(),
-  currency: Yup.string().label("currency").nullable(),
-  price_unit: Yup.string().label("price_unit").nullable(),
-  tax_percentage: Yup.string().label("tax_percentage").nullable(),
-  tax_inclusive: Yup.string().label("tax_inclusive").nullable(),
-  service_charge_percentage: Yup.string()
+  original_price: Yup.string().label("Price").required(),
+  currency: Yup.string().label("currency").nullable().default("INR"),
+  price_unit: Yup.string().label("price_unit").nullable().default("per_item"),
+  tax_percentage: Yup.number().label("tax_percentage").nullable().default(18),
+  tax_inclusive: Yup.boolean().label("tax_inclusive").nullable().default(true),
+  service_charge_percentage: Yup.number()
     .label("service_charge_percentage")
-    .nullable(),
-  packaging_charge: Yup.string().label("packaging_charge").nullable(),
-  discount_type: Yup.string().label("discount_type").nullable(),
-  discount_amount: Yup.string().label("discount_amount").nullable(),
-  discount_percentage: Yup.string().label("discount_percentage").nullable(),
-  discount_start_time: Yup.string().label("discount_start_time").nullable(),
-  discount_end_time: Yup.string().label("discount_end_time").nullable(),
-  discount_max_quantity: Yup.string().label("discount_max_quantity").nullable(),
-  discount_min_quantity: Yup.string().label("discount_min_quantity").nullable(),
-  discount_max_quantity_per_user: Yup.string()
+    .nullable()
+    .default(0),
+  packaging_charge: Yup.number()
+    .label("packaging_charge")
+    .nullable()
+    .default(0),
+  discount_type: Yup.string()
+    .label("discount_type")
+    .nullable()
+    .oneOf(["percentage", "fixed"]),
+  discount_amount: Yup.number().label("discount_amount").nullable(),
+  discount_percentage: Yup.number().label("discount_percentage").nullable(),
+  discount_start_time: Yup.date().label("discount_start_time").nullable(),
+  discount_end_time: Yup.date().label("discount_end_time").nullable(),
+  discount_max_quantity: Yup.number().label("discount_max_quantity").nullable(),
+  discount_min_quantity: Yup.number().label("discount_min_quantity").nullable(),
+  discount_max_quantity_per_user: Yup.number()
     .label("discount_max_quantity_per_user")
     .nullable(),
-  discount_min_quantity_per_user: Yup.string()
+  discount_min_quantity_per_user: Yup.number()
     .label("discount_min_quantity_per_user")
     .nullable(),
-  discount_max_quantity_per_order: Yup.string()
+  discount_max_quantity_per_order: Yup.number()
     .label("discount_max_quantity_per_order")
     .nullable(),
-  discount_min_quantity_per_order: Yup.string()
+  discount_min_quantity_per_order: Yup.number()
     .label("discount_min_quantity_per_order")
     .nullable(),
-  discount_max_quantity_per_user_per_order: Yup.string()
+  discount_max_quantity_per_user_per_order: Yup.number()
     .label("discount_max_quantity_per_user_per_order")
     .nullable(),
-  discount_min_quantity_per_user_per_order: Yup.string()
+  discount_min_quantity_per_user_per_order: Yup.number()
     .label("discount_min_quantity_per_user_per_order")
     .nullable(),
-  discount_applies_with_coupon: Yup.string()
+  discount_applies_with_coupon: Yup.boolean()
     .label("discount_applies_with_coupon")
-    .nullable(),
-  promo_code_applicable: Yup.string().label("promo_code_applicable").nullable(),
-  is_available: Yup.string().label("is_available").nullable(),
+    .nullable()
+    .default(false),
+  promo_code_applicable: Yup.boolean()
+    .label("promo_code_applicable")
+    .nullable()
+    .default(false),
+  is_available: Yup.boolean().label("is_available").required().default(true),
   availability_days: Yup.array()
     .of(Yup.string())
     .label("availability_days")
-    .nullable(),
+    .nullable()
+    .default([
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday",
+    ]),
   availability_start_time: Yup.string()
     .label("availability_start_time")
     .nullable(),
   availability_end_time: Yup.string().label("availability_end_time").nullable(),
   blackout_dates: Yup.array().of(Yup.string()).label("blackout_dates"),
-  preorder_available: Yup.string().label("preorder_available").nullable(),
+  preorder_available: Yup.boolean()
+    .label("preorder_available")
+    .nullable()
+    .default(false),
   preorder_hours: Yup.string().label("preorder_hours").nullable(),
-  delivery_eta_minutes: Yup.string().label("delivery_eta_minutes").nullable(),
-  delivery_buffer_minutes: Yup.string()
+  delivery_eta_minutes: Yup.number()
+    .label("delivery_eta_minutes")
+    .nullable()
+    .default(25),
+  delivery_buffer_minutes: Yup.number()
     .label("delivery_buffer_minutes")
-    .nullable(),
-  preparation_time_minutes: Yup.string()
+    .nullable()
+    .default(30),
+  preparation_time_minutes: Yup.number()
     .label("preparation_time_minutes")
-    .nullable(),
-  stock_quantity: Yup.string().label("stock_quantity").nullable(),
-  min_order_qty: Yup.string().label("min_order_qty").nullable(),
-  max_order_qty: Yup.string().label("max_order_qty").nullable(),
+    .nullable()
+    .default(15),
+  stock_quantity: Yup.number().label("stock_quantity").nullable().default(0),
+  min_order_qty: Yup.number().label("Min Order Quantity").required(),
+  max_order_qty: Yup.number().label("Min Order Quantity").required(),
   available_portions: Yup.string().label("available_portions").nullable(),
-  is_veg: Yup.string().label("is_veg").nullable(),
-  is_customizable: Yup.string().label("is_customizable").nullable(),
-  spicy_level: Yup.string().label("spicy_level").nullable(),
-  dietary_tags: Yup.string().label("dietary_tags").nullable(),
+  is_veg: Yup.boolean().label("is_veg").required().default(true),
+  is_customizable: Yup.boolean()
+    .label("is_customizable")
+    .nullable()
+    .default(false),
+  spicy_level: Yup.string()
+    .label("spicy_level")
+    .required()
+    .default("medium")
+    .oneOf(["mild", "medium", "hot"]),
+  dietary_tags: Yup.array().of(Yup.string()).label("dietary_tags").nullable(),
   allergen_info: Yup.string().label("allergen_info").nullable(),
-  allergens: Yup.string().label("allergens").nullable(),
+  allergens: Yup.array().of(Yup.string()).label("allergens").nullable(),
   ingredients: Yup.string().label("ingredients").nullable(),
   ingredients_options: Yup.string().label("ingredients_options").nullable(),
   customization_groups: Yup.string().label("customization_groups").nullable(),
-  addons_group_ids: Yup.string().label("addons_group_ids").nullable(),
-  variant_group_ids: Yup.string().label("variant_group_ids").nullable(),
-  combo_group_id: Yup.string().label("combo_group_id").nullable(),
-  meal_time_tags: Yup.string().label("meal_time_tags").nullable(),
+  meal_time_tags: Yup.array()
+    .of(Yup.string())
+    .label("meal_time_tags")
+    .nullable(),
   featured: Yup.string().label("featured").nullable(),
   is_featured: Yup.string().label("is_featured").nullable(),
   is_new: Yup.string().label("is_new").nullable(),
@@ -381,7 +420,7 @@ const validationSchema = Yup.object().shape({
     .nullable(),
   seo_title: Yup.string().label("seo_title").nullable(),
   seo_description: Yup.string().label("seo_description").nullable(),
-  promo_tags: Yup.string().label("promo_tags").nullable(),
+  promo_tags: Yup.array().of(Yup.string()).label("promo_tags").nullable(),
   share_url: Yup.string().label("share_url").nullable(),
   rating: Yup.string().label("rating").nullable(),
   total_reviews: Yup.string().label("total_reviews").nullable(),
@@ -402,7 +441,7 @@ const validationSchema = Yup.object().shape({
   approval_status: Yup.string().label("approval_status").nullable(),
   rejection_reason: Yup.string().label("rejection_reason").nullable(),
   fssai_info: Yup.string().label("fssai_info").nullable(),
-  auto_tags: Yup.string().label("auto_tags").nullable(),
+  auto_tags: Yup.array().of(Yup.string()).label("auto_tags").nullable(),
   paired_dish_ids: Yup.string().label("paired_dish_ids").nullable(),
   created_at: Yup.string().label("created_at").nullable(),
   updated_at: Yup.string().label("updated_at").nullable(),
@@ -421,7 +460,7 @@ const AddEditDish = () => {
   const [SubCategories, setSubCategories] = useState<Option[]>([]);
   const [RestaurantOptions, setRestaurantOptions] = useState<Option[]>([]);
   const [BranchOptions, setBranchOptions] = useState<Option[]>([]);
- 
+
   const { mutate: addMutate } = useCreateDishMutation({
     onSuccess: (data) => {
       setDishDetails(data?.data as IDish);
@@ -436,13 +475,13 @@ const AddEditDish = () => {
   });
 
   const { data, isSuccess } = useGetDish(Number(decodeId(String(id))));
- 
+
   const handleAddEditDish = (values: FormikValues) => {
     if (id) {
-      console.log("HANDLE SUBMIT " , values)
+      console.log("HANDLE SUBMIT ", values);
       editMutate(values);
     } else {
-      console.log("HANDLE SUBMIT " , values)
+      console.log("HANDLE SUBMIT ", values);
       addMutate(values);
     }
   };
@@ -467,18 +506,13 @@ const AddEditDish = () => {
     enableReinitialize: true,
   });
 
-  console.log(errors , values , )
-
   useEffect(() => {
     if (isSuccess) {
       setDishDetails(data?.data as IDish);
     }
   }, [isSuccess, data?.data]);
 
-
-
-
-  const { data: CategoryData } = useGetCategories();
+  const { data: CategoryData } = useGetCategories({});
   useEffect(() => {
     if (CategoryData?.data) {
       setCategories(() => {
@@ -495,9 +529,10 @@ const AddEditDish = () => {
     }
   }, [CategoryData?.data]);
 
-  const { data: SubCategoryData } = useGetSubCategories(
-    Number(values?.category_id)
-  );
+  const { data: SubCategoryData } = useGetSubCategories({
+    category_id: Number(values?.category_id),
+  });
+  console.log("🚀 ~ AddEditDish ~ SubCategoryData:", SubCategoryData);
   useEffect(() => {
     if (SubCategoryData?.data) {
       setSubCategories(() => {
@@ -514,26 +549,27 @@ const AddEditDish = () => {
     }
   }, [SubCategoryData?.data]);
 
-
-  const {data : RestaurantData} = useGetRestaurants()
-  const { data: RBranchData } = useGetRBranches(Number(values?.restaurant_id));
+  const { data: RestaurantData } = useGetRestaurants();
+  const { data: RBranchData } = useGetRBranches({
+    restaurant_id: Number(values?.restaurant_id),
+  });
 
   useEffect(() => {
     if (RestaurantData?.data) {
       setRestaurantOptions(() => {
         return _.isArray(RestaurantData?.data)
           ? RestaurantData?.data?.map((item: Partial<IRestaurant>) => {
-            return {
-              label: item?.name ?? "",
+              return {
+                label: item?.name ?? "",
                 value: item?.id ?? "",
                 text: item?.name ?? "",
               };
             })
           : [];
-        });
-      }
-    }, [RestaurantData?.data]);
-     
+      });
+    }
+  }, [RestaurantData?.data]);
+
   useEffect(() => {
     if (RBranchData?.data) {
       setBranchOptions(() => {
@@ -550,7 +586,6 @@ const AddEditDish = () => {
     }
   }, [RBranchData?.data]);
 
- 
   return (
     <div>
       <PageMeta
@@ -559,7 +594,7 @@ const AddEditDish = () => {
       />
       <PageBreadcrumb pageTitle={t(id ? "edit-dish" : "add-dish")} />
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 gap-x-6 gap-y-5  xl:grid-cols-2">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-5">
           {/* Basic Information */}
 
           <div className="col-span-2 xl:col-span-1">
@@ -614,7 +649,7 @@ const AddEditDish = () => {
                   <Input
                     onChange={handleChange}
                     type="number"
-                    name="price"
+                    name="original_price"
                     label="Price"
                     values={values}
                     onBlur={handleBlur}
@@ -657,6 +692,8 @@ const AddEditDish = () => {
                     defaultValue={values.restaurant_id}
                     options={RestaurantOptions}
                     label="Restaurant"
+                    errors={errors}
+                    touched={touched}
                     setFieldValue={setFieldValue}
                     setFieldError={setFieldError}
                   />
@@ -667,6 +704,8 @@ const AddEditDish = () => {
                     name="branch_id"
                     options={BranchOptions}
                     label="Branch"
+                    errors={errors}
+                    touched={touched}
                     setFieldValue={setFieldValue}
                     setFieldError={setFieldError}
                   />
@@ -678,6 +717,8 @@ const AddEditDish = () => {
                     defaultValue={values.category_id}
                     options={Categories}
                     label="Category"
+                    errors={errors}
+                    touched={touched}
                     setFieldValue={setFieldValue}
                     setFieldError={setFieldError}
                   />
@@ -688,6 +729,8 @@ const AddEditDish = () => {
                     name="subcategory_id"
                     options={SubCategories}
                     label="Sub Category"
+                    errors={errors}
+                    touched={touched}
                     setFieldValue={setFieldValue}
                     setFieldError={setFieldError}
                   />
@@ -753,6 +796,8 @@ const AddEditDish = () => {
               <div className="col-span-1  my-auto">
                 <Checkbox
                   values={values}
+                  errors={errors}
+                  touched={touched}
                   setFieldValue={setFieldValue}
                   name="tax_inclusive"
                   label="Tax Inclusive"

@@ -234,6 +234,8 @@ export interface ICategory {
   created_by?: number | null;
   updated_by?: number | null;
   deleted_by?: number | null;
+  dish: IDish[];
+  dishes: IDish[];
 }
 
 export interface ISubCategory {
@@ -290,6 +292,7 @@ export interface IDish {
   packaging_charge?: number;
   discount_type: "fixed" | "percentage";
   discount_amount?: number;
+  discount_amount_upto?: number;
   discount_percentage?: number;
   discount_start_time?: string;
   discount_end_time?: string;
@@ -326,7 +329,7 @@ export interface IDish {
   ingredients?: string;
   ingredients_options?: IDIngredient[];
   customization_groups?: IDCustomization[];
-  meal_time_tags?: ("breakfast" | "lunch" | "dinner" | "snack")[];
+  meal_time_tags?: string[];
   featured: boolean;
   is_featured: boolean;
   is_new: boolean;
@@ -370,7 +373,6 @@ export interface IDish {
     label_required: boolean;
   };
   auto_tags?: string[];
-  paired_dish_ids?: number[];
   created_at: Date;
   updated_at: Date;
   deleted_at?: Date | null;

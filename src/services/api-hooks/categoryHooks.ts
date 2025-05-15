@@ -7,6 +7,7 @@ import { ApiResponse, ICategory, IPagination } from "../../types";
    updateCategory,
  } from "../APIs/categories";
 
+
 export const useGetCategories = (payload?: null | IPagination<ICategory>) => {
   return useQuery<
     ApiResponse<{
@@ -15,8 +16,14 @@ export const useGetCategories = (payload?: null | IPagination<ICategory>) => {
     }>,
     Error
   >({
-    queryKey: ["getCategories"],
-    queryFn: () => getCategories(payload),
+    queryKey: ["getCategories", payload],
+    queryFn: ({ queryKey }) => {
+      const [, { payload }] = queryKey as [
+        string,
+        { payload: null | IPagination<ICategory> }
+      ];
+      return getCategories(payload);
+    },
     staleTime: Infinity,
   });
 };
@@ -29,6 +36,7 @@ export const useGetCategory = (id: number) => {
       const [, { id }] = queryKey as [string, { id: number }];
       return getCategory({ id });
     },
+    enabled: !!id,
     staleTime: Infinity,
   });
 };

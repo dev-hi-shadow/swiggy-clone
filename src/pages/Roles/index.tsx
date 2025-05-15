@@ -29,20 +29,23 @@ const Index = () => {
     {
       header: "Permissions",
       name: "permissions",
-      cell: (props) => (
-        <div className="flex flex-wrap gap-2 ">
-          {_.map(props.permissions, (permission, key) => (
-            <span
-              key={key}
-              className="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-            >
-              {`${_.capitalize(
-                FEATURES_NAME[key as keyof typeof FEATURES_NAME] ?? key
-              )} : ${_.join(_.sortBy(permission), ", ")}`}
-            </span>
-          ))}
-        </div>
-      ),
+      cell: (props) => {
+        console.log("🚀 ~ Index ~ props:", props)
+        return (
+          <div className="flex flex-wrap gap-2 ">
+            {_.map(props.permissions, (permission, key) => (
+              <span
+                key={key}
+                className="bg-gray-100 text-gray-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
+              >
+                {`${_.capitalize(
+                  FEATURES_NAME[key as keyof typeof FEATURES_NAME] ?? key
+                )} : ${_.join(_.sortBy(permission), ", ")}`}
+              </span>
+            ))}
+          </div>
+        );
+      },
     },
     {
       header: "Actions",
