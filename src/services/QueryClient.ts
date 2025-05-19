@@ -4,19 +4,7 @@ import { localStoragePersister } from "./persister";
 
 const whitelist = ["profile", "activeRestaurant", "activeRBranch", "auth"];
 
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    mutations: {
-      onError: (error) => {
-        console.log(
-          "errorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerrorerror",
-          error
-        );
-      },
-    },
- 
-  },
-});
+export const queryClient = new QueryClient();
 
 persistQueryClient({
   queryClient,

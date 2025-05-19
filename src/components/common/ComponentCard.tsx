@@ -16,8 +16,15 @@ interface ComponentCardProps {
   className?: string; // Additional custom classes for styling
   desc?: string; // Description text
   button?: {
-    label: string;
-    onClick: () => void;
+    label?: string;
+    size?: "xs" | "sm" | "md";
+    type?: "button" | "submit" | "reset";
+    className?: string;
+    onClick?: () => void;
+    variant?: "primary" | "outline";
+    loading?: boolean;
+    disabled?: boolean;
+    startIcon?: React.ReactNode;
   };
   saveButton?: {
     label?: string;
@@ -53,7 +60,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   saveButton,
   desClassName,
   titleClassName,
- }) => {
+}) => {
   return (
     <div
       className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
@@ -85,12 +92,15 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
           )}
           {button && (
             <Button
-              size="sm"
+              size={button.size ?? "sm"}
               type="button"
-              className="sm:whitespace-nowrap"
+              className={`sm:whitespace-nowrap ${button.className}`}
               onClick={button.onClick}
+              variant={button.variant}
+              disabled={button.disabled}
+              startIcon={button.startIcon}
             >
-              {button.label}
+              {button?.label}
             </Button>
           )}
         </div>

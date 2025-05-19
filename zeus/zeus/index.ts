@@ -1465,6 +1465,7 @@ getDishByCategories?: [{	limit?: number | undefined | null | Variable<any, strin
 	subcategory?:ValueTypes["SubCategory"],
 	created_by?:ValueTypes["User"],
 	ingredients_options?:ValueTypes["DIngredients"],
+	customization_groups?:ValueTypes["DCustomization"],
 		__typename?: boolean | `@${string}`
 }>;
 	/** Time custom scalar, formatted as HH:mm */
@@ -1489,6 +1490,26 @@ getDishByCategories?: [{	limit?: number | undefined | null | Variable<any, strin
 	image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["DCustomization"]: AliasType<{
+	id?:boolean | `@${string}`,
+	dish_id?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	is_required?:boolean | `@${string}`,
+	min_selection?:boolean | `@${string}`,
+	max_selection?:boolean | `@${string}`,
+	selection_type?:boolean | `@${string}`,
+	order?:boolean | `@${string}`,
+	options?:ValueTypes["IDCOption"],
+		__typename?: boolean | `@${string}`
+}>;
+	["IDCOption"]: AliasType<{
+	id?:boolean | `@${string}`,
+	customization_id?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	order?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["getDishByIdResponse"]: AliasType<{
@@ -1523,8 +1544,8 @@ getDishByCategories?: [{	limit?: number | undefined | null | Variable<any, strin
 		__typename?: boolean | `@${string}`
 }>;
 	["RootMutation"]: AliasType<{
-createRole?: [{	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: string | undefined | null | Variable<any, string>},ValueTypes["createRoleResponse"]],
-updateRole?: [{	id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: string | undefined | null | Variable<any, string>},ValueTypes["updateRoleResponse"]],
+createRole?: [{	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>},ValueTypes["createRoleResponse"]],
+updateRole?: [{	id?: number | undefined | null | Variable<any, string>,	created_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	deleted_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	updated_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	is_admin?: boolean | undefined | null | Variable<any, string>,	name?: string | undefined | null | Variable<any, string>,	permissions?: ValueTypes["JSONObject"] | undefined | null | Variable<any, string>},ValueTypes["updateRoleResponse"]],
 deleteRole?: [{	id: number | Variable<any, string>},ValueTypes["Role"]],
 createUser?: [{	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	facebook?: string | undefined | null | Variable<any, string>,	x?: string | undefined | null | Variable<any, string>,	linkedin?: string | undefined | null | Variable<any, string>,	instagram?: string | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["CreateUserResponse"]],
 updateUser?: [{	id?: number | undefined | null | Variable<any, string>,	username?: string | undefined | null | Variable<any, string>,	phone?: string | undefined | null | Variable<any, string>,	gender?: string | undefined | null | Variable<any, string>,	dob?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	aadhar_card?: string | undefined | null | Variable<any, string>,	pan_card?: string | undefined | null | Variable<any, string>,	voter_id?: string | undefined | null | Variable<any, string>,	first_name?: string | undefined | null | Variable<any, string>,	last_name?: string | undefined | null | Variable<any, string>,	email?: string | undefined | null | Variable<any, string>,	password?: string | undefined | null | Variable<any, string>,	role_id?: number | undefined | null | Variable<any, string>,	is_active?: boolean | undefined | null | Variable<any, string>,	is_verified?: boolean | undefined | null | Variable<any, string>,	profile_picture?: string | undefined | null | Variable<any, string>,	address?: string | undefined | null | Variable<any, string>,	city?: string | undefined | null | Variable<any, string>,	state?: string | undefined | null | Variable<any, string>,	country?: string | undefined | null | Variable<any, string>,	zip_code?: number | undefined | null | Variable<any, string>,	last_login_at?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	login_count?: number | undefined | null | Variable<any, string>,	device_token?: string | undefined | null | Variable<any, string>,	wallet_balance?: number | undefined | null | Variable<any, string>,	referral_code?: number | undefined | null | Variable<any, string>,	referred_by?: number | undefined | null | Variable<any, string>,	otp_code?: number | undefined | null | Variable<any, string>,	otp_expiry?: ValueTypes["Date"] | undefined | null | Variable<any, string>,	blocked_reason?: string | undefined | null | Variable<any, string>,	language_preference?: string | undefined | null | Variable<any, string>,	terms_conditions_accepted?: boolean | undefined | null | Variable<any, string>,	facebook?: string | undefined | null | Variable<any, string>,	x?: string | undefined | null | Variable<any, string>,	linkedin?: string | undefined | null | Variable<any, string>,	instagram?: string | undefined | null | Variable<any, string>,	role?: ValueTypes["ID"] | undefined | null | Variable<any, string>},ValueTypes["UpdateUserResponse"]],
@@ -1733,23 +1754,16 @@ updateDish?: [{	id?: number | undefined | null | Variable<any, string>,	restaura
 	is_required?: boolean | undefined | null | Variable<any, string>,
 	min_selection?: number | undefined | null | Variable<any, string>,
 	max_selection?: number | undefined | null | Variable<any, string>,
-	selection_type?: ValueTypes["SelectionType"] | undefined | null | Variable<any, string>,
+	selection_type?: string | undefined | null | Variable<any, string>,
 	order?: number | undefined | null | Variable<any, string>,
-	createdAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
-	updatedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
-	deletedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
 	options?: ValueTypes["IDCOptionInput"] | undefined | null | Variable<any, string>
 };
-	["SelectionType"]:SelectionType;
 	["IDCOptionInput"]: {
 	id?: number | undefined | null | Variable<any, string>,
 	customization_id?: number | undefined | null | Variable<any, string>,
 	title?: string | undefined | null | Variable<any, string>,
 	price?: number | undefined | null | Variable<any, string>,
-	order?: number | undefined | null | Variable<any, string>,
-	createdAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
-	updatedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>,
-	deletedAt?: ValueTypes["Date"] | undefined | null | Variable<any, string>
+	order?: number | undefined | null | Variable<any, string>
 };
 	["updateDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
@@ -2331,6 +2345,7 @@ getDishByCategories?: [{	limit?: number | undefined | null,	page?: number | unde
 	subcategory?:ResolverInputTypes["SubCategory"],
 	created_by?:ResolverInputTypes["User"],
 	ingredients_options?:ResolverInputTypes["DIngredients"],
+	customization_groups?:ResolverInputTypes["DCustomization"],
 		__typename?: boolean | `@${string}`
 }>;
 	/** Time custom scalar, formatted as HH:mm */
@@ -2355,6 +2370,26 @@ getDishByCategories?: [{	limit?: number | undefined | null,	page?: number | unde
 	image_url?:boolean | `@${string}`,
 	created_at?:boolean | `@${string}`,
 	updated_at?:boolean | `@${string}`,
+		__typename?: boolean | `@${string}`
+}>;
+	["DCustomization"]: AliasType<{
+	id?:boolean | `@${string}`,
+	dish_id?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	is_required?:boolean | `@${string}`,
+	min_selection?:boolean | `@${string}`,
+	max_selection?:boolean | `@${string}`,
+	selection_type?:boolean | `@${string}`,
+	order?:boolean | `@${string}`,
+	options?:ResolverInputTypes["IDCOption"],
+		__typename?: boolean | `@${string}`
+}>;
+	["IDCOption"]: AliasType<{
+	id?:boolean | `@${string}`,
+	customization_id?:boolean | `@${string}`,
+	title?:boolean | `@${string}`,
+	price?:boolean | `@${string}`,
+	order?:boolean | `@${string}`,
 		__typename?: boolean | `@${string}`
 }>;
 	["getDishByIdResponse"]: AliasType<{
@@ -2389,8 +2424,8 @@ getDishByCategories?: [{	limit?: number | undefined | null,	page?: number | unde
 		__typename?: boolean | `@${string}`
 }>;
 	["RootMutation"]: AliasType<{
-createRole?: [{	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: string | undefined | null},ResolverInputTypes["createRoleResponse"]],
-updateRole?: [{	id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: string | undefined | null},ResolverInputTypes["updateRoleResponse"]],
+createRole?: [{	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: ResolverInputTypes["JSONObject"] | undefined | null},ResolverInputTypes["createRoleResponse"]],
+updateRole?: [{	id?: number | undefined | null,	created_at?: ResolverInputTypes["Date"] | undefined | null,	deleted_at?: ResolverInputTypes["Date"] | undefined | null,	updated_at?: ResolverInputTypes["Date"] | undefined | null,	is_admin?: boolean | undefined | null,	name?: string | undefined | null,	permissions?: ResolverInputTypes["JSONObject"] | undefined | null},ResolverInputTypes["updateRoleResponse"]],
 deleteRole?: [{	id: number},ResolverInputTypes["Role"]],
 createUser?: [{	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	facebook?: string | undefined | null,	x?: string | undefined | null,	linkedin?: string | undefined | null,	instagram?: string | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["CreateUserResponse"]],
 updateUser?: [{	id?: number | undefined | null,	username?: string | undefined | null,	phone?: string | undefined | null,	gender?: string | undefined | null,	dob?: ResolverInputTypes["Date"] | undefined | null,	aadhar_card?: string | undefined | null,	pan_card?: string | undefined | null,	voter_id?: string | undefined | null,	first_name?: string | undefined | null,	last_name?: string | undefined | null,	email?: string | undefined | null,	password?: string | undefined | null,	role_id?: number | undefined | null,	is_active?: boolean | undefined | null,	is_verified?: boolean | undefined | null,	profile_picture?: string | undefined | null,	address?: string | undefined | null,	city?: string | undefined | null,	state?: string | undefined | null,	country?: string | undefined | null,	zip_code?: number | undefined | null,	last_login_at?: ResolverInputTypes["Date"] | undefined | null,	login_count?: number | undefined | null,	device_token?: string | undefined | null,	wallet_balance?: number | undefined | null,	referral_code?: number | undefined | null,	referred_by?: number | undefined | null,	otp_code?: number | undefined | null,	otp_expiry?: ResolverInputTypes["Date"] | undefined | null,	blocked_reason?: string | undefined | null,	language_preference?: string | undefined | null,	terms_conditions_accepted?: boolean | undefined | null,	facebook?: string | undefined | null,	x?: string | undefined | null,	linkedin?: string | undefined | null,	instagram?: string | undefined | null,	role?: ResolverInputTypes["ID"] | undefined | null},ResolverInputTypes["UpdateUserResponse"]],
@@ -2599,23 +2634,16 @@ updateDish?: [{	id?: number | undefined | null,	restaurant_id?: number | undefin
 	is_required?: boolean | undefined | null,
 	min_selection?: number | undefined | null,
 	max_selection?: number | undefined | null,
-	selection_type?: ResolverInputTypes["SelectionType"] | undefined | null,
+	selection_type?: string | undefined | null,
 	order?: number | undefined | null,
-	createdAt?: ResolverInputTypes["Date"] | undefined | null,
-	updatedAt?: ResolverInputTypes["Date"] | undefined | null,
-	deletedAt?: ResolverInputTypes["Date"] | undefined | null,
 	options?: ResolverInputTypes["IDCOptionInput"] | undefined | null
 };
-	["SelectionType"]:SelectionType;
 	["IDCOptionInput"]: {
 	id?: number | undefined | null,
 	customization_id?: number | undefined | null,
 	title?: string | undefined | null,
 	price?: number | undefined | null,
-	order?: number | undefined | null,
-	createdAt?: ResolverInputTypes["Date"] | undefined | null,
-	updatedAt?: ResolverInputTypes["Date"] | undefined | null,
-	deletedAt?: ResolverInputTypes["Date"] | undefined | null
+	order?: number | undefined | null
 };
 	["updateDishResponse"]: AliasType<{
 	status?:boolean | `@${string}`,
@@ -2669,7 +2697,7 @@ export type ModelTypes = {
 	updated_at?: ModelTypes["Date"] | undefined | null,
 	is_admin?: boolean | undefined | null,
 	name?: string | undefined | null,
-	permissions?: string | undefined | null
+	permissions?: ModelTypes["JSONObject"] | undefined | null
 };
 	["Date"]:any;
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -3169,7 +3197,8 @@ export type ModelTypes = {
 	category?: ModelTypes["Category"] | undefined | null,
 	subcategory?: ModelTypes["SubCategory"] | undefined | null,
 	created_by?: ModelTypes["User"] | undefined | null,
-	ingredients_options?: Array<ModelTypes["DIngredients"] | undefined | null> | undefined | null
+	ingredients_options?: Array<ModelTypes["DIngredients"] | undefined | null> | undefined | null,
+	customization_groups?: Array<ModelTypes["DCustomization"] | undefined | null> | undefined | null
 };
 	/** Time custom scalar, formatted as HH:mm */
 ["Time"]:any;
@@ -3193,6 +3222,24 @@ export type ModelTypes = {
 	created_at?: ModelTypes["Date"] | undefined | null,
 	updated_at?: ModelTypes["Date"] | undefined | null
 };
+	["DCustomization"]: {
+		id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	title?: string | undefined | null,
+	is_required?: boolean | undefined | null,
+	min_selection?: number | undefined | null,
+	max_selection?: number | undefined | null,
+	selection_type?: string | undefined | null,
+	order?: number | undefined | null,
+	options?: Array<ModelTypes["IDCOption"] | undefined | null> | undefined | null
+};
+	["IDCOption"]: {
+		id?: number | undefined | null,
+	customization_id?: number | undefined | null,
+	title?: string | undefined | null,
+	price?: number | undefined | null,
+	order?: number | undefined | null
+};
 	["getDishByIdResponse"]: {
 		status?: number | undefined | null,
 	success?: boolean | undefined | null,
@@ -3209,7 +3256,7 @@ export type ModelTypes = {
 	isError?: boolean | undefined | null,
 	message?: string | undefined | null,
 	/** The getdishbycategoriestype data */
-	data?: Array<ModelTypes["getDishByCategoriesData"] | undefined | null> | undefined | null
+	data?: ModelTypes["getDishByCategoriesData"] | undefined | null
 };
 	["getDishByCategoriesData"]: {
 		count?: number | undefined | null,
@@ -3413,23 +3460,16 @@ export type ModelTypes = {
 	is_required?: boolean | undefined | null,
 	min_selection?: number | undefined | null,
 	max_selection?: number | undefined | null,
-	selection_type?: ModelTypes["SelectionType"] | undefined | null,
+	selection_type?: string | undefined | null,
 	order?: number | undefined | null,
-	createdAt?: ModelTypes["Date"] | undefined | null,
-	updatedAt?: ModelTypes["Date"] | undefined | null,
-	deletedAt?: ModelTypes["Date"] | undefined | null,
 	options?: ModelTypes["IDCOptionInput"] | undefined | null
 };
-	["SelectionType"]:SelectionType;
 	["IDCOptionInput"]: {
 	id?: number | undefined | null,
 	customization_id?: number | undefined | null,
 	title?: string | undefined | null,
 	price?: number | undefined | null,
-	order?: number | undefined | null,
-	createdAt?: ModelTypes["Date"] | undefined | null,
-	updatedAt?: ModelTypes["Date"] | undefined | null,
-	deletedAt?: ModelTypes["Date"] | undefined | null
+	order?: number | undefined | null
 };
 	["updateDishResponse"]: {
 		status?: number | undefined | null,
@@ -3481,7 +3521,7 @@ export type GraphQLTypes = {
 	updated_at?: GraphQLTypes["Date"] | undefined | null,
 	is_admin?: boolean | undefined | null,
 	name?: string | undefined | null,
-	permissions?: string | undefined | null
+	permissions?: GraphQLTypes["JSONObject"] | undefined | null
 };
 	["Date"]: "scalar" & { name: "Date" };
 	/** The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
@@ -4005,7 +4045,8 @@ export type GraphQLTypes = {
 	category?: GraphQLTypes["Category"] | undefined | null,
 	subcategory?: GraphQLTypes["SubCategory"] | undefined | null,
 	created_by?: GraphQLTypes["User"] | undefined | null,
-	ingredients_options?: Array<GraphQLTypes["DIngredients"] | undefined | null> | undefined | null
+	ingredients_options?: Array<GraphQLTypes["DIngredients"] | undefined | null> | undefined | null,
+	customization_groups?: Array<GraphQLTypes["DCustomization"] | undefined | null> | undefined | null
 };
 	/** Time custom scalar, formatted as HH:mm */
 ["Time"]: "scalar" & { name: "Time" };
@@ -4031,6 +4072,26 @@ export type GraphQLTypes = {
 	created_at?: GraphQLTypes["Date"] | undefined | null,
 	updated_at?: GraphQLTypes["Date"] | undefined | null
 };
+	["DCustomization"]: {
+	__typename: "DCustomization",
+	id?: number | undefined | null,
+	dish_id?: number | undefined | null,
+	title?: string | undefined | null,
+	is_required?: boolean | undefined | null,
+	min_selection?: number | undefined | null,
+	max_selection?: number | undefined | null,
+	selection_type?: string | undefined | null,
+	order?: number | undefined | null,
+	options?: Array<GraphQLTypes["IDCOption"] | undefined | null> | undefined | null
+};
+	["IDCOption"]: {
+	__typename: "IDCOption",
+	id?: number | undefined | null,
+	customization_id?: number | undefined | null,
+	title?: string | undefined | null,
+	price?: number | undefined | null,
+	order?: number | undefined | null
+};
 	["getDishByIdResponse"]: {
 	__typename: "getDishByIdResponse",
 	status?: number | undefined | null,
@@ -4049,7 +4110,7 @@ export type GraphQLTypes = {
 	isError?: boolean | undefined | null,
 	message?: string | undefined | null,
 	/** The getdishbycategoriestype data */
-	data?: Array<GraphQLTypes["getDishByCategoriesData"] | undefined | null> | undefined | null
+	data?: GraphQLTypes["getDishByCategoriesData"] | undefined | null
 };
 	["getDishByCategoriesData"]: {
 	__typename: "getDishByCategoriesData",
@@ -4273,23 +4334,16 @@ export type GraphQLTypes = {
 	is_required?: boolean | undefined | null,
 	min_selection?: number | undefined | null,
 	max_selection?: number | undefined | null,
-	selection_type?: GraphQLTypes["SelectionType"] | undefined | null,
+	selection_type?: string | undefined | null,
 	order?: number | undefined | null,
-	createdAt?: GraphQLTypes["Date"] | undefined | null,
-	updatedAt?: GraphQLTypes["Date"] | undefined | null,
-	deletedAt?: GraphQLTypes["Date"] | undefined | null,
 	options?: GraphQLTypes["IDCOptionInput"] | undefined | null
 };
-	["SelectionType"]: SelectionType;
 	["IDCOptionInput"]: {
 		id?: number | undefined | null,
 	customization_id?: number | undefined | null,
 	title?: string | undefined | null,
 	price?: number | undefined | null,
-	order?: number | undefined | null,
-	createdAt?: GraphQLTypes["Date"] | undefined | null,
-	updatedAt?: GraphQLTypes["Date"] | undefined | null,
-	deletedAt?: GraphQLTypes["Date"] | undefined | null
+	order?: number | undefined | null
 };
 	["updateDishResponse"]: {
 	__typename: "updateDishResponse",
@@ -4303,10 +4357,7 @@ export type GraphQLTypes = {
 };
 	["ID"]: "scalar" & { name: "ID" }
     }
-export enum SelectionType {
-	single = "single",
-	multiple = "multiple"
-}
+
 
 type ZEUS_VARIABLES = {
 	["Date"]: ValueTypes["Date"];
@@ -4315,7 +4366,6 @@ type ZEUS_VARIABLES = {
 	["IngredientInput"]: ValueTypes["IngredientInput"];
 	["DIOptionInput"]: ValueTypes["DIOptionInput"];
 	["DCusDCustomization"]: ValueTypes["DCusDCustomization"];
-	["SelectionType"]: ValueTypes["SelectionType"];
 	["IDCOptionInput"]: ValueTypes["IDCOptionInput"];
 	["ID"]: ValueTypes["ID"];
 }

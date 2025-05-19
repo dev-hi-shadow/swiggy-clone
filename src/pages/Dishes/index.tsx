@@ -64,8 +64,9 @@ const Index = () => {
     sortOrder: "asc",
   });
   const { data } = useGetDishByCategory(pagination);
-  const navigate = useNavigate();
-
+   const navigate = useNavigate();
+ 
+ 
    const [ActiveCategories, setActiveCategories] = useState<number[]>([]);
   const { closeModal, isOpen } = useModal();
   const [view, setView] = useState<"by-category" | "by-restaurant">(
@@ -126,7 +127,7 @@ const Index = () => {
                   className="dark:bg-dark-900 h-11 w-full rounded-full border border-gray-200 bg-transparent py-2.5 pl-12 pr-14 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800  dark:bg-white/[0.03] dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[430px]"
                 />
               </div>
-            </div> 
+            </div>
 
             <div className="relative justify-self-end">
               <Button
@@ -202,17 +203,17 @@ const Index = () => {
       <div className="   my-6">
         <div className="  flex w-full no-scrollbar flex-nowrap overflow-x-auto">
           <div className="flex gap-2 no-scrollbar">
-            {categories.map((category) => (
+            {data?.data?.rows.map((category) => (
               <span
                 className={`cursor-pointer px-10 text-center text-nowrap py-2.5 rounded-full ${
-                  _.includes(ActiveCategories, category.id)
+                  _.includes(ActiveCategories, category?.id)
                     ? ` bg-brand-500/80`
                     : ` bg-brand-400/10`
                 } border-1 border-brand-500/80 text-white/80`}
-                key={category.id}
-                onClick={() => HandleActiveCategory(category.id)}
+                key={category?.id}
+                onClick={() => HandleActiveCategory(Number(category?.id))}
               >
-                {category.name}
+                {category?.name}
               </span>
             ))}
           </div>

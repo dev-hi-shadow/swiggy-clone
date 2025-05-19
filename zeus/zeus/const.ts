@@ -55,12 +55,14 @@ export const AllTypesProps: Record<string,any> = {
 		createRole:{
 			created_at:"Date",
 			deleted_at:"Date",
-			updated_at:"Date"
+			updated_at:"Date",
+			permissions:"JSONObject"
 		},
 		updateRole:{
 			created_at:"Date",
 			deleted_at:"Date",
-			updated_at:"Date"
+			updated_at:"Date",
+			permissions:"JSONObject"
 		},
 		deleteRole:{
 
@@ -173,17 +175,10 @@ export const AllTypesProps: Record<string,any> = {
 
 	},
 	DCusDCustomization:{
-		selection_type:"SelectionType",
-		createdAt:"Date",
-		updatedAt:"Date",
-		deletedAt:"Date",
 		options:"IDCOptionInput"
 	},
-	SelectionType: "enum" as const,
 	IDCOptionInput:{
-		createdAt:"Date",
-		updatedAt:"Date",
-		deletedAt:"Date"
+
 	},
 	ID: `scalar.ID` as const
 }
@@ -222,7 +217,7 @@ export const ReturnTypes: Record<string,any> = {
 		updated_at:"Date",
 		is_admin:"Boolean",
 		name:"String",
-		permissions:"String"
+		permissions:"JSONObject"
 	},
 	Date: `scalar.Date` as const,
 	JSONObject: `scalar.JSONObject` as const,
@@ -708,7 +703,8 @@ export const ReturnTypes: Record<string,any> = {
 		category:"Category",
 		subcategory:"SubCategory",
 		created_by:"User",
-		ingredients_options:"DIngredients"
+		ingredients_options:"DIngredients",
+		customization_groups:"DCustomization"
 	},
 	Time: `scalar.Time` as const,
 	DIngredients:{
@@ -730,6 +726,24 @@ export const ReturnTypes: Record<string,any> = {
 		image_url:"String",
 		created_at:"Date",
 		updated_at:"Date"
+	},
+	DCustomization:{
+		id:"Int",
+		dish_id:"Int",
+		title:"String",
+		is_required:"Boolean",
+		min_selection:"Int",
+		max_selection:"Int",
+		selection_type:"String",
+		order:"Int",
+		options:"IDCOption"
+	},
+	IDCOption:{
+		id:"Int",
+		customization_id:"Int",
+		title:"String",
+		price:"Int",
+		order:"Int"
 	},
 	getDishByIdResponse:{
 		status:"Int",

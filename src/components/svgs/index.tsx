@@ -373,5 +373,44 @@ export const ClockIcon = ({
   );
 };
 
+export const FilledHeartIcon = ({
+  className = "z-10 dark:text-white",
+}: {
+  className?: string;
+}) => {
+  return (
+    <svg
+      width="24px"
+      height="24px"
+      viewBox="0 -1 22 22"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
+      className={className  }
+    >
+      <title>{"action / 13 - action, heart, love, like, romantic icon"}</title>
+      <g
+        id="Free-Icons"
+        stroke="none"
+        strokeWidth={1}
+        fill="#a50500"
+        fillRule="evenodd"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <g
+          transform="translate(-450.000000, -156.000000)"
+          id="Group"
+          stroke="#a50500"
+          strokeWidth={2}
+        >
+          <g transform="translate(449.000000, 154.000000)" id="Shape">
+            <path d="M20.3688345,5.11092613 C17.5492985,1.02128743 12.0003742,3.43442828 12.0003742,7.58757068 C12.0003742,3.43442828 6.45109468,1.02108898 3.63115901,5.11092613 C0.716679275,9.33898306 3.58928252,16.7454501 12.0001966,21 C20.410711,16.7454501 23.2833142,9.33898306 20.3688345,5.11092613 Z" />
+          </g>
+        </g>
+      </g>
+    </svg>
+  );
+};
+
 
  

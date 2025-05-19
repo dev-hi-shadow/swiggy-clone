@@ -78,3 +78,8 @@ export enum FEATURES_NAME {
   sub_category = "Sub Category",
   role = "Role",
 }
+
+export enum SELECTION_TYPE {
+  SINGLE = "single",
+  MULTIPLE = "multiple",
+}

@@ -146,7 +146,7 @@ export const getDishById = async (input: {
           tax_inclusive: true,
           service_charge_percentage: true,
           packaging_charge: true,
-          
+
           is_available: true,
           availability_days: true,
           availability_start_time: true,
@@ -212,18 +212,19 @@ export const getDishById = async (input: {
           created_at: true,
           updated_at: true,
           deleted_at: true,
-           ingredients_options: {
-            has_options: true,
-            name: true,
-            image_url: true,
+          customization_groups: {
             id: true,
-            dish_id: true,
+            title: true,
+            is_required: true,
+            max_selection: true,
+            min_selection: true,
+            selection_type: true,
+            order: true,
             options: {
               id: true,
-              name: true,
+              title: true,
               price: true,
-              image_url: true,
-              ingredient_id: true,
+              order: true,
             },
           },
         },
