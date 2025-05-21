@@ -12,8 +12,12 @@ import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { decodeId } from "../../utils";
-import { useCreateCategoryMutation, useGetCategory, useUpdateCategoryMutation } from "../../services/api-hooks/categoryHooks";
+import { decodeId, invalidateRoutes } from "../../utils";
+import {
+  useGetQuery,
+  usePostMutation,
+  usePutMutation,
+} from "../../services/Apis";
 
 const fields: (keyof ICategory)[] = [
   "id",
@@ -38,7 +42,6 @@ const validationSchema = Yup.object().shape({
   slug: Yup.string().label("Slug").nullable(),
   short_description: Yup.string().label("Short Description").nullable(),
   long_description: Yup.string().label("Long Description").nullable(),
-  image: Yup.string().label("Image").nullable(),
   banner_image: Yup.string().label("Banner Image").nullable(),
   icon: Yup.string().label("Icon").nullable(),
   display_order: Yup.number().label("Display Order").nullable(),
@@ -57,27 +60,36 @@ const AddEditRCategory = () => {
   );
   const { t } = useTranslation();
 
-  const { mutate: addMutate } = useCreateCategoryMutation({
-    onSuccess: (data) => {
-      setCategoryDetails(data?.data as ICategory);
-      navigate(`/categories`);
-    },
-  });
-  const { mutate: editMutate } = useUpdateCategoryMutation({
-    onSuccess: (data) => {
-      setCategoryDetails(data?.data as ICategory);
-      navigate(`/categories`);
-    },
+  const [addMutate] = usePostMutation();
+  const [editMutate] = usePutMutation();
+
+  const { data, isSuccess } = useGetQuery({
+    endpoint: `/categories/${decodeId(String(id))}`,
   });
 
-  const { data, isSuccess } = useGetCategory(Number(decodeId(String(id))));
-
-  const handleAddEditCategory = (values: FormikValues) => {
+  const handleAddEditCategory = async (values: FormikValues) => {
+    let response;
     if (id) {
-      editMutate(values);
+      response = await editMutate({
+        endpoint: `/categories/${decodeId(String(id))}`,
+
+        body: values,
+        invalidateQueries: invalidateRoutes(
+          `/categories/${decodeId(String(id))}`
+        ),
+      }).unwrap();
     } else {
-      addMutate(values);
+      response = await addMutate({
+        endpoint: `/categories`,
+        body: values,
+        invalidateQueries: invalidateRoutes(
+          `/categories/${decodeId(String(id))}`
+        ),
+      }).unwrap();
     }
+
+    setCategoryDetails(response?.data?.data?.data as ICategory);
+    navigate(`/categories`);
   };
 
   const {
@@ -103,7 +115,7 @@ const AddEditRCategory = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setCategoryDetails(data?.data as ICategory);
+      setCategoryDetails(data?.data?.data as ICategory);
     }
   }, [isSuccess, data?.data]);
 
@@ -115,7 +127,7 @@ const AddEditRCategory = () => {
       />
       <PageBreadcrumb pageTitle={t(id ? "edit-category" : "add-category")} />
       <form onSubmit={handleSubmit} method="multipart/form-data">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-x-6 gap-y-5 xl:grid-cols-2">
           <ComponentCard title="Information">
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2 ">
               <div className="col-span-2 lg:col-span-1">
@@ -237,16 +249,16 @@ const AddEditRCategory = () => {
               isRequired
               values={values}
               touched={touched}
+              key={JSON.stringify(values.banner_image)}
               errors={errors}
               label="Banner Image"
-              onDrop={(acceptedFiles) => {
-                setFieldValue("image", acceptedFiles);
-              }}
+              setFieldValue={setFieldValue}
             />
             <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2 ">
               <div className="col-span-2 lg:col-span-1">
                 <DropzoneComponent
                   name="image"
+                  key={JSON.stringify(values.image)}
                   setFieldTouched={setFieldTouched}
                   setFieldError={setFieldError}
                   isRequired
@@ -254,14 +266,13 @@ const AddEditRCategory = () => {
                   touched={touched}
                   errors={errors}
                   label="Image"
-                  onDrop={(acceptedFiles) => {
-                    setFieldValue("image", acceptedFiles);
-                  }}
+                  setFieldValue={setFieldValue}
                 />
               </div>
-              <div className="col-span-2 lg:col-span-1">
+              <div className="col-span-2 lg:col-span-1 ">
                 <DropzoneComponent
                   name="icon"
+                  key={JSON.stringify(values.icon)}
                   setFieldTouched={setFieldTouched}
                   setFieldError={setFieldError}
                   isRequired
@@ -269,9 +280,7 @@ const AddEditRCategory = () => {
                   touched={touched}
                   errors={errors}
                   label="Icon"
-                  onDrop={(acceptedFiles) => {
-                    setFieldValue("image", acceptedFiles);
-                  }}
+                  setFieldValue={setFieldValue}
                 />
               </div>
             </div>

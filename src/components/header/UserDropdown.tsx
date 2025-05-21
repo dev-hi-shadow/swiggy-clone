@@ -1,33 +1,41 @@
 import { useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
-import { Link, useNavigate } from "react-router";
-import { IActiveRestaurant, IUser } from "../../types";
+import { Link } from "react-router";
+import {  IRBranch, IUser } from "../../types";
 import _ from "lodash";
-import { queryClient } from "../../services/QueryClient";
-import { AppRoutes } from "../../constants";
-import { useLogout } from "../../services/api-hooks/useAuthHook";
-import { useSwitchToAdmin } from "../../services/api-hooks/usersHook";
+ import { AppRoutes } from "../../constants";
+import { usePostMutation } from "../../services/Apis";
+import { useDispatch, useSelector } from "react-redux";
+import { branchSelector, setBranch } from "../../services/Slices/branchSlice";
+ 
  
 export default function UserDropdown({ data }: {  data: Partial<IUser> }) {
+  const branch = useSelector(branchSelector);
+  const dispatch = useDispatch()
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate();
-  const { mutate: logout } = useLogout({
-    onSuccess: () => {
-      navigate(AppRoutes.SIGN_IN, { replace: true });
-    },
-
-  });
-
-  const activeRestaurant: IActiveRestaurant | undefined =
-    queryClient.getQueryData(["activeRestaurant"]);
+   const [mutate] = usePostMutation();
 
 
-  const { mutate: switchToAdmin } = useSwitchToAdmin({
-    onSuccess() {
-      window.location.reload();
-    },
-  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const toggleOff = async (tag: "DAY" | "ACCEPTING") => {
+    const { data } = await mutate({
+      endpoint: `/branch/${branch?.id}`,
+      body: {
+        is_available_for_delivery: !branch?.is_available_for_delivery,
+        ...(tag === "ACCEPTING"
+          ? { is_available_for_pickup: !branch?.is_available_for_pickup }
+          : {}),
+        is_open: !branch?.is_open,
+      },
+    });
+    if (data?.data) {
+      dispatch(setBranch(data?.data?.data as IRBranch));
+    }
+  };
+
+
+ 
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -37,8 +45,6 @@ export default function UserDropdown({ data }: {  data: Partial<IUser> }) {
     if (fn) fn();
     setIsOpen(false);
   }
-
-
 
   return (
     <div className="relative">
@@ -163,63 +169,10 @@ export default function UserDropdown({ data }: {  data: Partial<IUser> }) {
               Support
             </DropdownItem>
           </li>
-          {data?.role?.is_admin && activeRestaurant?.id ? (
-            <li>
-              <DropdownItem
-                onItemClick={() => closeDropdown(switchToAdmin)}
-                tag="a"
-                to="/dashboard"
-                className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-              >
-                <svg
-                  className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
-                  fill="none"
-                  width="24px"
-                  height="24px"
-                  viewBox="0 0 15 15"
-                  version="1.1"
-                  id="restaurant"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    id="path11774"
-                    d="M3.5,0l-1,5.5c-0.1464,0.805,1.7815,1.181,1.75,2L4,14c-0.0384,0.9993,1,1,1,1s1.0384-0.0007,1-1L5.75,7.5&#xA;&#x9;c-0.0314-0.8176,1.7334-1.1808,1.75-2L6.5,0H6l0.25,4L5.5,4.5L5.25,0h-0.5L4.5,4.5L3.75,4L4,0H3.5z M12,0&#xA;&#x9;c-0.7364,0-1.9642,0.6549-2.4551,1.6367C9.1358,2.3731,9,4.0182,9,5v2.5c0,0.8182,1.0909,1,1.5,1L10,14c-0.0905,0.9959,1,1,1,1&#xA;&#x9;s1,0,1-1V0z"
-                  />
-                </svg>
-                Switch to Admin Panel
-              </DropdownItem>
-            </li>
-          ) : (
-            <li>
-              <DropdownItem
-                onItemClick={closeDropdown}
-                tag="a"
-                to="/select-restaurant"
-                className="flex items-center gap-3 px-3 py-2 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-              >
-                <svg
-                  className="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
-                  fill="none"
-                  width="24px"
-                  height="24px"
-                  viewBox="0 0 15 15"
-                  version="1.1"
-                  id="restaurant"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    id="path11774"
-                    d="M3.5,0l-1,5.5c-0.1464,0.805,1.7815,1.181,1.75,2L4,14c-0.0384,0.9993,1,1,1,1s1.0384-0.0007,1-1L5.75,7.5&#xA;&#x9;c-0.0314-0.8176,1.7334-1.1808,1.75-2L6.5,0H6l0.25,4L5.5,4.5L5.25,0h-0.5L4.5,4.5L3.75,4L4,0H3.5z M12,0&#xA;&#x9;c-0.7364,0-1.9642,0.6549-2.4551,1.6367C9.1358,2.3731,9,4.0182,9,5v2.5c0,0.8182,1.0909,1,1.5,1L10,14c-0.0905,0.9959,1,1,1,1&#xA;&#x9;s1,0,1-1V0z"
-                  />
-                </svg>
-                Switch to Restaurant
-              </DropdownItem>
-            </li>
-          )}
         </ul>
         <Link
           to={AppRoutes.SIGN_IN}
-          onClick={() => logout()}
+          // onClick={() => logout()}
           className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <svg

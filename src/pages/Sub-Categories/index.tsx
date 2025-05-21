@@ -10,14 +10,31 @@ import { useModal } from "../../hooks/useModal";
 import { Modal } from "../../components/ui/modal";
 import Button from "../../components/ui/button/Button";
 import { AppRoutes } from "../../constants";
-import { useGetSubCategories } from "../../services/api-hooks/subCategoryHooks";
-import INF from "../../icons/images/image-not-found.png";
+ import INF from "../../icons/images/image-not-found.png";
+import { useLazyGetQuery } from "../../services/Apis";
+import { useEffect, useState } from "react";
+import { ISubCategory } from "../../types";
 const Index = () => {
   const { t } = useTranslation();
   const {category_id} = useParams()
-   const { data } = useGetSubCategories({
-     category_id: Number(decodeId(String(category_id))),
-   });
+  const [subCategories, setSubCategories] = useState<ISubCategory[]>([]);
+ 
+  const [trigger] = useLazyGetQuery()
+  const getSubcategories = async () => {
+    const response = await trigger(
+      {
+        endpoint: `/sub-categories/list/${decodeId(String(category_id))}`,
+      },
+      true
+    );
+    setSubCategories(response?.data?.data?.data?.rows);
+  }; 
+
+  useEffect(() => {
+    getSubcategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const navigate = useNavigate();
   const { closeModal, isOpen, openModal } = useModal();
    return (
@@ -28,8 +45,8 @@ const Index = () => {
            description="This is React.js Blank Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
          />
          <PageBreadcrumb pageTitle={t("modules.sub-categories")} />
-         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 h-full">
-           {_.map(data?.data?.rows, (subCategory) => (
+         <div className="flex  gap-6 flex-wrap">
+           {_.map(subCategories, (subCategory) => (
              <div
                key={subCategory?.id}
                className="relative group cursor-pointer"

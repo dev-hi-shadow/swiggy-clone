@@ -9,13 +9,13 @@ import Select from "../form/Select";
 import Cities from "../../Json/cities.json";
 import States from "../../Json/states.json";
 import Input from "../form/input/InputField";
-import { useUpdateUser } from "../../services/api-hooks/usersHook";
-import { Dispatch, SetStateAction } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { usePutMutation } from "../../services/Apis";
+import { invalidateRoutes } from "../../utils";
+ import { Dispatch, SetStateAction } from "react";
 
 interface IProps {
-  userDetails: Partial<IUser> | null;
-  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
+  userDetails?: Partial<IUser>;
+  setUserDetails: Dispatch<SetStateAction<IUser | undefined>>;
 }
 const fields: (keyof IUser)[] = ["id", "state", "city", "country", "zip_code"];
 
@@ -26,23 +26,21 @@ const validationSchema = Yup.object().shape({
   zip_code: Yup.string().label("Zip Code").required(),
 });
 
-export default function UserAddressCard({
-  setUserDetails,
-  userDetails,
-}: IProps) {
+export default function UserAddressCard({ userDetails , setUserDetails }: IProps) {
   const { isOpen, openModal, closeModal } = useModal();
-  const queryClient = useQueryClient();
 
-  const { mutate } = useUpdateUser({
-    onSuccess: (data) => {
+  const [mutate] = usePutMutation<IUser>();
+  const handleSave = async (values: FormikValues) => {
+    const response = await mutate({
+      endpoint: `/users/${userDetails?.id}`,
+      body: values,
+      invalidateQueries: invalidateRoutes(`/users/${userDetails?.id}`),
+    }).unwrap();
+
+    if (response?.data?.data) {
+      setUserDetails(response.data.data as IUser);
       closeModal();
-      setUserDetails(data?.data as Partial<IUser>);
-      queryClient.invalidateQueries({ queryKey: ["getUserDetails"] });
-    },
-  });
-
-  const handleSave = (values: FormikValues) => {
-    mutate(values);
+    }
   };
 
   const {

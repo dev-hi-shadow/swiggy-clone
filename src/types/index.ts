@@ -263,8 +263,8 @@ export interface ISubCategory {
 }
 
 export interface IAuthenticate {
-  token: string;
-}
+  token?: string | null;
+ }
 
 export interface IDish {
   id: number;
@@ -410,9 +410,6 @@ export interface IDCustomization {
   max_selection: number;
   selection_type: "single" | "multiple";
   order: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date | null;
   options?: IDCOption[];
 }
 
@@ -425,7 +422,20 @@ export interface IDCOption {
   is_available: boolean;
   calories?: number | null;
   order: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date | null;
+  image?: string;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FormatResponse<T = any> = {
+  success: boolean;
+  data: {
+    data: T;
+    totalCount?: number;
+    page?: number;
+    limit?: number;
+    dataPerPage: number;
+  };
+  message: string;
+  status: number;
+  toast: boolean;
+};

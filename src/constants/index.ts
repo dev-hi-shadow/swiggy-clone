@@ -83,3 +83,20 @@ export enum SELECTION_TYPE {
   SINGLE = "single",
   MULTIPLE = "multiple",
 }
+
+export enum API_ENDPOINTS {
+  ROLES = "/roles",
+  USERS = "/users",
+  RESTAURANT = "/restaurants",
+  BRANCH = "/branches",
+  CATEGORIES = "/categories",
+  SUBCATEGORIES = "/sub-categories",
+  DISHES = "/dishes",
+}
+
+export enum RESTAURANT_API_ENDPOINTS{
+
+}
+export enum BRANCH_API_ENDPOINTS{
+
+}

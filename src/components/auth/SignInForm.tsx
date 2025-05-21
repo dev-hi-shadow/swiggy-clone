@@ -1,52 +1,58 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons/svgs";
- import Input from "../form/input/InputField";
+import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
 import Button from "../ui/button/Button";
-import { AppRoutes, LanguagePreferences } from "../../constants";
+import { AppRoutes } from "../../constants";
 import { useFormik } from "formik";
-import * as Yup from "yup"
-import { useLoginMutation } from "../../services/api-hooks/useAuthHook";
- import i18n from "../../i18n";
-import { queryClient } from "../../services/QueryClient";
-import { IAuthenticate } from "../../types";
- 
+import * as Yup from "yup";
+import { usePostMutation } from "../../services/Apis";
+import { setToken, setUser } from "../../services/Slices/authSlice";
+import { useDispatch } from "react-redux";
+import { IUser } from "../../types";
+import { invalidateRoutes } from "../../utils";
+import store from "../../services/store";
+
 const initialValues = {
   email: "",
   password: "",
-}; 
+};
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address").required().label("Email"),
   password: Yup.string().required().label("Password"),
-}); 
+});
 
 export default function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-
-  const { mutate } = useLoginMutation({
-    onSuccess: (data) => {
-      queryClient.setQueryData<IAuthenticate>(["auth"], {
-        token: data?.token as string,
-      });
-      localStorage.setItem("authToken", data?.token as string);
-      i18n.changeLanguage(
-        data?.data?.language_preference as LanguagePreferences
-      );
-      navigate(AppRoutes.DASHBOARD);
-    },
-  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = store.getState().auth?.token;
     if (token) {
       navigate(AppRoutes.DASHBOARD);
     }
   }, [navigate]);
-  const handleSignIn = (values: { email: string; password: string }) => {
-    mutate(values);
+
+  // Update your component code
+  const [mutate] = usePostMutation();
+
+  const handleSignIn = async (values: { email: string; password: string }) => {
+    const { data } = await mutate({
+      endpoint: "/auth/sign-in",
+      body: values,
+      invalidateQueries: invalidateRoutes("ALL"),
+    }).unwrap();
+
+    const authData = data?.data as (IUser & { token: string }) | undefined;
+
+    dispatch(setToken(authData?.token ?? null));
+
+    dispatch(setUser(authData));
+
+    navigate(AppRoutes.DASHBOARD);
   };
 
   const { values, touched, errors, handleBlur, handleChange, handleSubmit } =

@@ -2,8 +2,7 @@ import PageMeta from "../../components/common/PageMeta";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import ComponentCard from "../../components/common/ComponentCard";
 import { useTranslation } from "react-i18next";
- import { useGetCategories } from "../../services/api-hooks/categoryHooks";
-import _ from "lodash";
+ import _ from "lodash";
 import { encodeId } from "../../utils";
 import { Link, useNavigate } from "react-router";
 import { PlusIcon, TrashIcon ,PencilIcon } from "../../components/svgs";
@@ -12,12 +11,38 @@ import { Modal } from "../../components/ui/modal";
 import Button from "../../components/ui/button/Button";
 import { AppRoutes } from "../../constants";
 import INF from "../../icons/images/image-not-found.png";
+import { ICategory } from "../../types";
+ import { useEffect, useState } from "react";
+import { useLazyGetQuery } from "../../services/Apis";
 
 const Index = () => {
   const { t } = useTranslation();
-  const { data } = useGetCategories({});
-  const navigate = useNavigate();
+   const navigate = useNavigate();
+   const [Categories, setCategories] = useState<Array<ICategory> | []>([]);
+   console.log("🚀 ~ Index ~ Categories:", Categories)
   const { closeModal, isOpen, openModal } = useModal();
+
+  const [trigger] = useLazyGetQuery();
+
+  const getCategories = async () => {
+    const response = await trigger(
+      {
+        endpoint: "/categories",
+      },
+      true
+    );
+    if (response?.data?.data?.data) {
+      setCategories(response?.data?.data?.data?.rows);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
+
+
    return (
      <>
        <div>
@@ -27,15 +52,15 @@ const Index = () => {
          />
          <PageBreadcrumb pageTitle={t("modules.categories")} />
 
-         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 h-full">
-           {_.map(data?.data?.rows, (category) => (
-             <div
-               className="relative group cursor-pointer"
-               onClick={() =>
-                 navigate("/sub-categories/" + encodeId(Number(category?.id)))
-               }
-             >
-               <div className="col-span-1">
+         <div className="flex  gap-12 flex-wrap">
+           {_.map(Categories, (category) => (
+             <div className="relative group cursor-pointer">
+               <div
+                 className="col-span-1 "
+                 onClick={() =>
+                   navigate("/sub-categories/" + encodeId(Number(category?.id)))
+                 }
+               >
                  <ComponentCard
                    image={{
                      className: "w-50 h-50",

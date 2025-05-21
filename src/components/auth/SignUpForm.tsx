@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { EyeCloseIcon, EyeIcon } from "../../icons/svgs";
 import Input from "../form/input/InputField";
@@ -6,9 +6,10 @@ import Checkbox from "../form/input/Checkbox";
 import { AppRoutes } from "../../constants";
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
-import { useRegisterUser } from "../../services/api-hooks/useAuthHook";
-import { IAuthenticate, IRegister } from "../../types";
-import { queryClient } from "../../services/QueryClient";
+import { IUser } from "../../types";
+import { usePostMutation } from "../../services/Apis";
+import { setToken, setUser } from "../../services/Slices/authSlice";
+import { invalidateRoutes } from "../../utils";
 
 const initialValues = {
   first_name: null,
@@ -29,23 +30,25 @@ const validationSchema = Yup.object({
 });
 
 export default function SignUpForm() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [mutate] = usePostMutation();
 
-  const { mutate, isSuccess, data } = useRegisterUser();
+  const handleSignUp = async (values: FormikValues) => {
+    const { data } = await mutate({
+      endpoint: "/auth/sign-up",
+      body: values,
+      invalidateQueries: invalidateRoutes("ALL"),
+    });
+    if (data?.data) {
+      setUser(data?.data?.data as IUser);
+      const authData = data?.data?.data as
+        | (IUser & { token: string })
+        | undefined;
 
-  useEffect(() => {
-    if (isSuccess) {
-queryClient.setQueryData<IAuthenticate>(["auth"], {
-  token: data?.token as string,
-});
-localStorage.setItem("authToken", data?.token as string);
-navigate(AppRoutes.DASHBOARD);
+      setToken(authData?.token ?? null);
+      navigate(AppRoutes.DASHBOARD);
     }
-  }, [data?.token, isSuccess, navigate]);
-
-  const handleSignUp = (values: FormikValues) => {
-    mutate(values as IRegister);
   };
 
   const {

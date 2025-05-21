@@ -5,25 +5,22 @@ import "flatpickr/dist/flatpickr.css";
 import App from "./App.tsx";
 import { AppWrapper } from "./components/common/PageMeta.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./services/QueryClient.ts";
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ToastProvider } from "./utils/useToastify.tsx";
+  import { ToastProvider } from "./utils/useToastify.tsx";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "./services/store.ts";
+import { Provider } from "react-redux";
 
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <ToastProvider>
-        <AppWrapper>
-          <App />
-          <ReactQueryDevtools
-            initialIsOpen={false}
-            position="bottom"
-            buttonPosition="bottom-left"
-          />
-        </AppWrapper>
-      </ToastProvider>
-    </ThemeProvider>
-  </QueryClientProvider>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <ThemeProvider>
+        <ToastProvider>
+          <AppWrapper>
+            <App />
+          </AppWrapper>
+        </ToastProvider>
+      </ThemeProvider>
+    </PersistGate>
+  </Provider>
 );

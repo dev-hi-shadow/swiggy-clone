@@ -2,7 +2,7 @@ import { IUser } from "../../types";
 import _ from "lodash";
 
 interface IProps {
-  userDetails: Partial<IUser> | null;
+  userDetails?: Partial<IUser>;
 }
 
 export default function UserMetaCard({ userDetails }: IProps) {

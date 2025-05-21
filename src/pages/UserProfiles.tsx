@@ -3,20 +3,14 @@ import UserMetaCard from "../components/UserProfile/UserMetaCard";
 import UserInfoCard from "../components/UserProfile/UserInfoCard";
 import UserAddressCard from "../components/UserProfile/UserAddressCard";
 import PageMeta from "../components/common/PageMeta";
-import { useEffect, useState } from "react";
-import { IUser } from "../types";
-import { useGetUserDetails } from "../services/api-hooks/usersHook";
-
+ import { useSelector } from "react-redux";
+import { userSelector } from "../services/Slices/authSlice";
+import { useState } from "react";
+  
+ 
 export default function UserProfiles() {
-  const [userDetails, setUserDetails] = useState<Partial<IUser> | null>(null);
-   const { data, isSuccess } = useGetUserDetails();
-   useEffect(() => {
-     if (isSuccess) {
-       setUserDetails(data?.data ?? null);
-     }
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isSuccess]);
-
+  const user = useSelector(userSelector); 
+  const [userDetails, setUserDetails] = useState(user);
   return (
     <>
       <PageMeta
@@ -31,12 +25,12 @@ export default function UserProfiles() {
         <div className="space-y-6">
           <UserMetaCard userDetails={userDetails} />
           <UserInfoCard
-            setUserDetails={setUserDetails}
             userDetails={userDetails}
+            setUserDetails={setUserDetails}
           />
           <UserAddressCard
-            setUserDetails={setUserDetails}
             userDetails={userDetails}
+            setUserDetails={setUserDetails}
           />
         </div>
       </div>

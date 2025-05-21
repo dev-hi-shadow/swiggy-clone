@@ -9,11 +9,14 @@ import { LanguagePreferences } from "../../constants";
 import _ from "lodash";
 import { FormikValues, useFormik } from "formik";
 import * as Yup from "yup";
-import { useUpdateUser } from "../../services/api-hooks/usersHook";
+import { usePutMutation } from "../../services/Apis";
+import { invalidateRoutes } from "../../utils";
+import { setUser } from "../../services/Slices/authSlice";
+import { useDispatch } from "react-redux";
 import { Dispatch, SetStateAction } from "react";
 interface IProps {
-  userDetails: Partial<IUser> | null;
-  setUserDetails: Dispatch<SetStateAction<Partial<IUser> | null>>;
+  userDetails?: Partial<IUser> | null;
+  setUserDetails: Dispatch<SetStateAction<IUser | undefined>>;
 }
 
 const validationSchema = Yup.object().shape({
@@ -33,6 +36,7 @@ const validationSchema = Yup.object().shape({
     .default(LanguagePreferences.EN),
 });
 const fields: (keyof IUser)[] = [
+  "language_preference",
   "id",
   "first_name",
   "last_name",
@@ -46,19 +50,25 @@ const fields: (keyof IUser)[] = [
   "linkedin",
   "instagram",
   "phone",
+  "dob",
 ];
 
-export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
+export default function UserInfoCard({ userDetails, setUserDetails }: IProps) {
   const { isOpen, openModal, closeModal } = useModal();
+  const dispatch = useDispatch();
+  const [mutate] = usePutMutation();
 
-  const { mutate } = useUpdateUser({
-    onSuccess: (data) => {
-      setUserDetails(data?.data as Partial<IUser>);
-      handleCloseModal();
-    },
-  });
-  const handleSave = (values: FormikValues) => {
-    mutate(values);
+  const handleSave = async (values: FormikValues) => {
+    const { data } = await mutate({
+      endpoint: `/users/${userDetails?.id}`,
+      body: values,
+      invalidateQueries: invalidateRoutes(`/users/${userDetails?.id}`),
+    });
+    if (data?.data?.data) {
+      setUserDetails(data.data?.data as IUser);
+      dispatch(setUser(data.data?.data as IUser));
+      closeModal();
+    }
   };
   const {
     values,
@@ -84,7 +94,7 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
     closeModal();
     handleReset(e);
   };
- 
+
   return (
     <div className="p-5 border border-gray-200 rounded-2xl dark:border-gray-800 lg:p-6">
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -344,7 +354,6 @@ export default function UserInfoCard({ setUserDetails, userDetails }: IProps) {
                       type="text"
                     />
                   </div>
-
                   <div className="col-span-2 lg:col-span-1">
                     <Select
                       name="language_preference"

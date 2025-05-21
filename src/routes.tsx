@@ -5,6 +5,7 @@ import _ from "lodash";
 import { IRoutes } from "./types";
 import { AppRoutes, LanguagePreferences } from "./constants";
 import i18n from "./i18n";
+import store from "./services/store";
  
 const SignIn = React.lazy(() => import("./pages/AuthPages/SignIn"));
 const SignUp = React.lazy(() => import("./pages/AuthPages/SignUp"));
@@ -205,13 +206,7 @@ const navigate = useNavigate();
       ...PRIVATE_FULL_PAGE_ROUTES,
     ].some((route) => matchPath({ path: route.path, end: false }, pathname));
 
-    if (
-      isProtectedRoute &&
-      !(
-        // queryClient.getQueryData<IAuthenticate>(["auth"])?.token &&
-        localStorage.getItem("authToken")
-      )
-    ) {
+    if (isProtectedRoute && !store.getState().auth?.token) {
       navigate(AppRoutes.SIGN_IN, { replace: true });
     }
     i18n.changeLanguage(LanguagePreferences.EN);

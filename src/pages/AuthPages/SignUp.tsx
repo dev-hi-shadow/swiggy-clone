@@ -4,12 +4,13 @@ import SignUpForm from "../../components/auth/SignUpForm";
 import { AppRoutes } from "../../constants";
 import { useNavigate } from "react-router";
 import { useLayoutEffect } from "react";
+import store from "../../services/store";
 
 export default function SignUp() {
   const navigate = useNavigate();
 
   useLayoutEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = store.getState().auth?.token;
     if (token) {
       navigate(AppRoutes.DASHBOARD);
     }

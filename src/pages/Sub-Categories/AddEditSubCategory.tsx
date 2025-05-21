@@ -12,15 +12,11 @@ import TextArea from "../../components/form/input/TextArea";
 import Button from "../../components/ui/button/Button";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { decodeId } from "../../utils";
-import {
-  useCreateSubCategoryMutation,
-  useGetSubCategory,
-  useUpdateSubCategoryMutation,
-} from "../../services/api-hooks/subCategoryHooks";
+import { decodeId, encodeId, invalidateRoutes } from "../../utils";
+ 
 import Select, { Option } from "../../components/form/Select";
-import { useGetCategories } from "../../services/api-hooks/categoryHooks";
-
+import {  useLazyGetQuery, usePostMutation, usePutMutation } from "../../services/Apis";
+ 
 const fields: (keyof ISubCategory)[] = [
   "id",
   "category_id",
@@ -59,31 +55,70 @@ const AddEditSubSubCategory = () => {
   const navigate = useNavigate();
   const [SubCategoryDetails, setSubCategoryDetails] =
     useState<ISubCategory | null>(null);
-  const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
+   const [categoryOptions, setCategoryOptions] = useState<Option[]>([]);
   const { t } = useTranslation();
 
-  const { mutate: addMutate } = useCreateSubCategoryMutation({
-    onSuccess: (data) => {
-      setSubCategoryDetails(data?.data as ISubCategory);
-      navigate(`/categories`);
-    },
-  });
-  const { mutate: editMutate } = useUpdateSubCategoryMutation({
-    onSuccess: (data) => {
-      setSubCategoryDetails(data?.data as ISubCategory);
-      navigate(`/categories`);
-    },
-  });
-  const { data: categoriesData } = useGetCategories();
-  const { data, isSuccess } = useGetSubCategory(Number(decodeId(String(id))));
+  const [addMutate] = usePostMutation()
+  const [editMutate] = usePutMutation();
 
-  const handleAddEditSubCategory = (values: FormikValues) => {
+  const handleAddEditSubCategory = async (values: FormikValues) => {
+    let response;
     if (id) {
-      editMutate(values);
+      response = await editMutate({
+        endpoint: `/sub-categories/${decodeId(String(id))}`,
+        body: values,
+        invalidateQueries: invalidateRoutes(
+          `/sub-categories/${decodeId(String(id))}`
+        ),
+      }).unwrap();
     } else {
-      addMutate(values);
+      response = await addMutate({
+        endpoint: `/sub-categories`,
+        body: values,
+        invalidateQueries: invalidateRoutes(`/sub-categories`),
+      }).unwrap();
+    }
+    console.log(invalidateRoutes(`/sub-categories/${decodeId(String(id))}`));
+    setSubCategoryDetails(response?.data?.data as ISubCategory);
+    navigate(
+      "/sub-categories" + "/" + encodeId(response?.data?.data?.category_id)
+    );
+  };
+
+
+  const [trigger] = useLazyGetQuery();
+
+  const getSubCategory = async()=>{
+    const response = await trigger({
+      endpoint: `/sub-categories/${decodeId(String(id))}`,
+    }).unwrap();
+    if (response?.data?.data) {
+      setSubCategoryDetails(response?.data?.data as ISubCategory);
+    }
+  }
+
+  const getCategories = async () => {
+    const response = await trigger({ endpoint: `/categories/` }, true).unwrap();
+     if (response?.data?.data) {
+      setCategoryOptions(
+        _.map(response?.data?.data?.rows, (category: ICategory) => {
+          return {
+            label: category.name,
+            value: category.id,
+            text: category.name,
+          };
+        })
+      );
     }
   };
+
+  useEffect(() => {
+    getSubCategory();
+    getCategories();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
 
   const {
     values,
@@ -105,25 +140,9 @@ const AddEditSubSubCategory = () => {
     onSubmit: handleAddEditSubCategory,
     enableReinitialize: true,
   });
+    console.log("🚀 ~ AddEditSubSubCategory ~ values:", values)
 
-  useEffect(() => {
-    if (isSuccess) {
-      setSubCategoryDetails(data?.data as ISubCategory);
-    }
-  }, [isSuccess, data?.data]);
-
-  useEffect(() => {
-    if (categoriesData?.data?.count) {
-      const options: Option[] = categoriesData?.data?.rows.map(
-        (category: Partial<ICategory>) => ({
-          value: category.id?.toString() ?? "",
-          label: _.startCase(category.name),
-          text: _.startCase(category.name),
-        })
-      );
-      setCategoryOptions(options);
-    }
-  }, [categoriesData?.data?.count, categoriesData?.data?.rows]);
+ 
 
   return (
     <div>

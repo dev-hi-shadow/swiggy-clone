@@ -6,7 +6,7 @@ export default function ResponsiveImage({
   width,
   isCenter,
 }: {
-  image: string;
+  image?: string;
   border?: boolean;
   className?: string;
   height?: number;
@@ -23,7 +23,7 @@ export default function ResponsiveImage({
       >
         <img
           src={image}
-          alt="Cover"
+          alt="#Swiggy"
           height={height}
           width={width}
           className={className}

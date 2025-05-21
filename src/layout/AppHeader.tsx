@@ -5,15 +5,17 @@ import { useSidebar } from "../context/SidebarContext";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import NotificationDropdown from "../components/header/NotificationDropdown";
 import UserDropdown from "../components/header/UserDropdown";
-import { useFetchProfile } from "../services/api-hooks/useAuthHook";
-import Button from "../components/ui/button/Button";
+ import Button from "../components/ui/button/Button";
 import { IUser } from "../types";
 import { Modal } from "../components/ui/modal";
 import { useTranslation } from "react-i18next";
-import { useActiveRBranch } from "../services/api-hooks/branchHooks";
-
+import { useGetQuery } from "../services/Apis";
+import { setUser } from "../services/Slices/authSlice";
+import { useDispatch } from "react-redux";
+ 
 const AppHeader: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const [openConfirmationModal, setOpenConfirmationModal] = useState<
@@ -21,13 +23,21 @@ const AppHeader: React.FC = () => {
   >(null);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
-  const { data } = useFetchProfile();
+  const { data, isSuccess } = useGetQuery({
+    endpoint: "/users/profile",
+  });
 
-  const {
-    toggleAccepting,
-    toggleDayOff,
-    data: activeRBranch,
-  } = useActiveRBranch();
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setUser(data?.data?.data));
+    }
+  }, [data, dispatch, isSuccess]);
+
+  // const {
+  //   toggleAccepting,
+  //   toggleDayOff,
+  //   data: activeRBranch,
+  // } = useActiveRBranch();
 
   const handleToggle = () => {
     if (window.innerWidth >= 1024) {
@@ -176,8 +186,7 @@ const AppHeader: React.FC = () => {
             } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
           >
             <div className="flex items-center gap-2 2xsm:gap-3">
-              {Boolean(activeRBranch?.id) &&
-                (activeRBranch?.orderAccepting ? (
+              {/* {Boolean(activeRBranch?.id) && (activeRBranch?.orderAccepting ? (
                   <Button
                     className="bg-warning-500 text-white/80  hover:bg-warning-600"
                     onClick={() =>
@@ -209,7 +218,7 @@ const AppHeader: React.FC = () => {
                   >
                     {t("button.day-on")}
                   </Button>
-                ))}
+                ))} */}
 
               {/* <!-- Dark Mode Toggler --> */}
               <ThemeToggleButton />
@@ -246,7 +255,7 @@ const AppHeader: React.FC = () => {
               >
                 Cancel
               </Button>
-              <Button
+              {/* <Button
                 className={
                   ["accepting-order", "day-on"].includes(openConfirmationModal)
                     ? "bg-success-500  hover:bg-success-600"
@@ -268,7 +277,7 @@ const AppHeader: React.FC = () => {
                 }}
               >
                 {t(`button.${openConfirmationModal}`)}
-              </Button>
+              </Button> */}
             </div>
           </div>
         </Modal>
